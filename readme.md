@@ -12,8 +12,14 @@ Steffi is a modern graph visualization and analysis toolkit built around a small
 ## Development
 
 ### Running the CLI
+Parse a document and render its structure:
 ```bash
-dotnet watch run --project .\src\Steffi.Cli\Steffi.Cli.csproj .\samples\simple.stf
+dotnet run --project .\src\Steffi.Cli\Steffi.Cli.csproj -- structure .\samples\simple.stf
+```
+
+For iterative development, keep the command hot-reloading:
+```bash
+dotnet watch run --project .\src\Steffi.Cli\Steffi.Cli.csproj -- structure .\samples\simple.stf
 ```
 
 ### Running tests

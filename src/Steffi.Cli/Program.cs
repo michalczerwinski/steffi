@@ -1,20 +1,47 @@
-﻿using Spectre.Console;
+﻿using System.CommandLine;
+using Spectre.Console;
 using Steffi.Cli.Helpers;
 using Steffi.Parsers.Parsers;
 
-Console.WriteLine("Steffi, version 0.1");
+var rootCommand = new RootCommand("Steffi CLI – work with Steffi graph documents");
 
-var (document, errors) = await new SteffiParser().ParseFromFileAsync(args[0]);
+var inputArgument = new Argument<FileInfo>(
+    name: "input",
+    description: "Path to the .stf document to parse and visualize.");
 
-if (errors.Count != 0)
+var structureCommand = new Command(
+    name: "structure",
+    description: "Parse a Steffi document and render its structure as Spectre.Console panels.")
 {
-	foreach (var error in errors)
-	{
-		Console.WriteLine(error);
-	}
-}
-else
+    inputArgument
+};
+
+structureCommand.SetHandler(async (FileInfo inputFile) =>
 {
-	AnsiConsole.Markup("Parsing: [green][[OK]][/]\n");
-	SteffiConsole.Print(document!);
-}
+    if (!inputFile.Exists)
+    {
+        AnsiConsole.MarkupLine($"[red]File not found:[/] {Markup.Escape(inputFile.FullName)}");
+        return;
+    }
+
+    var parser = new SteffiParser();
+    var (document, errors) = await parser.ParseFromFileAsync(inputFile.FullName);
+
+    if (errors.Count > 0)
+    {
+        AnsiConsole.MarkupLine("[red]Parsing failed[/]");
+        foreach (var error in errors)
+        {
+            AnsiConsole.MarkupLine($"[red]- {Markup.Escape(error)}[/]");
+        }
+
+        return;
+    }
+
+    AnsiConsole.MarkupLine("[green]Parsing succeeded[/]");
+    SteffiConsole.Print(document!);
+}, inputArgument);
+
+rootCommand.AddCommand(structureCommand);
+
+return await rootCommand.InvokeAsync(args);
