@@ -39,7 +39,8 @@ structureCommand.SetHandler(async (FileInfo inputFile) =>
     }
 
     AnsiConsole.MarkupLine("[green]Parsing succeeded[/]");
-    SteffiConsole.Print(document!);
+    var tree = SteffiTreeRenderer.CreateTree(document!);
+    AnsiConsole.Write(tree);
 }, inputArgument);
 
 rootCommand.AddCommand(structureCommand);
