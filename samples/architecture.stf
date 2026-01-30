@@ -1,0 +1,17 @@
+Graph cloud
+{
+    Node backendServer
+    {
+        label: "Backend Server"
+    }
+    Node database
+    {
+        label: "Database"
+    }
+    Edge
+    {
+        from: database
+        to: backendServerk
+        label: "Edge"
+    }
+}
