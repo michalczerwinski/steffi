@@ -1,0 +1,21 @@
+//this is a test
+//another comment
+Graph {
+	Graph anotherNested {
+		Node {
+		}
+	}
+}
+
+Graph named
+{
+	Node nested {
+	}
+}
+Node
+{
+}
+
+Node namedNode
+{
+}

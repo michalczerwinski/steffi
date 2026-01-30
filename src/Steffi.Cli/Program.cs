@@ -4,33 +4,7 @@ using Steffi.Parsers.Parsers;
 
 Console.WriteLine("Steffi, version 0.1");
 
-var input =
-"""
-//this is a test
-//another comment
-Graph {
-	Graph anotherNested {
-		Node {
-		}
-	}
-}
-
-Graph named
-{
-	Node nested {
-	}
-}
-Node
-{
-}
-
-Node namedNode
-{
-}
-
-""";
-
-var (document, errors) = new SteffiParser().Parse(input);
+var (document, errors) = await new SteffiParser().ParseFromFileAsync(args[0]);
 
 if (errors.Count != 0)
 {
