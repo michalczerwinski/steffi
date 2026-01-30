@@ -11,7 +11,7 @@ var inputArgument = new Argument<FileInfo>(
 
 var structureCommand = new Command(
     name: "structure",
-    description: "Parse a Steffi document and render its structure as Spectre.Console panels.")
+    description: "Parse a Steffi document and render its structure.")
 {
     inputArgument
 };
