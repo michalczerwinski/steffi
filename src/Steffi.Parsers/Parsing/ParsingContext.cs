@@ -1,5 +1,7 @@
 ﻿namespace Steffi.Parsers.Parsing;
 
+using System.Diagnostics.CodeAnalysis;
+
 public ref struct ParsingContext
 {
     public ReadOnlySpan<char> OriginalInput { get; private set; }
@@ -56,7 +58,17 @@ public ref struct ParsingContext
         return result;
     }
 
-    public readonly ParsedToken PeekNextToken(int tokenIndex = 0) => Tokens[tokenIndex];
+    public readonly bool PeekNextToken([NotNullWhen(true)]out ParsedToken? token, int tokenIndex = 0)
+    {
+        if (tokenIndex <= Tokens.Count())
+        {
+            token = Tokens[tokenIndex];
+            return true;
+        }
+
+        token = null;
+        return false;
+    }
 
     public readonly void MoveAheadTokens(int matchLength)
     {
