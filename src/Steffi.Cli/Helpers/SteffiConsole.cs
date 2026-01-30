@@ -28,8 +28,6 @@ public static class SteffiConsole
             .Expand();
     }
 
-
-
     private static IRenderable BuildChildren(List<SteffiObject> children)
     {
         if (children.Count == 1)

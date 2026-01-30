@@ -52,4 +52,8 @@ public class SteffiLexer : LexerBase
     public readonly static Token NestingClose = new((input) => input.Length > 0 && input[0] == '}' ? new(true, 1) : new(false));
 
     public override Token[] KnownTokens => [LineComment, Identifier, WhiteSpace, NestingOpen, NestingClose];
+
+    public override bool ShouldBeIgnored(Token token) =>
+        token == SteffiLexer.WhiteSpace
+        || token == SteffiLexer.LineComment;
 }

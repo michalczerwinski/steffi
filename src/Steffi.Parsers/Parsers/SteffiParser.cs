@@ -25,10 +25,6 @@ public class SteffiParser : ParserBase<SteffiDocument>
 
     protected override (SteffiDocument?, List<string> Errors) GenerateSyntaxTree(ParsingContext parsingContext)
     {
-        parsingContext
-            .Tokens
-            .RemoveAll(t => t.TokenParser == SteffiLexer.WhiteSpace || t.TokenParser == SteffiLexer.LineComment);
-
         Stack<SteffiObject> parentList = new([new SteffiDocument()]);
         int noNameTokens = 0;
 

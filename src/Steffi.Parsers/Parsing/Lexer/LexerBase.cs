@@ -4,6 +4,8 @@ public abstract class LexerBase
 {
 	public abstract Token[] KnownTokens { get; }
 
+	public virtual bool ShouldBeIgnored(Token token) => false;
+
 	public void GenerateTokens(ref ParsingContext parsingContext)
 	{
 		while (!parsingContext.IsInputFinished())
@@ -17,7 +19,10 @@ public abstract class LexerBase
 				if (parsedToken is not null)
 				{
 					matched = true;
-					parsingContext.Tokens.Add(parsedToken);
+					if (!ShouldBeIgnored(token))
+					{
+					    parsingContext.Tokens.Add(parsedToken);
+					}
 					break;
 				}
 			}
