@@ -20,7 +20,7 @@ public ref struct ParsingContext
 
     public int PositionColumn { get; private set; } = 1;
 
-    public List<ParsedToken> Tokens { get; } = [];
+    public List<ParsedToken> Tokens { get; private set; } = [];
 
     public List<string> Errors { get; } = [];
 
@@ -58,9 +58,9 @@ public ref struct ParsingContext
         return result;
     }
 
-    public readonly bool PeekNextToken([NotNullWhen(true)]out ParsedToken? token, int tokenIndex = 0)
+    public readonly bool PeekNextToken([NotNullWhen(true)] out ParsedToken? token, int tokenIndex = 0)
     {
-        if (tokenIndex <= Tokens.Count())
+        if (tokenIndex < Tokens.Count)
         {
             token = Tokens[tokenIndex];
             return true;
@@ -70,11 +70,5 @@ public ref struct ParsingContext
         return false;
     }
 
-    public readonly void MoveAheadTokens(int matchLength)
-    {
-        for (int i = 0; i < matchLength; i++)
-        {
-            Tokens.RemoveAt(0);
-        }
-    }
+    public void MoveAheadTokens(int matchLength) => Tokens = [.. Tokens.Skip(matchLength)];
 }
