@@ -7,10 +7,8 @@ namespace Steffi.Parsers.Parsers;
 public class SteffiParser : ParserBase<SteffiDocument>
 {
 	private static readonly TokenSequence ObjectDeclaration = new TokenSequence()
-		.AddSegment("Trivia1", new OneOfManyTokens([SteffiLexer.LineComment, SteffiLexer.WhiteSpace]), Arity.OptionalMultiple)
 		.AddSegment("TypeIdentifier", new SpecificToken(SteffiLexer.Identifier), Arity.RequiredOnce)
 		.AddSegment("OptionalName", new SpecificToken(SteffiLexer.Identifier), Arity.OptionalOnce)
-		.AddSegment("Trivia2", new OneOfManyTokens([SteffiLexer.LineComment, SteffiLexer.WhiteSpace]), Arity.OptionalMultiple)
 		.AddSegment("NestingOpen", new SpecificToken(SteffiLexer.NestingOpen), Arity.RequiredOnce);
 
 	private static SteffiObject? CreateObjectFactory(ReadOnlySpan<char> tokenType, string name)
@@ -28,11 +26,11 @@ public class SteffiParser : ParserBase<SteffiDocument>
 		Stack<SteffiObject> parentList = new([new SteffiDocument()]);
 		int noNameTokens = 0;
 
-		while (parsingContext.Tokens.Count != 0)
+		while (parsingContext.Tokens.Finished())
 		{
 			if (ObjectDeclaration.Match(parsingContext, out var matchedSegments) is int matchLength && matchLength != -1)
 			{
-				parsingContext.MoveAheadTokens(matchLength);
+				parsingContext.Tokens.Move(matchLength);
 				var optionalNameTokens = matchedSegments["OptionalName"];
 				string objectName = optionalNameTokens.Count != 0
 					? parsingContext.GetTokenValue(matchedSegments["OptionalName"].Single()).ToString()
@@ -63,11 +61,11 @@ public class SteffiParser : ParserBase<SteffiDocument>
 				continue;
 			}
 
-			if (parsingContext.PeekNextToken(out var nextToken))
+			if (parsingContext.Tokens.PeekNext(out var nextToken))
 			{
 				if (nextToken!.TokenParser == SteffiLexer.NestingClose)
 				{
-					parsingContext.MoveAheadTokens(1);
+					parsingContext.Tokens.Move(1);
 					parentList.Pop();
 					continue;
 				}
@@ -80,7 +78,8 @@ public class SteffiParser : ParserBase<SteffiDocument>
 		{
 			> 1 => (null, [$"Unexpected end of file, object not closed"]),
 			0 => (null, [$"Unexpected end of file, object not closed"]),
-			_ => ((SteffiDocument)parentList.Pop(), [])
+			1 => ((SteffiDocument)parentList.Pop(), []),
+			_ => throw new InvalidOperationException($"Unreachable code reached in {nameof(SteffiParser)}"),
 		};
 	}
 }

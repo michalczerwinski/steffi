@@ -1,4 +1,4 @@
-﻿﻿namespace Steffi.Parsers.Parsing;
+﻿namespace Steffi.Parsers.Parsing;
 
 public abstract class LexerBase
 {
@@ -21,7 +21,7 @@ public abstract class LexerBase
 					matched = true;
 					if (!ShouldBeIgnored(token))
 					{
-					    parsingContext.Tokens.Add(parsedToken);
+						parsingContext.Tokens.Add(parsedToken);
 					}
 					break;
 				}
@@ -41,14 +41,14 @@ public abstract class LexerBase
 
 		if (attempt.Success)
 		{
-			var positionBefore = parsingContext.Position;
-			var rowBefore = parsingContext.PositionRow;
-			var columnBefore = parsingContext.PositionColumn;
+			var positionBefore = parsingContext.Position.Index;
+			var rowBefore = parsingContext.Position.Row;
+			var columnBefore = parsingContext.Position.Column;
 
 			parsingContext.MoveAheadInput(attempt.Length);
 
-			var tokenId = parsingContext.Tokens.Count + 1;
-			return new ParsedToken(tokenId, tokenParser, positionBefore, parsingContext.Position, rowBefore, columnBefore);
+			var tokenId = parsingContext.Tokens.GetId();
+			return new ParsedToken(tokenId, tokenParser, positionBefore, parsingContext.Position.Index, rowBefore, columnBefore);
 		}
 
 		return null;

@@ -103,4 +103,19 @@ public class ParserTests
 			}
 		""",
 		"Unexpected end of file, object not closed");
+
+	[Test]
+	public async Task Compile_block_comments()
+		=> await CompilesWithoutError("""
+
+				/* this is a block comment */
+				/* another one */
+		
+				Graph
+				{
+					/* this is a block comment */
+
+				}
+			""");
+
 }

@@ -21,7 +21,7 @@ public class TokenSequence
 			switch (segmentType)
 			{
 				case Arity.RequiredOnce:
-					if (!parsingContext.PeekNextToken(out var token, tokenIndex) || !element.IsMatch(token))
+					if (!parsingContext.Tokens.PeekNext(out var token, tokenIndex) || !element.IsMatch(token))
 					{
 						matchedSegmentElements = [];
 						return -1;
@@ -31,7 +31,7 @@ public class TokenSequence
 					break;
 				case Arity.OptionalOnce:
 					valuesTemp[name] = [];
-					if (parsingContext.PeekNextToken(out token, tokenIndex) && element.IsMatch(token))
+					if (parsingContext.Tokens.PeekNext(out token, tokenIndex) && element.IsMatch(token))
 					{
 						valuesTemp[name].Add(token);
 						tokenIndex++;
@@ -39,7 +39,7 @@ public class TokenSequence
 					break;
 				case Arity.OptionalMultiple:
 					valuesTemp[name] = [];
-					while (parsingContext.PeekNextToken(out token, tokenIndex) && element.IsMatch(token))
+					while (parsingContext.Tokens.PeekNext(out token, tokenIndex) && element.IsMatch(token))
 					{
 						valuesTemp[name].Add(token);
 						tokenIndex++;

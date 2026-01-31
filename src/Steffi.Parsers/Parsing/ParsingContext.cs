@@ -4,71 +4,97 @@ using System.Diagnostics.CodeAnalysis;
 
 public ref struct ParsingContext
 {
-    public ReadOnlySpan<char> OriginalInput { get; private set; }
+	private ReadOnlySpan<char> _originalInput;
 
-    public ReadOnlySpan<char> Input { get; private set; }
+	public ReadOnlySpan<char> Input { get; private set; }
 
-    public ParsingContext(ReadOnlySpan<char> input)
-    {
-        Input = input;
-        OriginalInput = input;
-    }
+	public ParsingContext(ReadOnlySpan<char> input)
+	{
+		Input = input;
+		_originalInput = input;
+	}
 
-    public int Position { get; private set; } = 0;
+	public class InputPosition
+	{
+		public int Index { get; set; }
+		public int Row { get; set; } = 1;
+		public int Column { get; set; } = 1;
+	}
 
-    public int PositionRow { get; private set; } = 1;
+	public InputPosition Position { get; } = new();
 
-    public int PositionColumn { get; private set; } = 1;
+	public List<string> Errors { get; } = [];
 
-    public List<ParsedToken> Tokens { get; private set; } = [];
+	public readonly void AddError(string message) => Errors.Add($"({Position.Row}:{Position.Column}) {message}");
 
-    public List<string> Errors { get; } = [];
+	public void MoveAheadInput(int length)
+	{
+		for (int i = 0; i < length; i++)
+		{
+			if (Input[i] == '\n')
+			{
+				Position.Row++;
+				Position.Column = 1;
+			}
+			else
+			{
+				Position.Column++;
+			}
+		}
+		Input = Input[length..];
+		Position.Index += length;
+	}
 
-    public readonly void AddError(string message) => Errors.Add($"({PositionRow}:{PositionColumn}) {message}");
+	public readonly bool IsInputFinished() => Input.Length == 0;
 
-    public void MoveAheadInput(int length)
-    {
-        for (int i = 0; i < length; i++)
-        {
-            if (Input[i] == '\n')
-            {
-                PositionRow++;
-                PositionColumn = 1;
-            }
-            else
-            {
-                PositionColumn++;
-            }
-        }
-        Input = Input[length..];
-        Position += length;
-    }
+	public override readonly string ToString() => $"Pos: {Position.Index} ({Position.Row}:{Position.Column}), Next: '{(IsInputFinished() ? "<EOF>" : Input[..Math.Min(20, Input.Length)])}'";
 
-    public readonly bool IsInputFinished() => Input.Length == 0;
+	public class ParsedTokenList()
+	{
+		private List<ParsedToken> _parsedTokens { get; } = [];
+		private int _currentTokenIndex = 0;
 
-    public override readonly string ToString() => $"Pos: {Position} ({PositionRow}:{PositionColumn}), Next: '{(IsInputFinished() ? "<EOF>" : Input[..Math.Min(20, Input.Length)])}'";
+		public ParsedToken GetNext()
+		{
+			if (_currentTokenIndex >= _parsedTokens.Count)
+			{
+				throw new InvalidOperationException("No more tokens available.");
+			}
 
-    public readonly ReadOnlySpan<char> GetTokenValue(ParsedToken parsedToken) => OriginalInput[parsedToken.StartAt..parsedToken.EndAt];
+			return _parsedTokens[_currentTokenIndex++];
+		}
 
-    public readonly ParsedToken GetNextToken()
-    {
-        var result = Tokens.First();
-        Tokens.RemoveAt(0);
+		public bool PeekNext([NotNullWhen(true)] out ParsedToken? token, int tokenIndex = 0)
+		{
+			if (_currentTokenIndex + tokenIndex < _parsedTokens.Count)
+			{
+				token = _parsedTokens[_currentTokenIndex + tokenIndex];
+				return true;
+			}
 
-        return result;
-    }
+			token = null;
+			return false;
+		}
 
-    public readonly bool PeekNextToken([NotNullWhen(true)] out ParsedToken? token, int tokenIndex = 0)
-    {
-        if (tokenIndex < Tokens.Count)
-        {
-            token = Tokens[tokenIndex];
-            return true;
-        }
+		public void Move(int matchLength)
+		{
+			if (_currentTokenIndex + matchLength > _parsedTokens.Count)
+			{
+				throw new InvalidOperationException("Cannot move ahead tokens beyond the available tokens.");
+			}
 
-        token = null;
-        return false;
-    }
+			_currentTokenIndex += matchLength;
+		}
 
-    public void MoveAheadTokens(int matchLength) => Tokens = [.. Tokens.Skip(matchLength)];
+		public bool Finished() => _currentTokenIndex < _parsedTokens.Count;
+
+		public void Add(ParsedToken parsedToken) => _parsedTokens.Add(parsedToken);
+
+		public int GetId() => _parsedTokens.Count + 1;
+	}
+
+	public readonly ParsedTokenList Tokens { get; } = new();
+
+	public readonly ReadOnlySpan<char> GetTokenValue(ParsedToken parsedToken) => _originalInput[parsedToken.StartAt..parsedToken.EndAt];
 }
+

@@ -34,6 +34,23 @@ public class SteffiLexer : LexerBase
 		return new(true, length);
 	});
 
+	public readonly static Token BlockComment = new((input) =>
+	{
+		if (!input.StartsWith("/*"))
+		{
+			return new(false);
+		}
+
+		var endIndex = input.Slice(2).IndexOf("*/");
+
+		if (endIndex == -1)
+		{
+			return new(false);
+		}
+
+		return new(true, endIndex + 2 + 2);
+	});
+
 	public readonly static Token WhiteSpace = new((input) =>
 	{
 		int length = 0;
@@ -51,9 +68,10 @@ public class SteffiLexer : LexerBase
 
 	public readonly static Token NestingClose = new((input) => input.Length > 0 && input[0] == '}' ? new(true, 1) : new(false));
 
-	public override Token[] KnownTokens => [LineComment, Identifier, WhiteSpace, NestingOpen, NestingClose];
+	public override Token[] KnownTokens => [LineComment, BlockComment, Identifier, WhiteSpace, NestingOpen, NestingClose];
 
 	public override bool ShouldBeIgnored(Token token) =>
-		token == SteffiLexer.WhiteSpace
-		|| token == SteffiLexer.LineComment;
+		token == WhiteSpace
+		|| token == LineComment
+		|| token == BlockComment;
 }
