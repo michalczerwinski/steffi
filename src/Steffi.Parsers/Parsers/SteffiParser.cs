@@ -6,20 +6,42 @@ namespace Steffi.Parsers.Parsers;
 
 public class SteffiParser : ParserBase<SteffiDocument>
 {
-	private static readonly TokenSequence ObjectDeclaration = new TokenSequence()
+	protected static readonly TokenSequence ObjectDeclaration = new TokenSequence()
 		.AddSegment("TypeIdentifier", new SpecificToken(SteffiLexer.Identifier), Arity.RequiredOnce)
 		.AddSegment("OptionalName", new SpecificToken(SteffiLexer.Identifier), Arity.OptionalOnce)
 		.AddSegment("NestingOpen", new SpecificToken(SteffiLexer.NestingOpen), Arity.RequiredOnce);
 
-	private static SteffiObject? CreateObjectFactory(ReadOnlySpan<char> tokenType, string name)
+	protected static readonly TokenSequence PropertyAssignment = new TokenSequence()
+		.AddSegment("PropertyName", new SpecificToken(SteffiLexer.Identifier), Arity.RequiredOnce)
+		.AddSegment("Separator", new SpecificToken(SteffiLexer.PropertySeparator), Arity.RequiredOnce)
+		.AddSegment("PropertyValue", new OneOfManyTokens(SteffiLexer.Identifier, SteffiLexer.IntegerNumber, SteffiLexer.WhiteSpace), Arity.AtLeastOnce)
+		.AddSegment("PropertyEnd", new SpecificToken(SteffiLexer.PropertyEnd), Arity.RequiredOnce);
+
+	private static SteffiObject? CreateObjectFactory(ReadOnlySpan<char> tokenType, ReadOnlySpan<char> name) => tokenType switch
 	{
-		return tokenType switch
+		"Node" => new Node { Name = name.ToString() },
+		"Graph" => new Graph { Name = name.ToString() },
+		_ => null,
+	};
+
+	private static void SetObjectProperty(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)
+	{
+		if (steffiObject is Node node)
 		{
-			"Node" => new Node { Name = name },
-			"Graph" => new Graph { Name = name },
-			_ => null,
-		};
+			if (propertyName.SequenceEqual("label"))
+			{
+				node.Label = value.ToString();
+			}
+
+		}
+		else if (steffiObject is Graph graph)
+		{
+			if (propertyName.SequenceEqual("TODO"))
+			{
+			}
+		}
 	}
+
 
 	protected override (SteffiDocument?, List<string> Errors) GenerateSyntaxTree(ParsingContext parsingContext)
 	{
@@ -32,8 +54,8 @@ public class SteffiParser : ParserBase<SteffiDocument>
 			{
 				parsingContext.Tokens.Move(matchLength);
 				var optionalNameTokens = matchedSegments["OptionalName"];
-				string objectName = optionalNameTokens.Count != 0
-					? parsingContext.GetTokenValue(matchedSegments["OptionalName"].Single()).ToString()
+				ReadOnlySpan<char> objectName = optionalNameTokens.Count != 0
+					? parsingContext.GetTokenValue(matchedSegments["OptionalName"].Single())
 					: $"noName{++noNameTokens}";
 
 				var typeToken = matchedSegments["TypeIdentifier"].Single();
@@ -58,6 +80,21 @@ public class SteffiParser : ParserBase<SteffiDocument>
 
 				var lastObject = ((IParentObject)parentList.Peek()).Children.Last();
 				parentList.Push(lastObject);
+				continue;
+			}
+
+			if (PropertyAssignment.Match(parsingContext, out matchedSegments) is int propertyMatchLength && propertyMatchLength != -1)
+			{
+				parsingContext.Tokens.Move(propertyMatchLength);
+				var propertyNameToken = matchedSegments["PropertyName"].Single();
+				var propertyValueTokens = matchedSegments["PropertyValue"];
+
+				var propertyName = parsingContext.GetTokenValue(propertyNameToken);
+				var propertyValue = parsingContext.GetValueBetween(propertyValueTokens.First().StartAt, propertyValueTokens.Last().EndAt);
+
+				var currentParent = parentList.Peek();
+				SetObjectProperty(currentParent, propertyName, propertyValue);
+
 				continue;
 			}
 

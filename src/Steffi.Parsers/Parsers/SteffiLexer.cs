@@ -34,6 +34,23 @@ public class SteffiLexer : LexerBase
 		return new(true, length);
 	});
 
+	public readonly static Token IntegerNumber = new((input) =>
+	{
+		if (input.Length == 0 || !char.IsDigit(input[0]))
+		{
+			return new(false);
+		}
+
+		int length = 1;
+
+		while (length < input.Length && char.IsDigit(input[length]))
+		{
+			length++;
+		}
+
+		return new(true, length);
+	});
+
 	public readonly static Token BlockComment = new((input) =>
 	{
 		if (!input.StartsWith("/*"))
@@ -68,7 +85,11 @@ public class SteffiLexer : LexerBase
 
 	public readonly static Token NestingClose = new((input) => input.Length > 0 && input[0] == '}' ? new(true, 1) : new(false));
 
-	public override Token[] KnownTokens => [LineComment, BlockComment, Identifier, WhiteSpace, NestingOpen, NestingClose];
+	public readonly static Token PropertySeparator = new((input) => input.Length > 0 && input[0] == ':' ? new(true, 1) : new(false));
+
+	public readonly static Token PropertyEnd = new((input) => input.Length > 0 && input[0] == ';' ? new(true, 1) : new(false));
+
+	public override Token[] KnownTokens => [LineComment, BlockComment, Identifier, IntegerNumber, WhiteSpace, NestingOpen, NestingClose, PropertySeparator, PropertyEnd];
 
 	public override bool ShouldBeIgnored(Token token) =>
 		token == WhiteSpace

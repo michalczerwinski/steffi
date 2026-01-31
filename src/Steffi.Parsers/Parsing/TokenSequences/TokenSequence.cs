@@ -13,7 +13,7 @@ public class TokenSequence
 
 	public int Match(ParsingContext parsingContext, out Dictionary<string, List<ParsedToken>> matchedSegmentElements)
 	{
-		var tokenIndex = 0;
+		var position = 0;
 		var valuesTemp = new Dictionary<string, List<ParsedToken>>();
 
 		foreach (var (name, element, segmentType) in segments)
@@ -21,28 +21,42 @@ public class TokenSequence
 			switch (segmentType)
 			{
 				case Arity.RequiredOnce:
-					if (!parsingContext.Tokens.PeekNext(out var token, tokenIndex) || !element.IsMatch(token))
+					if (!parsingContext.Tokens.PeekNext(out var token, position) || !element.IsMatch(token))
 					{
 						matchedSegmentElements = [];
 						return -1;
 					}
 					valuesTemp[name] = [token];
-					tokenIndex++;
+					position++;
 					break;
 				case Arity.OptionalOnce:
 					valuesTemp[name] = [];
-					if (parsingContext.Tokens.PeekNext(out token, tokenIndex) && element.IsMatch(token))
+					if (parsingContext.Tokens.PeekNext(out token, position) && element.IsMatch(token))
 					{
 						valuesTemp[name].Add(token);
-						tokenIndex++;
+						position++;
 					}
 					break;
 				case Arity.OptionalMultiple:
 					valuesTemp[name] = [];
-					while (parsingContext.Tokens.PeekNext(out token, tokenIndex) && element.IsMatch(token))
+					while (parsingContext.Tokens.PeekNext(out token, position) && element.IsMatch(token))
 					{
 						valuesTemp[name].Add(token);
-						tokenIndex++;
+						position++;
+					}
+					break;
+				case Arity.AtLeastOnce:
+					if (!parsingContext.Tokens.PeekNext(out token, position) || !element.IsMatch(token))
+					{
+						matchedSegmentElements = [];
+						return -1;
+					}
+					valuesTemp[name] = [token];
+					position++;
+					while (parsingContext.Tokens.PeekNext(out token, position) && element.IsMatch(token))
+					{
+						valuesTemp[name].Add(token);
+						position++;
 					}
 					break;
 				default:
@@ -52,6 +66,6 @@ public class TokenSequence
 
 		matchedSegmentElements = valuesTemp;
 
-		return tokenIndex;
+		return position;
 	}
 }

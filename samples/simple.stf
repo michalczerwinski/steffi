@@ -3,6 +3,7 @@
 Graph {
 	Graph anotherNested {
 		Node {
+			label: test;
 		}
 	}
 }

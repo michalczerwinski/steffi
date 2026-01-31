@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Samples/">
+    <File Path="../samples/architecture.stf" />
+    <File Path="../samples/simple.stf" />
+  </Folder>
   <Project Path="Steffi.Cli/Steffi.Cli.csproj" />
   <Project Path="Steffi.Parsers/Steffi.Parsers.csproj" />
   <Project Path="Steffi.UnitTests/Steffi.UnitTests.csproj" />

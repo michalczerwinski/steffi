@@ -96,5 +96,7 @@ public ref struct ParsingContext
 	public readonly ParsedTokenList Tokens { get; } = new();
 
 	public readonly ReadOnlySpan<char> GetTokenValue(ParsedToken parsedToken) => _originalInput[parsedToken.StartAt..parsedToken.EndAt];
+
+	public ReadOnlySpan<char> GetValueBetween(int startAt, int endAt) => _originalInput[startAt..endAt];
 }
 

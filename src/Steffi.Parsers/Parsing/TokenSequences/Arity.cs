@@ -5,4 +5,5 @@ public enum Arity
     RequiredOnce,
     OptionalOnce,
     OptionalMultiple,
+	AtLeastOnce,
 }
