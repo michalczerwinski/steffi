@@ -1,4 +1,7 @@
-﻿namespace Steffi.Parsers.Parsing.TokenSequences;
+﻿using Steffi.Parsers.Old.Parsing;
+using Steffi.Parsers.Old.Parsing.Lexer;
+
+namespace Steffi.Parsers.Old.Parsing.TokenSequences;
 
 public class TokenSequence
 {

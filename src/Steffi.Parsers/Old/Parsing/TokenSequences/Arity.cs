@@ -1,4 +1,4 @@
-﻿namespace Steffi.Parsers.Parsing.TokenSequences;
+﻿namespace Steffi.Parsers.Old.Parsing.TokenSequences;
 
 public enum Arity
 {

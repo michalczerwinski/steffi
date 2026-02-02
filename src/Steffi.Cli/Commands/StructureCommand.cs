@@ -1,6 +1,6 @@
 using Spectre.Console;
 using Steffi.Cli.Helpers;
-using Steffi.Parsers.Parsers;
+using Steffi.Parsers;
 using System.CommandLine;
 
 namespace Steffi.Cli.Commands;

@@ -1,5 +1,5 @@
 using Spectre.Console;
-using Steffi.Parsers.Parsers;
+using Steffi.Parsers;
 using System.CommandLine;
 
 namespace Steffi.Cli.Commands;

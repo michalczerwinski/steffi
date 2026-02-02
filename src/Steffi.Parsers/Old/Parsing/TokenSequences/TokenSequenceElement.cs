@@ -1,6 +1,6 @@
-﻿using Steffi.Parsers.Parsing;
+﻿using Steffi.Parsers.Old.Parsing.Lexer;
 
-namespace Steffi.Parsers.Parsing.TokenSequences;
+namespace Steffi.Parsers.Old.Parsing.TokenSequences;
 
 public abstract class TokenSequenceElement
 {

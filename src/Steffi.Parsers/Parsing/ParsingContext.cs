@@ -1,102 +1,75 @@
-﻿namespace Steffi.Parsers.Parsing;
+﻿using System.Diagnostics.CodeAnalysis;
 
-using System.Diagnostics.CodeAnalysis;
+namespace Steffi.Parsers.Parsing;
 
-public ref struct ParsingContext
+public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> remaining, (int Index, int Row, int Column) position)
 {
-	private ReadOnlySpan<char> _originalInput;
-
-	public ReadOnlySpan<char> Input { get; private set; }
-
-	public ParsingContext(ReadOnlySpan<char> input)
+	public ParsingContext(ReadOnlySpan<char> input) : this(input, input, (0, 1, 1))
 	{
-		Input = input;
-		_originalInput = input;
 	}
 
-	public class InputPosition
+	public ReadOnlySpan<char> Input { get; } = input;
+	public ReadOnlySpan<char> Remaining { get; private set; } = remaining;
+
+	public (int Index, int Row, int Column) Position { get; private set; } = position;
+
+	public bool EndReached => Remaining.Length == 0;
+
+	public bool Match(SyntaxRule syntaxRule, [NotNullWhen(true)] out MatchedSegment[]? matchedSegments)
 	{
-		public int Index { get; set; }
-		public int Row { get; set; } = 1;
-		public int Column { get; set; } = 1;
+		var contextBefore = this;
+		matchedSegments = new MatchedSegment[syntaxRule.Segments.Count(s => s.Name is not null)];
+		int matchedSegmentIndex = 0;
+
+		foreach (var (name, termParser, arity) in syntaxRule.Segments)
+		{
+			var (matched, matchedLength) = syntaxRule.MatchSegment(Remaining, termParser, arity);
+
+			if (!matched)
+			{
+				matchedSegments = null;
+				this = contextBefore;
+				return false;
+			}
+
+			if (matchedLength > 0)
+			{
+				var positionBefore = Position;
+				Advance(matchedLength);
+				if (name is not null)
+				{
+					matchedSegments[matchedSegmentIndex++] = new(name, positionBefore.Index, matchedLength, positionBefore.Row, positionBefore.Column);
+				}
+
+			}
+		}
+
+		return true;
 	}
 
-	public InputPosition Position { get; } = new();
-
-	public List<string> Errors { get; } = [];
-
-	public readonly void AddError(string message) => Errors.Add($"({Position.Row}:{Position.Column}) {message}");
-
-	public void MoveAheadInput(int length)
+	public void Advance(int length)
 	{
+		var newRemaining = Remaining.Slice(length);
+		int newIndex = Position.Index + length;
+		int newRow = Position.Row;
+		int newColumn = Position.Column;
+
 		for (int i = 0; i < length; i++)
 		{
-			if (Input[i] == '\n')
+			if (Remaining[i] == '\n')
 			{
-				Position.Row++;
-				Position.Column = 1;
+				newRow++;
+				newColumn = 1;
 			}
 			else
 			{
-				Position.Column++;
+				newColumn++;
 			}
 		}
-		Input = Input[length..];
-		Position.Index += length;
+
+		Position = (newIndex, newRow, newColumn);
+		Remaining = newRemaining;
 	}
 
-	public readonly bool IsInputFinished() => Input.Length == 0;
-
-	public override readonly string ToString() => $"Pos: {Position.Index} ({Position.Row}:{Position.Column}), Next: '{(IsInputFinished() ? "<EOF>" : Input[..Math.Min(20, Input.Length)])}'";
-
-	public class ParsedTokenList()
-	{
-		private List<ParsedToken> _parsedTokens { get; } = [];
-		private int _currentTokenIndex = 0;
-
-		public ParsedToken GetNext()
-		{
-			if (_currentTokenIndex >= _parsedTokens.Count)
-			{
-				throw new InvalidOperationException("No more tokens available.");
-			}
-
-			return _parsedTokens[_currentTokenIndex++];
-		}
-
-		public bool PeekNext([NotNullWhen(true)] out ParsedToken? token, int tokenIndex = 0)
-		{
-			if (_currentTokenIndex + tokenIndex < _parsedTokens.Count)
-			{
-				token = _parsedTokens[_currentTokenIndex + tokenIndex];
-				return true;
-			}
-
-			token = null;
-			return false;
-		}
-
-		public void Move(int matchLength)
-		{
-			if (_currentTokenIndex + matchLength > _parsedTokens.Count)
-			{
-				throw new InvalidOperationException("Cannot move ahead tokens beyond the available tokens.");
-			}
-
-			_currentTokenIndex += matchLength;
-		}
-
-		public bool Finished() => _currentTokenIndex < _parsedTokens.Count;
-
-		public void Add(ParsedToken parsedToken) => _parsedTokens.Add(parsedToken);
-
-		public int GetId() => _parsedTokens.Count + 1;
-	}
-
-	public readonly ParsedTokenList Tokens { get; } = new();
-
-	public readonly ReadOnlySpan<char> GetTokenValue(ParsedToken parsedToken) => _originalInput[parsedToken.StartAt..parsedToken.EndAt];
-
-	public ReadOnlySpan<char> GetValueBetween(int startAt, int endAt) => _originalInput[startAt..endAt];
+	public string GetPositionString() => $"({Position.Row},{Position.Column}):";
 }
-

@@ -1,18 +1,21 @@
-﻿using Steffi.Parsers.Parsers;
+﻿using Steffi.Parsers.Model;
+using Steffi.Parsers.Old.Parsers;
 
-namespace Steffi.Parsers.Parsing;
+namespace Steffi.Parsers.Old.Parsing;
 
-public abstract class ParserBase<TModel>
+public abstract class ParserBase<TModel> where TModel : SteffiDocument
 {
-	public async Task<(TModel?, List<string> Errors)> ParseFromFileAsync(string fileName)
+	public async Task<(SteffiDocument?, List<string> Errors)> ParseFromFileAsync(string fileName)
 	{
 		string content = await File.ReadAllTextAsync(fileName);
 
 		return Parse(content);
 	}
 
-	public (TModel?, List<string> Errors) Parse(string content)
+	public (SteffiDocument?, List<string> Errors) Parse(string content)
 	{
+		return new SteffiParser().Parse(content);
+
 		var parsingContext = new ParsingContext(content);
 		var lexer = new SteffiLexer();
 		lexer.GenerateTokens(ref parsingContext);

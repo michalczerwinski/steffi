@@ -1,4 +1,6 @@
-﻿namespace Steffi.Parsers.Parsing;
+﻿using Steffi.Parsers.Old.Parsing;
+
+namespace Steffi.Parsers.Old.Parsing.Lexer;
 
 public abstract class LexerBase
 {

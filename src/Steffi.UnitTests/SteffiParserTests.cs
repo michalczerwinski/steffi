@@ -50,7 +50,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 			//to do
 		}
 		""",
-		"(4:2) Unrecognized token");
+		"(4,2): Unexpected token '$ERROR\r\n\t//to do\r\n}'");
 
 	[Test, DisplayName("Fails when unknown type used")]
 	public async Task FailsCase02() => await FailsWithError(
@@ -59,7 +59,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 		{
 		}
 		""",
-		"(1:1) Unknown type 'UnknownType'");
+		"(1,1): Unknown type 'UnknownType'");
 
 	[Test, DisplayName("Fails when object not finished")]
 	public async Task FailsCase03() => await FailsWithError(

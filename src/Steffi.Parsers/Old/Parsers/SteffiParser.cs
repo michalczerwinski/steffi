@@ -1,10 +1,10 @@
 ﻿using Steffi.Parsers.Model;
-using Steffi.Parsers.Parsing;
-using Steffi.Parsers.Parsing.TokenSequences;
+using Steffi.Parsers.Old.Parsing;
+using Steffi.Parsers.Old.Parsing.TokenSequences;
 
-namespace Steffi.Parsers.Parsers;
+namespace Steffi.Parsers.Old.Parsers;
 
-public class SteffiParser : ParserBase<SteffiDocument>
+public class OldSteffiParser : ParserBase<SteffiDocument>
 {
 	protected static readonly TokenSequence ObjectDeclaration = new TokenSequence()
 		.AddSegment("TypeIdentifier", new SpecificToken(SteffiLexer.Identifier), Arity.RequiredOnce)
@@ -46,7 +46,7 @@ public class SteffiParser : ParserBase<SteffiDocument>
 	protected override (SteffiDocument?, List<string> Errors) GenerateSyntaxTree(ParsingContext parsingContext)
 	{
 		Stack<SteffiObject> parentList = new([new SteffiDocument()]);
-		int noNameTokens = 0;
+		int noNameCount = 0;
 
 		while (parsingContext.Tokens.Finished())
 		{
@@ -56,7 +56,7 @@ public class SteffiParser : ParserBase<SteffiDocument>
 				var optionalNameTokens = matchedSegments["OptionalName"];
 				ReadOnlySpan<char> objectName = optionalNameTokens.Count != 0
 					? parsingContext.GetTokenValue(matchedSegments["OptionalName"].Single())
-					: $"noName{++noNameTokens}";
+					: $"noName{++noNameCount}";
 
 				var typeToken = matchedSegments["TypeIdentifier"].Single();
 				var type = parsingContext.GetTokenValue(typeToken);
@@ -116,7 +116,7 @@ public class SteffiParser : ParserBase<SteffiDocument>
 			> 1 => (null, [$"Unexpected end of file, object not closed"]),
 			0 => (null, [$"Unexpected end of file, object not closed"]),
 			1 => ((SteffiDocument)parentList.Pop(), []),
-			_ => throw new InvalidOperationException($"Unreachable code reached in {nameof(SteffiParser)}"),
+			_ => throw new InvalidOperationException($"Unreachable code reached in {nameof(OldSteffiParser)}"),
 		};
 	}
 }
