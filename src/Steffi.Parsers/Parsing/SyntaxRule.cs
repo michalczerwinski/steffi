@@ -34,7 +34,7 @@ public class SyntaxRule()
 				{
 					var matched = termParser(input);
 
-					if (matched == 0)
+					if (matched == -1)
 					{
 						break;
 					}
@@ -47,7 +47,7 @@ public class SyntaxRule()
 
 			case Arity.OneOrMore:
 				var firstMatch = termParser(input);
-				if (firstMatch == 0)
+				if (firstMatch == -1)
 				{
 					return (false, 0);
 				}
@@ -56,7 +56,7 @@ public class SyntaxRule()
 				while (true)
 				{
 					var matched = termParser(input);
-					if (matched == 0)
+					if (matched == -1)
 					{
 						break;
 					}
