@@ -1,4 +1,4 @@
-﻿namespace Steffi.Parsers.Model.Builder;
+namespace Steffi.Models.Builder;
 
 public static class ModelBuilder
 {

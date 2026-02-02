@@ -1,4 +1,6 @@
-﻿namespace Steffi.Parsers.Model;
+using Steffi.Models.Interfaces;
+
+namespace Steffi.Models;
 
 public class Node : SteffiObject, INamedObject
 {

@@ -1,4 +1,4 @@
-﻿namespace Steffi.Parsers.Model;
+namespace Steffi.Models.Interfaces;
 
 public interface INamedObject
 {

@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Spectre.Console;
 using Spectre.Console.Rendering;
-using Steffi.Parsers.Model;
+using Steffi.Models;
+using Steffi.Models.Interfaces;
 
 namespace Steffi.Cli.Helpers;
 

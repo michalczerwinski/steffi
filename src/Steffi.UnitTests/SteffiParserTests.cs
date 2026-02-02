@@ -1,4 +1,4 @@
-using Steffi.Parsers.Model;
+using Steffi.Models;
 
 namespace Steffi.UnitTests;
 

@@ -1,4 +1,6 @@
-﻿namespace Steffi.Parsers.Model;
+using Steffi.Models;
+
+namespace Steffi.Models.Interfaces;
 
 public interface IParentObject
 {
