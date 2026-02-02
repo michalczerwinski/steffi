@@ -4,7 +4,7 @@ namespace Steffi.Parsers;
 
 public static class Syntax
 {
-	public static SyntaxRule ObjectDeclaration = new SyntaxRule()
+	public readonly static SyntaxRule ObjectDeclaration = new SyntaxRule()
 		.Add(Terms.WhiteSpaceBlock | Terms.LineComment | Terms.BlockComment, Arity.ZeroOrMore)
 		.Add("TypeIdentifier", Terms.Identifier, Arity.ExactlyOne)
 		.Add(Terms.WhiteSpaceBlock | Terms.LineComment | Terms.BlockComment, Arity.ZeroOrMore)
@@ -12,7 +12,7 @@ public static class Syntax
 		.Add(Terms.WhiteSpaceBlock | Terms.LineComment | Terms.BlockComment, Arity.ZeroOrMore)
 		.Add(Terms.NestingOpen, Arity.ExactlyOne);
 
-	public static SyntaxRule PropertyAssignment = new SyntaxRule()
+	public readonly static SyntaxRule PropertyAssignment = new SyntaxRule()
 		.Add(Terms.WhiteSpaceBlock | Terms.LineComment | Terms.BlockComment, Arity.ZeroOrMore)
 		.Add("PropertyName", Terms.Identifier, Arity.ExactlyOne)
 		.Add(Terms.PropertySeparator, Arity.ExactlyOne)

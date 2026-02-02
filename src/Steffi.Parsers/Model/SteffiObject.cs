@@ -2,5 +2,4 @@
 
 public class SteffiObject
 {
-	public Dictionary<string, object> Properties { get; } = [];
 }

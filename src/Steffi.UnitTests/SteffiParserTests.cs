@@ -126,4 +126,16 @@ public class SteffiParserTests : SteffiParserTestsBase
 		await Assert.That(result.Document!.Children.Count).IsEqualTo(1);
 		await Assert.That(((Graph)result.Document!.Children[0]).Children.Count).IsEqualTo(2);
 	}
+
+	[Test, DisplayName("Fails when object cannot be nested")]
+	public async Task FailsCase08() => await FailsWithError(
+		"""
+		Node name
+		{
+			Node child
+			{
+			}
+		}		
+		""",
+		"(3,2): Cannot nest children in Node");
 }

@@ -7,6 +7,8 @@ namespace Steffi.Parsers;
 public class SteffiParser
 {
 	private int _noNameCount = 0;
+	private SteffiDocument _steffiDocument = new SteffiDocument();
+	private Stack<SteffiObject> _parents = new();
 
 	public async Task<(SteffiDocument?, List<string> Errors)> ParseFromFileAsync(string fileName)
 	{
@@ -15,35 +17,52 @@ public class SteffiParser
 		return Parse(content);
 	}
 
+	protected void Initialize()
+	{
+		_steffiDocument = new SteffiDocument();
+		_parents = new([_steffiDocument]);
+		_noNameCount = 0;
+	}
+
+	protected SteffiDocument Document { get => _steffiDocument; }
+
+	protected SteffiObject CurrentObject { get => _parents.Peek(); }
+
+	protected bool NestObject(SteffiObject steffiObject)
+	{
+		var currentParent = _parents.Peek();
+		if (currentParent is not IParentObject parent)
+		{
+			return false;
+		}
+		parent.Children.Add(steffiObject);
+		_parents.Push(steffiObject);
+
+		return true;
+	}
+
 	public (SteffiDocument?, List<string> Errors) Parse(string content)
 	{
+		Initialize();
 		var parsingContext = new ParsingContext(content.AsSpan());
-		var document = new SteffiDocument();
-		Stack<SteffiObject> parents = new([document]);
 
 		while (!parsingContext.EndReached)
 		{
 			if (parsingContext.Matches(Syntax.ObjectDeclaration, out var typeIdentifierSegment, out var objectNameSegment))
 			{
-				var objectName = objectNameSegment.GetValueOrDefault(parsingContext, () => $"NoNameObject{_noNameCount++}");
-				var typeName = typeIdentifierSegment.GetValue(parsingContext);
+				var objectName = objectNameSegment.GetValueOrDefault(GenerateDefaultName);
+				var typeName = typeIdentifierSegment.Value;
 
 				var steffiObject = ModelBuilder.CreateObjectFactory(typeName, objectName);
 
 				if (steffiObject == null)
 				{
-					return (document, [typeIdentifierSegment.CreateError($"Unknown type '{typeName}'")]);
+					return (Document, [typeIdentifierSegment.CreateError($"Unknown type '{typeName}'")]);
 				}
 
-				var currentParent = parents.Peek();
-				if (currentParent is IParentObject parent)
+				if (!NestObject(steffiObject))
 				{
-					parent.Children.Add(steffiObject);
-					parents.Push(steffiObject);
-				}
-				else
-				{
-					return (document, [$"{typeIdentifierSegment.GetPositionString()} Cannot nest children at {currentParent.GetType()}"]);
+					return (Document, [$"{typeIdentifierSegment.GetPositionString()} Cannot nest children in {CurrentObject.GetType().Name}"]);
 				}
 
 				continue;
@@ -51,18 +70,17 @@ public class SteffiParser
 
 			if (parsingContext.Matches(Syntax.PropertyAssignment, out var propertyNameSegment, out var propertyValueSegment))
 			{
-				var propertyName = propertyNameSegment.GetValue(parsingContext);
-				var propertyValue = propertyValueSegment.GetValue(parsingContext);
+				var propertyName = propertyNameSegment.Value;
+				var propertyValue = propertyValueSegment.Value;
 
-				var currentParent = parents.Peek();
-				ModelBuilder.SetObjectProperty(currentParent, propertyName, propertyValue.Trim());
+				ModelBuilder.SetObjectProperty(CurrentObject, propertyName, propertyValue.Trim());
 
 				continue;
 			}
 
 			if (parsingContext.Matches(Terms.NestingClose.ExactlyOne()))
 			{
-				parents.Pop();
+				_parents.Pop();
 				continue;
 			}
 
@@ -71,15 +89,17 @@ public class SteffiParser
 				continue;
 			}
 
-			return (null, [parsingContext.CreateError($"Unexpected expression")]);
+			return (Document, [parsingContext.CreateError($"Unexpected expression")]);
 		}
 
-		return parents.Count switch
+		return _parents.Count switch
 		{
-			> 1 => (document, [parsingContext.CreateError("Unexpected end of file, object not closed")]),
-			0 => (document, [parsingContext.CreateError("Unexpected end of file, object not closed")]),
-			1 => (document, []),
+			> 1 => (Document, [parsingContext.CreateError("Unexpected end of file, object not closed")]),
+			0 => (Document, [parsingContext.CreateError("Unexpected end of file, object not closed")]),
+			1 => (Document, []),
 			_ => throw new InvalidOperationException($"Unreachable code reached in {nameof(SteffiParser)}"),
 		};
 	}
+
+	private ReadOnlySpan<char> GenerateDefaultName() => $"NoNameObject{_noNameCount++}";
 }

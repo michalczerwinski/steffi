@@ -30,7 +30,7 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 
 		foreach (var (name, termParser, arity) in syntaxRule.Segments)
 		{
-			var (matched, matchedLength) = syntaxRule.MatchSegment(Remaining, termParser, arity);
+			var (matched, matchedLength) = SyntaxRule.MatchSegment(Remaining, termParser, arity);
 
 			if (!matched)
 			{
@@ -41,10 +41,12 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 			if (matchedLength > 0)
 			{
 				var positionBefore = Position;
+				var inputBefore = Remaining;
+
 				Advance(matchedLength);
 				if (name is not null)
 				{
-					var matchedSegment = new MatchedSegment(name, positionBefore.Index, matchedLength, positionBefore.Row, positionBefore.Column);
+					var matchedSegment = new MatchedSegment(name, positionBefore.Index, matchedLength, positionBefore.Row, positionBefore.Column, inputBefore.Slice(0, matchedLength));
 					switch (matchedSegmentIndex)
 					{
 						case 0:

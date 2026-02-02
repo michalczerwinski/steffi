@@ -1,6 +1,6 @@
 ﻿namespace Steffi.Parsers.Parsing;
 
-public ref struct MatchedSegment(ReadOnlySpan<char> name, int startIndex, int length, int startRow, int startColumn)
+public ref struct MatchedSegment(ReadOnlySpan<char> name, int startIndex, int length, int startRow, int startColumn, ReadOnlySpan<char> value)
 {
 	public ReadOnlySpan<char> Name { get; } = name;
 
@@ -12,12 +12,12 @@ public ref struct MatchedSegment(ReadOnlySpan<char> name, int startIndex, int le
 
 	public int StartColumn { get; } = startColumn;
 
-	public ReadOnlySpan<char> GetValue(ParsingContext parsingContext) => parsingContext.Input.Slice(StartIndex, Length);
+	public ReadOnlySpan<char> Value { get; } = value;
 
-	public ReadOnlySpan<char> GetValueOrDefault(ParsingContext parsingContext, Func<ReadOnlySpan<char>> defaultValueFactoryFunc)
+	public ReadOnlySpan<char> GetValueOrDefault(Func<ReadOnlySpan<char>> defaultValueFactoryFunc)
 		=> Length == 0
 		? defaultValueFactoryFunc.Invoke()
-		: parsingContext.Input.Slice(StartIndex, Length);
+		: Value;
 
 	public object GetPositionString() => $"({StartRow},{StartColumn}):";
 

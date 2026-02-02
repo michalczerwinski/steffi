@@ -2,7 +2,7 @@
 
 public class SyntaxRule()
 {
-	internal List<(string? Name, TermParser, Arity Arity)> Segments { get; private set; } = new();
+	internal List<(string? Name, TermParser, Arity Arity)> Segments { get; private set; } = [];
 
 	public SyntaxRule Add(TermParser termParser, Arity arity) => Add(null, termParser, arity);
 
@@ -13,9 +13,9 @@ public class SyntaxRule()
 		return this;
 	}
 
-	internal (bool matched, int matchedLength) MatchSegment(ReadOnlySpan<char> input, TermParser termParser, Arity arity)
+	internal static (bool matched, int matchedLength) MatchSegment(ReadOnlySpan<char> input, TermParser termParser, Arity arity)
 	{
-		int segmentMatched = 0;
+		int segmentMatched;
 
 		switch (arity)
 		{
@@ -39,7 +39,7 @@ public class SyntaxRule()
 						break;
 					}
 
-					input = input.Slice(matched);
+					input = input[matched..];
 					segmentMatched += matched;
 				}
 
@@ -52,7 +52,7 @@ public class SyntaxRule()
 					return (false, 0);
 				}
 				segmentMatched = firstMatch;
-				input = input.Slice(firstMatch);
+				input = input[firstMatch..];
 				while (true)
 				{
 					var matched = termParser(input);
@@ -61,7 +61,7 @@ public class SyntaxRule()
 						break;
 					}
 					segmentMatched += matched;
-					input = input.Slice(matched);
+					input = input[matched..];
 				}
 
 				return (true, segmentMatched);
