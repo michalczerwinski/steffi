@@ -31,10 +31,12 @@ public class SteffiParser
 	protected bool NestObject(SteffiObject steffiObject)
 	{
 		var currentParent = _parents.Peek();
+
 		if (currentParent is not IParentObject parent)
 		{
 			return false;
 		}
+
 		parent.Children.Add(steffiObject);
 		_parents.Push(steffiObject);
 
