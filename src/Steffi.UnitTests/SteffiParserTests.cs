@@ -50,7 +50,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 			//to do
 		}
 		""",
-		"(4,2): Unexpected token '$ERROR\r\n\t//to do\r\n}'");
+		"(4,2): Unexpected expression");
 
 	[Test, DisplayName("Fails when unknown type used")]
 	public async Task FailsCase02() => await FailsWithError(
@@ -67,7 +67,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 			Graph name
 			{
 		""",
-		"Unexpected end of file, object not closed");
+		"(2,3): Unexpected end of file, object not closed");
 
 	[Test, DisplayName("Fails when object closed too many times")]
 	public async Task FailsCase04() => await FailsWithError(
@@ -77,7 +77,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 		}
 		}
 		""",
-		"Unexpected end of file, object not closed");
+		"(4,2): Unexpected end of file, object not closed");
 
 	[Test, DisplayName("Compiles block comments")]
 	public async Task CompilesCase05() => await CompilesWithoutError(

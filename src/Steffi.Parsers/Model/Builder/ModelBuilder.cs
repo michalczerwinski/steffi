@@ -1,8 +1,6 @@
-﻿using Steffi.Parsers.Model;
+﻿namespace Steffi.Parsers.Model.Builder;
 
-namespace Steffi.Parsers;
-
-public static class SteffiObjectBuilder
+public static class ModelBuilder
 {
 	public static SteffiObject? CreateObjectFactory(ReadOnlySpan<char> tokenType, ReadOnlySpan<char> name) => tokenType switch
 	{

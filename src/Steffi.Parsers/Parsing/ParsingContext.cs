@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace Steffi.Parsers.Parsing;
+﻿namespace Steffi.Parsers.Parsing;
 
 public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> remaining, (int Index, int Row, int Column) position)
 {
@@ -15,10 +13,19 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 
 	public bool EndReached => Remaining.Length == 0;
 
-	public bool Match(SyntaxRule syntaxRule, [NotNullWhen(true)] out MatchedSegment[]? matchedSegments)
+	public bool Matches(SyntaxRule syntaxRule) => Matches(syntaxRule, out var _, out _, out _);
+
+	public bool Matches(SyntaxRule syntaxRule, out MatchedSegment segment1) => Matches(syntaxRule, out segment1, out _, out _);
+
+	public bool Matches(SyntaxRule syntaxRule, out MatchedSegment segment1, out MatchedSegment segment2) => Matches(syntaxRule, out segment1, out segment2, out _);
+
+	public bool Matches(SyntaxRule syntaxRule, out MatchedSegment segment1, out MatchedSegment segment2, out MatchedSegment segment3)
 	{
+		segment1 = default;
+		segment2 = default;
+		segment3 = default;
+
 		var contextBefore = this;
-		matchedSegments = new MatchedSegment[syntaxRule.Segments.Count(s => s.Name is not null)];
 		int matchedSegmentIndex = 0;
 
 		foreach (var (name, termParser, arity) in syntaxRule.Segments)
@@ -27,7 +34,6 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 
 			if (!matched)
 			{
-				matchedSegments = null;
 				this = contextBefore;
 				return false;
 			}
@@ -38,9 +44,21 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 				Advance(matchedLength);
 				if (name is not null)
 				{
-					matchedSegments[matchedSegmentIndex++] = new(name, positionBefore.Index, matchedLength, positionBefore.Row, positionBefore.Column);
+					var matchedSegment = new MatchedSegment(name, positionBefore.Index, matchedLength, positionBefore.Row, positionBefore.Column);
+					switch (matchedSegmentIndex)
+					{
+						case 0:
+							segment1 = matchedSegment;
+							break;
+						case 1:
+							segment2 = matchedSegment;
+							break;
+						case 2:
+							segment3 = matchedSegment;
+							break;
+					}
+					matchedSegmentIndex++;
 				}
-
 			}
 		}
 
@@ -72,4 +90,7 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 	}
 
 	public string GetPositionString() => $"({Position.Row},{Position.Column}):";
+
+	public string CreateError(ReadOnlySpan<char> error) => $"{GetPositionString()} {error}";
+
 }

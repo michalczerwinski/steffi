@@ -4,7 +4,7 @@ namespace Steffi.Parsers;
 
 public static class Terms
 {
-	public static TermParser WhiteSpace = (input) =>
+	public readonly static TermParser WhiteSpaceBlock = (input) =>
 	{
 		int pos = 0;
 
@@ -16,7 +16,7 @@ public static class Terms
 		return pos;
 	};
 
-	public static TermParser LineComment = (input) =>
+	public readonly static TermParser LineComment = (input) =>
 	{
 		if (input.StartsWith("//"))
 		{
@@ -33,7 +33,7 @@ public static class Terms
 		return 0;
 	};
 
-	public static TermParser Identifier = (input) =>
+	public readonly static TermParser Identifier = (input) =>
 	{
 		int pos = 0;
 
@@ -50,9 +50,9 @@ public static class Terms
 		return pos;
 	};
 
-	public static TermParser AssignmentEnd = (input) => input.Length > 0 && input[0] == ';' ? 1 : 0;
+	public readonly static TermParser AssignmentEnd = (input) => input.Length > 0 && input[0] == ';' ? 1 : 0;
 
-	public static TermParser IntegerNumber = (input) =>
+	public readonly static TermParser IntegerNumber = (input) =>
 	{
 		int pos = 0;
 
@@ -64,7 +64,7 @@ public static class Terms
 		return pos;
 	};
 
-	public static TermParser BlockComment = (input) =>
+	public readonly static TermParser BlockComment = (input) =>
 	{
 		if (input.StartsWith("/*"))
 		{
@@ -76,9 +76,9 @@ public static class Terms
 		return 0;
 	};
 
-	public static TermParser NestingOpen = (input) => input.Length > 0 && input[0] == '{' ? 1 : 0;
+	public readonly static TermParser NestingOpen = (input) => input.Length > 0 && input[0] == '{' ? 1 : 0;
 
-	public static TermParser NestingClose = (input) => input.Length > 0 && input[0] == '}' ? 1 : 0;
+	public readonly static TermParser NestingClose = (input) => input.Length > 0 && input[0] == '}' ? 1 : 0;
 
-	public static TermParser PropertySeparator = (input) => input.Length > 0 && input[0] == ':' ? 1 : 0;
+	public readonly static TermParser PropertySeparator = (input) => input.Length > 0 && input[0] == ':' ? 1 : 0;
 }
