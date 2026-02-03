@@ -8,11 +8,14 @@ public class ValidateCommand : Command
 {
 	public ValidateCommand() : base("validate", "Parse and validate a Steffi document.")
 	{
-		var inputArgument = new Argument<FileInfo>(
-			name: "input",
-			description: "Path to the .stf document to parse and visualize.");
+		var inputFileOption = new Option<FileInfo>(
+			name: "--input-file",
+			description: "Path to the .stf document to parse and validate.")
+		{
+			IsRequired = true
+		};
 
-		AddArgument(inputArgument);
+		AddOption(inputFileOption);
 
 		this.SetHandler(async (FileInfo inputFile) =>
 		{
@@ -40,6 +43,6 @@ public class ValidateCommand : Command
 
 			AnsiConsole.MarkupLine("[green]Validation succeeded[/]");
 			Environment.ExitCode = 0;
-		}, inputArgument);
+		}, inputFileOption);
 	}
 }

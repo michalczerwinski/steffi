@@ -6,5 +6,6 @@
   <Project Path="Steffi.Cli/Steffi.Cli.csproj" />
   <Project Path="Steffi.Models/Steffi.Models.csproj" />
   <Project Path="Steffi.Parsers/Steffi.Parsers.csproj" />
+  <Project Path="Steffi.Renderers/Steffi.Renderers.csproj" />
   <Project Path="Steffi.UnitTests/Steffi.UnitTests.csproj" />
 </Solution>

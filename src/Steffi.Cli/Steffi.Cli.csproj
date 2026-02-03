@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Steffi.Parsers\Steffi.Parsers.csproj" />
     <ProjectReference Include="..\Steffi.Models\Steffi.Models.csproj" />
+    <ProjectReference Include="..\Steffi.Renderers\Steffi.Renderers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

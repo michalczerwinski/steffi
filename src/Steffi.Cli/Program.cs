@@ -5,5 +5,6 @@ var rootCommand = new RootCommand("Steffi CLI – work with Steffi graph documen
 
 rootCommand.AddCommand(new StructureCommand());
 rootCommand.AddCommand(new ValidateCommand());
+rootCommand.AddCommand(new GenerateCommand());
 
 return await rootCommand.InvokeAsync(args);
