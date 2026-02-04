@@ -1,5 +1,6 @@
 //this is a test
 //another comment
+
 Graph {
 	Graph anotherNested {
 		Node {
@@ -8,11 +9,14 @@ Graph {
 	}
 }
 
+/*this is a block comment*/
+
 Graph named
 {
 	Node nested {
 	}
 }
+
 Node
 {
 }
