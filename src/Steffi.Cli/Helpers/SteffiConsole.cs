@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 using Steffi.Models;
@@ -8,72 +7,62 @@ namespace Steffi.Cli.Helpers;
 
 public static class SteffiConsole
 {
-    public static void Print(SteffiObject steffiObject)
-    {
-        AnsiConsole.Write(CreatePanel(steffiObject));
-    }
+	private static Panel CreatePanel(SteffiObject steffiObject)
+	{
+		IRenderable body = steffiObject is IParentObject parent && parent.Children.Count > 0
+			? BuildChildren(parent.Children)
+			: new Markup("[grey italic]No children[/]");
 
-    private static Panel CreatePanel(SteffiObject steffiObject)
-    {
-        IRenderable body = steffiObject is IParentObject parent && parent.Children.Count > 0
-            ? BuildChildren(parent.Children)
-            : new Markup("[grey italic]No children[/]");
+		var (title, color) = GetTitleColor(steffiObject);
+		var headerMarkup = $"[{color}]{Markup.Escape(title)}[/]";
 
-        var (title, color) = GetTitleColor(steffiObject);
-        var headerMarkup = $"[{color}]{Markup.Escape(title)}[/]";
+		return new Panel(body)
+			.Header(new PanelHeader(headerMarkup, Justify.Left))
+			.Border(BoxBorder.Square)
+			.BorderStyle(Style.Parse(color))
+			.Expand();
+	}
 
-        return new Panel(body)
-            .Header(new PanelHeader(headerMarkup, Justify.Left))
-            .Border(BoxBorder.Square)
-            .BorderStyle(Style.Parse(color))
-            .Expand();
-    }
+	private static IRenderable BuildChildren(List<SteffiObject> children)
+	{
+		if (children.Count == 1)
+		{
+			return CreatePanel(children[0]);
+		}
 
-    private static IRenderable BuildChildren(List<SteffiObject> children)
-    {
-        if (children.Count == 1)
-        {
-            return CreatePanel(children[0]);
-        }
+		var panels = new List<IRenderable>(children.Count);
+		foreach (var child in children)
+		{
+			panels.Add(CreatePanel(child));
+		}
 
-        var panels = new List<IRenderable>(children.Count);
-        foreach (var child in children)
-        {
-            panels.Add(CreatePanel(child));
-        }
+		return new Columns(panels.ToArray());
+	}
 
-        return new Columns(panels.ToArray());
-    }
+	private static (string Title, string Color) GetTitleColor(SteffiObject steffiObject)
+	{
+		var color = steffiObject switch
+		{
+			SteffiDocument => "dodgerblue1",
+			Graph => "springgreen3",
+			Node => "gold1",
+			_ => "white"
+		};
 
-    private static (string Title, string Color) GetTitleColor(SteffiObject steffiObject)
-    {
-        var color = steffiObject switch
-        {
-            SteffiDocument => "dodgerblue1",
-            Graph => "springgreen3",
-            Node => "gold1",
-            _ => "white"
-        };
+		return (GetTitle(steffiObject), color);
+	}
 
-        return (GetTitle(steffiObject), color);
-    }
+	private static string GetTitle(SteffiObject steffiObject)
+	{
+		return steffiObject switch
+		{
+			SteffiDocument => "Steffi Document",
+			Graph graph => $"Graph: {FormatName(graph.Name)}",
+			Node node => $"Node: {FormatName(node.Name)}",
+			INamedObject named => $"{steffiObject.GetType().Name}: {FormatName(named.Name)}",
+			_ => steffiObject.GetType().Name
+		};
+	}
 
-    private static string GetTitle(SteffiObject steffiObject)
-    {
-        return steffiObject switch
-        {
-            SteffiDocument => "Steffi Document",
-            Graph graph => $"Graph: {FormatName(graph.Name)}",
-            Node node => $"Node: {FormatName(node.Name)}",
-            INamedObject named => $"{steffiObject.GetType().Name}: {FormatName(named.Name)}",
-            _ => steffiObject.GetType().Name
-        };
-    }
-
-    private static string FormatName(string? name)
-    {
-        return string.IsNullOrWhiteSpace(name)
-            ? "<unnamed>"
-            : name.Trim();
-    }
+	private static string FormatName(string? name) => string.IsNullOrWhiteSpace(name) ? "<unnamed>" : name.Trim();
 }

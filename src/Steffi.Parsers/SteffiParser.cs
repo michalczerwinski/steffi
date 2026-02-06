@@ -1,6 +1,6 @@
 using Steffi.Models;
-using Steffi.Models.Interfaces;
 using Steffi.Models.Builder;
+using Steffi.Models.Interfaces;
 using Steffi.Parsers.Parsing;
 
 namespace Steffi.Parsers;

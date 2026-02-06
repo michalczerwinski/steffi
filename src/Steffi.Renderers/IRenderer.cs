@@ -2,7 +2,7 @@
 
 namespace Steffi.Renderers;
 
-public interface ISteffiDocumentRenderer
+public interface IRenderer
 {
 	public string RenderDocument(SteffiDocument document);
 }

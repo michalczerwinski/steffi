@@ -1,26 +1,21 @@
 //this is a test
 //another comment
 
-Graph {
-	Graph anotherNested {
-		Node {
-			label: test;
-		}
-	}
-}
-
 /*this is a block comment*/
 
-Graph named
+Graph firstGraph
 {
-	Node nested {
+	label: red;
+	Graph internal1{}
+	Graph middle{}
+	Graph internal3{}
+}
+
+Graph _node2
+{
+	Graph internal1{
+	/*to jest test*/
+		Graph test{ Graph nowyboczemuNie{} }
 	}
-}
-
-Node
-{
-}
-
-Node namedNode
-{
+	Graph internal2{}
 }

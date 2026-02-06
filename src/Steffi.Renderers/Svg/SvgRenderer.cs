@@ -1,46 +1,41 @@
 ﻿using Steffi.Models;
 using Steffi.Models.Interfaces;
+using Steffi.Renderers.Svg.Renderables;
 using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg;
 
-public class SvgRenderer : ISteffiDocumentRenderer
+public class SvgRenderer : IRenderer
 {
+	private readonly XNamespace svg = "http://www.w3.org/2000/svg";
+
 	public string RenderDocument(SteffiDocument document)
 	{
+		var renderable = GetRenderable(document).Render(0, 0);
 
-		XNamespace svg = "http://www.w3.org/2000/svg";
-		var doc = new XDocument(
-			new XElement(svg + "svg",
-				new XAttribute("width", "100"),
-				new XAttribute("height", "100")
-			)
-		);
+		return new Document(GetRenderable(document))
+			.Render()
+			.ToString();
+	}
 
-		int y = 55;
-		foreach (var steffiObject in document.Children)
+	private Renderable GetRenderable(SteffiObject @object)
+	{
+		List<Renderable> children = [];
+
+		if (@object is INamedObject namedObject)
 		{
-			var circle = new XElement(svg + "circle",
-				new XAttribute("cx", "50"),
-				new XAttribute("cy", y),
-				new XAttribute("r", "40")
-			);
-			doc.Root!.Add(circle);
-
-			var text = new XElement(svg + "text",
-				new XAttribute("x", "50"),
-				new XAttribute("y", y),
-				new XAttribute("font-size", "20"),
-				new XAttribute("text-anchor", "middle"),
-				new XAttribute("fill", "white"),
-				steffiObject is INamedObject namedObject ? namedObject.Name : "(no name)");
-			doc.Root!.Add(text);
-
-			y += 55;
+			children.Add(new TextLine(namedObject.Name));
 		}
 
-		doc.Root!.Attribute("height")!.Value = y.ToString();
+		if (@object is IParentObject parentObject)
+		{
+			foreach (var child in parentObject.Children)
+			{
+				var childRenderable = GetRenderable(child);
+				children.Add(childRenderable);
+			}
+		}
 
-		return doc.ToString();
+		return new VerticalStackContainer(children);
 	}
 }
