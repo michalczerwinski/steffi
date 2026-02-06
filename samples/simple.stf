@@ -3,7 +3,7 @@
 
 /*this is a block comment*/
 
-Graph firstGraph
+Graph first_Graph_aaa
 {
 	label: red;
 	Graph internal1{}
@@ -11,11 +11,11 @@ Graph firstGraph
 	Graph internal3{}
 }
 
-Graph _node2
+Graph _second_one
 {
 	Graph internal1{
 	/*to jest test*/
-		Graph test{ Graph nowyboczemuNie{} }
+		Graph test{ Graph nowy_bo_czemu_Nie{} }
 	}
 	Graph internal2{}
 }

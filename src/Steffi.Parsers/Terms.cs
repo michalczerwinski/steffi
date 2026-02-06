@@ -10,7 +10,7 @@ public static class Terms
 
 	public readonly static TermParser Identifier =
 		TermParser.Character(c => char.IsLetter(c) || c == '_')
-		>> TermParser.EverythingWhile(char.IsLetterOrDigit);
+		>> TermParser.EverythingWhile(c => char.IsLetterOrDigit(c) || c == '_');
 
 	public readonly static TermParser AssignmentEnd = TermParser.Character(';');
 
