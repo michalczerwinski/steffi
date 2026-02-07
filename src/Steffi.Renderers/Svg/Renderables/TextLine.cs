@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class TextLine(string text, int fontSize = 20, int margin = 5) : Renderable
+internal class TextLine(string text, string fontColor = "black", int fontSize = 20, int margin = 5) : Renderable
 {
 	public override (XElement Element, int Width, int Height) Render(int x, int y)
 	{
@@ -15,7 +15,7 @@ internal class TextLine(string text, int fontSize = 20, int margin = 5) : Render
 				new XAttribute("font-size", fontSize),
 				new XAttribute("text-anchor", "middle"),
 				new XAttribute("dominant-baseline", "central"),
-				new XAttribute("fill", "black"),
+				new XAttribute("fill", fontColor),
 				text);
 
 		return (element, textWidth + 2 * margin, textHeight + 2 * margin);

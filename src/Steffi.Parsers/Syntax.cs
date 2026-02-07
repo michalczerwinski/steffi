@@ -15,7 +15,9 @@ public static class Syntax
 	public readonly static SyntaxRule PropertyAssignment = new SyntaxRule()
 		.Add(Terms.WhiteSpaceBlock | Terms.LineComment | Terms.BlockComment, Arity.ZeroOrMore)
 		.Add("PropertyName", Terms.Identifier, Arity.ExactlyOne)
+		.Add(Terms.WhiteSpaceBlock | Terms.LineComment | Terms.BlockComment, Arity.ZeroOrMore)
 		.Add(Terms.PropertySeparator, Arity.ExactlyOne)
-		.Add("PropertyValue", Terms.Identifier | Terms.IntegerNumber | Terms.WhiteSpaceBlock, Arity.OneOrMore)
+		.Add(Terms.WhiteSpaceBlock | Terms.LineComment | Terms.BlockComment, Arity.ZeroOrMore)
+		.Add("PropertyValue", Terms.IntegerNumber | Terms.StringLiteral | Terms.Identifier, Arity.ExactlyOne)
 		.Add(Terms.AssignmentEnd, Arity.ExactlyOne);
 }

@@ -1,17 +1,45 @@
+#inlcude <azure-diagrams.stf>
+
+//verbatim syntax
 Graph cloud
 {
     Node backendServer
     {
-        label: "Backend Server"
+        label: "Backend Server";
+        fontColor: red;
     }
+    
     Node database
     {
-        label: "Database"
+        label: "Database";
     }
-    Edge
+
+    Edge readsWrites
     {
-        from: database
-        to: backendServerk
-        label: "Edge"
+        from: database;
+        to: backendServer;
+        label: "Reads/Writes";
     }
+}
+
+//Concise syntax
+Graph cloud
+{
+    backendServer -readsWrites-> database
+}
+
+
+set backendServer 
+{
+    label: "Backend Server";
+}
+
+set database 
+{
+    label: "Database";
+}
+
+set readsWrites 
+{
+    label: "Reads/Writes";
 }

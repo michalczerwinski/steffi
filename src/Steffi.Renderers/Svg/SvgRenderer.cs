@@ -10,21 +10,22 @@ public class SvgRenderer : IRenderer
 	private readonly XNamespace svg = "http://www.w3.org/2000/svg";
 
 	public string RenderDocument(SteffiDocument document)
-	{
-		var renderable = GetRenderable(document).Render(0, 0);
-
-		return new Document(GetRenderable(document))
+		=> new Document(GetRenderable(document))
 			.Render()
 			.ToString();
-	}
 
 	private Renderable GetRenderable(SteffiObject @object)
 	{
 		List<Renderable> children = [];
 
-		if (@object is INamedObject namedObject)
+		var labeledObject = @object as ILabeledObject;
+		var namedObject = @object as INamedObject;
+
+		var label = labeledObject?.Label ?? namedObject?.Name;
+
+		if (!string.IsNullOrWhiteSpace(label))
 		{
-			children.Add(new TextLine(namedObject.Name));
+			children.Add(new TextLine(label, labeledObject?.FontColor ?? "black"));
 		}
 
 		if (@object is IParentObject parentObject)
@@ -34,6 +35,13 @@ public class SvgRenderer : IRenderer
 				var childRenderable = GetRenderable(child);
 				children.Add(childRenderable);
 			}
+
+			return parentObject.Layout switch
+			{
+				LayoutType.Horizontal => new HorizontalStackContainer(children),
+				LayoutType.Vertical => new VerticalStackContainer(children),
+				_ => throw new NotSupportedException($"Unsupported layout type: {parentObject.Layout}")
+			};
 		}
 
 		return new VerticalStackContainer(children);

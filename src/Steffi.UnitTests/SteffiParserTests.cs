@@ -117,7 +117,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 		Graph
 		{
 			Node n1 {}
-			layout: standard;
+			layout: Horizontal;
 			Node n2 {}
 		}
 		""");

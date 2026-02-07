@@ -76,6 +76,11 @@ public class SteffiParser
 				var propertyName = propertyNameSegment.Value;
 				var propertyValue = propertyValueSegment.Value;
 
+				if (propertyValue.Matches(Terms.StringLiteral))
+				{
+					propertyValue = propertyValue[1..^1].ToString();
+				}
+
 				ModelBuilder.SetObjectProperty(CurrentObject, propertyName, propertyValue.Trim());
 
 				continue;

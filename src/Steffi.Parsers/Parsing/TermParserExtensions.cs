@@ -2,6 +2,11 @@
 
 public static class TermParserExtensions
 {
+	extension(ReadOnlySpan<char> chars)
+	{
+		public bool Matches(TermParser termParser) => termParser.Invoke(chars) > -1;
+	}
+
 	extension(TermParser parser)
 	{
 		public SyntaxRule ExactlyOne() => new SyntaxRule().Add(parser, Arity.ExactlyOne);
@@ -42,7 +47,22 @@ public static class TermParserExtensions
 			(input) => input.Length > 0 && predicate.Invoke(input[0]) ? 1 : -1;
 
 		public static TermParser AtLeastOne(Func<char, bool> predicate) =>
-			(input) => input.Length > 0 && predicate.Invoke(input[0]) ? 1 : -1;
+			(input) =>
+			{
+				if (input.Length == 0 || !predicate.Invoke(input[0]))
+				{
+					return -1;
+				}
+
+				var pos = 1;
+
+				while (input.Length > pos && predicate.Invoke(input[pos]))
+				{
+					pos++;
+				}
+
+				return pos;
+			};
 
 		public static TermParser AnythingUntil(char c)
 		{

@@ -23,4 +23,6 @@ public static class Terms
 	public readonly static TermParser NestingClose = TermParser.Character('}');
 
 	public readonly static TermParser PropertySeparator = TermParser.Character(':');
+
+	public readonly static TermParser StringLiteral = TermParser.Character('"') >> TermParser.AnythingUntil('"');
 }

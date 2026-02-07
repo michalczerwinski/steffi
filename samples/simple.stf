@@ -1,21 +1,55 @@
-//this is a test
-//another comment
+layout: Horizontal;
 
-/*this is a block comment*/
-
-Graph first_Graph_aaa
+Graph Tosia
 {
-	label: red;
-	Graph internal1{}
-	Graph middle{}
-	Graph internal3{}
+	label: "A jego imię było 44";
+	fontColor: red;
+
+	Graph nestedGraph 
+	{
+		label: "Zagnieżdżony!";
+		fontColor: blue;
+	}
+
+	Graph anotherNested
+	{
+		label: "Zagnieżdżony zielony!!!";
+		fontColor: green;
+	}
 }
 
-Graph _second_one
+Graph Alek 
 {
-	Graph internal1{
-	/*to jest test*/
-		Graph test{ Graph nowy_bo_czemu_Nie{} }
+	layout: Horizontal;
+	Graph
+	{
+		label: "środek";
+	}	
+	Graph
+	{
+		label: 303;
+		fontColor: brown;
+	}	
+	Graph
+	{
+		label: 144;
+	}	
+}
+
+Graph Marysia
+{
+	label: "A jego imię było 44";
+	fontColor: red;
+
+	Graph nestedGraph 
+	{
+		label: "Zagnieżdżony!";
+		fontColor: blue;
 	}
-	Graph internal2{}
+
+	Graph anotherNested
+	{
+		label: "Zagnieżdżony zielony!!!";
+		fontColor: green;
+	}
 }

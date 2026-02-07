@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Samples/">
+    <File Path="../samples/alek.stf" />
     <File Path="../samples/architecture.stf" />
     <File Path="../samples/simple.stf" />
   </Folder>

@@ -2,24 +2,24 @@
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class VerticalStackContainer(IList<Renderable> children, int padding = 5, int spacing = 3) : Renderable
+internal class VerticalStackContainer(IList<Renderable> children, int padding = 5, int spacing = 3) : StackContainer(children, padding, spacing)
 {
-	public override (XElement Element, int Width, int Height) Render(int x, int y)
+	public override (XElement Element, int Width, int Height) Render(int x = 0, int y = 0)
 	{
-		int positionY = padding;
+		int positionY = Padding;
 		int width = 0;
 
 		var childRenders = new List<XElement>();
 
-		for (int i = 0; i < children.Count; i++)
+		for (int i = 0; i < Children.Count; i++)
 		{
-			Renderable? child = children[i];
-			var childRender = child.Render(padding, positionY);
+			Renderable? child = Children[i];
+			var childRender = child.Render(Padding, positionY);
 			positionY += childRender.Height;
 
-			if (i != children.Count - 1)
+			if (i != Children.Count - 1)
 			{
-				positionY += spacing;
+				positionY += Spacing;
 			}
 
 			if (width < childRender.Width)
@@ -29,13 +29,13 @@ internal class VerticalStackContainer(IList<Renderable> children, int padding = 
 			childRenders.Add(childRender.Element);
 		}
 
-		childRenders.Insert(0, new Rectangle(width + 2 * padding, positionY + padding).Render(0, 0).Element);
+		childRenders.Insert(0, new Rectangle(width + 2 * Padding, positionY + Padding).Render(0, 0).Element);
 
 		var render = new XElement(SvgNamespace + "g",
-			new XAttribute("transform", $"translate({x}, {y})"),
+			(x != 0 || y != 0) ? new XAttribute("transform", $"translate({x}, {y})") : null,
 			childRenders
 		);
 
-		return (render, width + 2 * padding, positionY + padding);
+		return (render, width + 2 * Padding, positionY + Padding);
 	}
 }

@@ -1,3 +1,5 @@
+using Steffi.Models.Interfaces;
+
 namespace Steffi.Models.Builder;
 
 public static class ModelBuilder
@@ -11,6 +13,26 @@ public static class ModelBuilder
 
 	public static void SetObjectProperty(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)
 	{
+		if (steffiObject is IParentObject parentObject)
+		{
+			if (propertyName.SequenceEqual("layout"))
+			{
+				parentObject.Layout = Enum.Parse<LayoutType>(value);
+			}
+		}
+
+		if (steffiObject is ILabeledObject labeledObject)
+		{
+			if (propertyName.SequenceEqual("label"))
+			{
+				labeledObject.Label = value.ToString();
+			}
+			else if (propertyName.SequenceEqual("fontColor"))
+			{
+				labeledObject.FontColor = value.ToString();
+			}
+		}
+
 		if (steffiObject is Node node)
 		{
 			if (propertyName.SequenceEqual("label"))
