@@ -10,6 +10,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace Steffi.Cli.Helpers;
 
@@ -41,7 +42,7 @@ internal class PreviewServer : IDisposable
 	public async Task<int> StartAsync()
 	{
 		// Build web application
-		var builder = WebApplication.CreateBuilder();
+		var builder = WebApplication.CreateSlimBuilder();
 		builder.Logging.SetMinimumLevel(LogLevel.Warning);
 		using var app = builder.Build();
 		app.Urls.Add($"http://localhost:{_port}");
@@ -255,12 +256,12 @@ internal class PreviewServer : IDisposable
 					const errorOverlay = document.getElementById('error-overlay');
 					const statusIndicator = document.getElementById('status-indicator');
 					const statusText = document.getElementById('status-text');
-						
+
 					function setStatus(status, text) {
 						statusIndicator.className = 'status-indicator ' + status;
 						statusText.textContent = text;
 					}
-						
+
 					async function loadSvg() {
 						try {
 							setStatus('reloading', 'Loading...');
@@ -275,36 +276,36 @@ internal class PreviewServer : IDisposable
 							setStatus('disconnected', 'Error loading SVG');
 						}
 					}
-						
+
 					function showErrors(errors) {
-						errorOverlay.innerHTML = '<h3>⚠️ Parsing Errors</h3><ul>' + 
-							errors.map(e => '<li>' + e + '</li>').join('') + 
+						errorOverlay.innerHTML = '<h3>⚠️ Parsing Errors</h3><ul>' +
+							errors.map(e => '<li>' + e + '</li>').join('') +
 							'</ul>';
 						errorOverlay.classList.add('show');
 						setStatus('disconnected', 'Parse Error');
 					}
-						
+
 					// Initial load
 					loadSvg();
-						
+
 					// Setup Server-Sent Events
 					const eventSource = new EventSource('/events');
-						
+
 					eventSource.onopen = () => {
 						console.log('SSE connected');
 						setStatus('connected', 'Connected');
 					};
-						
+
 					eventSource.onerror = () => {
 						console.error('SSE connection error');
 						setStatus('disconnected', 'Disconnected');
 					};
-						
+
 					eventSource.addEventListener('reload', (event) => {
 						console.log('Reload event received');
 						loadSvg();
 					});
-						
+
 					eventSource.addEventListener('error', (event) => {
 						const errors = JSON.parse(event.data);
 						console.error('Parse errors:', errors);
@@ -381,7 +382,7 @@ internal class PreviewServer : IDisposable
 				}
 
 				// Notify clients about errors
-				var errorsJson = System.Text.Json.JsonSerializer.Serialize(errors);
+				var errorsJson = JsonSerializer.Serialize(errors, PreviewServerJsonContext.Default.ListString);
 				await NotifyClientsAsync("error", errorsJson);
 
 				await File.WriteAllTextAsync(_tempErrorPath, errorsJson);
