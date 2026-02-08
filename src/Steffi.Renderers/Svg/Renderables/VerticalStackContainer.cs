@@ -2,7 +2,8 @@
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class VerticalStackContainer(IList<Renderable> children, int padding = 5, int spacing = 3) : StackContainer(children, padding, spacing)
+internal class VerticalStackContainer(IList<Renderable> children, int padding = 5, int spacing = 3, bool includeBorder = true)
+	: StackContainer(children, padding, spacing, includeBorder)
 {
 	public override (XElement Element, int Width, int Height) Render(int x = 0, int y = 0)
 	{
@@ -29,7 +30,7 @@ internal class VerticalStackContainer(IList<Renderable> children, int padding = 
 			childRenders.Add(childRender.Element);
 		}
 
-		childRenders.Insert(0, new Rectangle(width + 2 * Padding, positionY + Padding).Render(0, 0).Element);
+		InsertBorder(width + 2 * Padding, positionY + Padding, childRenders);
 
 		var render = new XElement(SvgNamespace + "g",
 			(x != 0 || y != 0) ? new XAttribute("transform", $"translate({x}, {y})") : null,

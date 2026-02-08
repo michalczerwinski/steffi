@@ -25,7 +25,14 @@ public class SvgRenderer : IRenderer
 
 		if (!string.IsNullOrWhiteSpace(label))
 		{
-			children.Add(new TextLine(label, labeledObject?.FontColor ?? "black"));
+			var lines = label.Split("\\n");
+			var textLines = lines
+				.Select(l => new TextLine(l, labeledObject?.FontColor ?? "black"))
+				.Cast<Renderable>()
+				.ToList();
+
+			var textBlock = new VerticalStackContainer(textLines, 0, 0, includeBorder: false);
+			children.Add(textBlock);
 		}
 
 		if (@object is IParentObject parentObject)

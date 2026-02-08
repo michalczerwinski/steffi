@@ -18,12 +18,12 @@ Graph Tosia
 	}
 }
 
-Graph Alek 
+Graph Alek
 {
 	layout: Horizontal;
 	Graph
 	{
-		label: "środek";
+		label: "środek jest\nale\nma\nwiele\nlinii";
 	}	
 	Graph
 	{

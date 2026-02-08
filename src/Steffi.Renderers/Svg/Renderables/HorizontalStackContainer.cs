@@ -2,7 +2,8 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class HorizontalStackContainer(IList<Renderable> children, int padding = 5, int spacing = 3) : StackContainer(children, padding, spacing)
+internal class HorizontalStackContainer(IList<Renderable> children, int padding = 5, int spacing = 3, bool includeBorder = true)
+	: StackContainer(children, padding, spacing, includeBorder)
 {
 	public override (XElement Element, int Width, int Height) Render(int x = 0, int y = 0)
 	{
@@ -29,7 +30,7 @@ internal class HorizontalStackContainer(IList<Renderable> children, int padding 
 			childRenders.Add(childRender.Element);
 		}
 
-		childRenders.Insert(0, new Rectangle(positionX + Padding, height + 2 * Padding).Render(0, 0).Element);
+		InsertBorder(positionX + Padding, height + 2 * Padding, childRenders);
 
 		var render = new XElement(SvgNamespace + "g",
 			(x != 0 || y != 0) ? new XAttribute("transform", $"translate({x}, {y})") : null,
