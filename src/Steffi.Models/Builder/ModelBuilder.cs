@@ -8,6 +8,7 @@ public static class ModelBuilder
 	{
 		"Node" => new Node { Name = name.ToString() },
 		"Graph" => new Graph { Name = name.ToString() },
+		"Edge" => new Edge { Name = name.ToString() },
 		_ => null,
 	};
 

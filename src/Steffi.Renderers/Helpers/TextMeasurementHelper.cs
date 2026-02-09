@@ -4,15 +4,13 @@ namespace Steffi.Renderers.Helpers;
 
 internal static class TextMeasurementHelper
 {
-	internal static (int Width, int Height) MeasureText(string text, int fontSize, string? fontFamily = null)
+	internal static (int Width, int Height) MeasureText(string text, int fontSize, string fontFamily)
 	{
 		using var paint = new SKPaint
 		{
 			TextSize = fontSize,
 			IsAntialias = true,
-			Typeface = string.IsNullOrWhiteSpace(fontFamily)
-				? SKTypeface.Default
-				: SKTypeface.FromFamilyName(fontFamily) ?? SKTypeface.Default
+			Typeface = SKTypeface.FromFamilyName(fontFamily) ?? SKTypeface.Default
 		};
 
 		var width = paint.MeasureText(text);

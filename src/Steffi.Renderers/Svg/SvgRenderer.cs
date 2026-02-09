@@ -27,7 +27,7 @@ public class SvgRenderer : IRenderer
 		{
 			var lines = label.Split("\\n");
 			var textLines = lines
-				.Select(l => new TextLine(l, labeledObject?.FontColor ?? "black"))
+				.Select(l => new TextLine(l, "Arial, Helvetica, sans-serif", labeledObject?.FontColor ?? "black", 20, 0))
 				.Cast<Renderable>()
 				.ToList();
 

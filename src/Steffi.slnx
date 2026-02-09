@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/Miscellanous/">
+    <File Path="../readme.md" />
+    <File Path="../roadmap.md" />
+  </Folder>
   <Folder Name="/Samples/">
     <File Path="../samples/alek.stf" />
     <File Path="../samples/architecture.stf" />

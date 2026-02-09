@@ -17,7 +17,7 @@ public class InteractiveCommand : Command
 		var portOption = new Option<int>(
 			name: "--port",
 			description: "Port number for the preview server.",
-			getDefaultValue: () => 5000);
+			getDefaultValue: () => 5100);
 
 		AddOption(inputFileOption);
 		AddOption(portOption);

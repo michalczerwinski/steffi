@@ -3,16 +3,17 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class TextLine(string text, string fontColor = "black", int fontSize = 20, int margin = 5) : Renderable
+internal class TextLine(string text, string fontFamily, string fontColor = "black", int fontSize = 20, int margin = 5) : Renderable
 {
 	public override (XElement Element, int Width, int Height) Render(int x, int y)
 	{
-		var (textWidth, textHeight) = TextMeasurementHelper.MeasureText(text, fontSize);
+		var (textWidth, textHeight) = TextMeasurementHelper.MeasureText(text, fontSize, fontFamily);
 
 		var element = new XElement(SvgNamespace + "text",
 				new XAttribute("x", x + textWidth / 2 + margin),
 				new XAttribute("y", y + textHeight / 2),
 				new XAttribute("font-size", fontSize),
+				new XAttribute("font-family", fontFamily),
 				new XAttribute("text-anchor", "middle"),
 				new XAttribute("dominant-baseline", "central"),
 				new XAttribute("fill", fontColor),
