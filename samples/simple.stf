@@ -1,61 +1,27 @@
-layout: Horizontal;
+layout: Canvas;
 
-Graph t1
+Rectangle r1{x:10; y: 10; width:100;height:20;}
+Rectangle r2{x:25; y: 35; width:100;height:20;}
+Rectangle r3{x:50; y: 60; width:100;height:20;} 
+
+Text { x:150; y:0; label: "Hello world!"; fontColor: "red";}
+
+HorizontalStack 
 {
-	label: "A jego imię było 44";
-	fontColor: red;
+	x: 10; y: 90;
+	Rectangle{width:100;height:20;}
+	Rectangle{width:100;height:20;}
+	Rectangle{width:100;height:20;}
 
-	Graph nestedGraph 
+	VerticalStack 
 	{
-		label: "Zagnieżdżony!";
-		fontColor: blue;
-	}
-
-	Graph anotherNested
-	{
-		label: "Zagnieżdżony zielony!!!";
-		fontColor: green;
-	}
-}
-
-Graph a1
-{
-	layout: Horizontal;
-	Graph
-	{
-		label: "środek jest\nale\nma\nwiele\nlinii";
-	}	
-	Graph
-	{
-		label: 303;
-		fontColor: brown;
-	}	
-	Graph
-	{
-		label: 144;
-	}	
-}
-
-Graph m1
-{
-	label: "A jego imię było 44";
-	fontColor: red;
-
-	Graph nestedGraph 
-	{
-		label: "Zagnieżdżony!";
-		fontColor: blue;
-	}
-
-	Graph anotherNested
-	{
-		label: "Zagnieżdżony zielony!!!";
-		fontColor: green;
-	}
-
-	Edge 
-	{
-		from: nestedGraph;
-		to: anotherNested;
+		Rectangle{width:100;height:20;}
+		Rectangle{width:100;height:20;}
+		Rectangle{width:100;height:20;}
+		Text { label:"aaa"; }
+		Canvas c 
+		{
+			Text { label: "in canvas"; x: 10; y: 0; fontSize:10; fontColor:blue;}
+		}
 	}
 }

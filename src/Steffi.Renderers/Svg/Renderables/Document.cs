@@ -2,18 +2,13 @@
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class Document(Renderable renderable)
+internal class Document(Renderable main)
 {
-	public XDocument Render()
-	{
-		var rendered = renderable.Render(0, 0);
-
-		return new XDocument(
+	public XDocument Render() => new XDocument(
 			new XElement(Renderable.SvgNamespace + "svg",
-				new XAttribute("width", rendered.Width),
-				new XAttribute("height", rendered.Height),
-				rendered.Element
+				new XAttribute("width", main.Render().Width),
+				new XAttribute("height", main.Render().Height),
+				main.Render().Element
 			)
 		);
-	}
 }

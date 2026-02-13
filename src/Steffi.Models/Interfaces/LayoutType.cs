@@ -2,6 +2,7 @@ namespace Steffi.Models.Interfaces;
 
 public enum LayoutType
 {
-	Vertical = 0,
-	Horizontal = 1,
+	Canvas = 0,
+	Vertical = 1,
+	Horizontal = 2,
 }

@@ -4,11 +4,13 @@ namespace Steffi.Models.Builder;
 
 public static class ModelBuilder
 {
-	public static SteffiObject? CreateObjectFactory(ReadOnlySpan<char> tokenType, ReadOnlySpan<char> name) => tokenType switch
+	public static SteffiObject? CreateObjectFactory(ReadOnlySpan<char> tokenType, ReadOnlySpan<char> name, IParentObject parentObject) => tokenType switch
 	{
-		"Node" => new Node { Name = name.ToString() },
-		"Graph" => new Graph { Name = name.ToString() },
-		"Edge" => new Edge { Name = name.ToString() },
+		nameof(Canvas) => new Canvas { Name = name.ToString(), Parent = parentObject, ParentProperties = parentObject.CreateContainerProperties() },
+		nameof(HorizontalStack) => new HorizontalStack { Name = name.ToString(), Parent = parentObject, ParentProperties = parentObject.CreateContainerProperties() },
+		nameof(VerticalStack) => new VerticalStack { Name = name.ToString(), Parent = parentObject, ParentProperties = parentObject.CreateContainerProperties() },
+		nameof(Rectangle) => new Rectangle { Name = name.ToString(), Parent = parentObject, ParentProperties = parentObject.CreateContainerProperties() },
+		nameof(Text) => new Text { Name = name.ToString(), Parent = parentObject, ParentProperties = parentObject.CreateContainerProperties() },
 		_ => null,
 	};
 
@@ -32,20 +34,37 @@ public static class ModelBuilder
 			{
 				labeledObject.FontColor = value.ToString();
 			}
-		}
-
-		if (steffiObject is Node node)
-		{
-			if (propertyName.SequenceEqual("label"))
+			else if (propertyName.SequenceEqual("fontSize"))
 			{
-				node.Label = value.ToString();
+				labeledObject.FontSize = int.Parse(value);
 			}
-
-		}
-		else if (steffiObject is Graph graph)
-		{
-			if (propertyName.SequenceEqual("TODO"))
+			else if (propertyName.SequenceEqual("fontFamily"))
 			{
+				labeledObject.FontFamily = value.ToString();
+			}
+		}
+
+		if (steffiObject is IChildObject childObject && childObject.ParentProperties is CanvasContainerProperties canvasContainerProperties)
+		{
+			if (propertyName.SequenceEqual("x"))
+			{
+				canvasContainerProperties.X = int.Parse(value);
+			}
+			else if (propertyName.SequenceEqual("y"))
+			{
+				canvasContainerProperties.Y = int.Parse(value);
+			}
+		}
+
+		if (steffiObject is Rectangle rectangle)
+		{
+			if (propertyName.SequenceEqual("width"))
+			{
+				rectangle.Width = int.Parse(value);
+			}
+			else if (propertyName.SequenceEqual("height"))
+			{
+				rectangle.Height = int.Parse(value);
 			}
 		}
 	}

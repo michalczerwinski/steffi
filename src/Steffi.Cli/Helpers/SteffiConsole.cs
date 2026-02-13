@@ -44,8 +44,6 @@ public static class SteffiConsole
 		var color = steffiObject switch
 		{
 			SteffiDocument => "dodgerblue1",
-			Graph => "springgreen3",
-			Node => "gold1",
 			_ => "white"
 		};
 
@@ -57,8 +55,6 @@ public static class SteffiConsole
 		return steffiObject switch
 		{
 			SteffiDocument => "Steffi Document",
-			Graph graph => $"Graph: {FormatName(graph.Name)}",
-			Node node => $"Node: {FormatName(node.Name)}",
 			INamedObject named => $"{steffiObject.GetType().Name}: {FormatName(named.Name)}",
 			_ => steffiObject.GetType().Name
 		};

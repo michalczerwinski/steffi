@@ -2,7 +2,8 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal abstract class StackContainer(IList<Renderable> children, int padding = 5, int spacing = 3, bool inlcudeBorder = true) : Renderable
+internal abstract class ContainerRenderable(IList<Renderable> children, int padding = 5, int spacing = 3, bool inlcudeBorder = true)
+	: Renderable
 {
 	protected IList<Renderable> Children { get; } = children;
 	protected int Padding { get; } = padding;
@@ -12,7 +13,7 @@ internal abstract class StackContainer(IList<Renderable> children, int padding =
 	{
 		if (inlcudeBorder)
 		{
-			childRenders.Insert(0, new Rectangle(width, height).Render(0, 0).Element);
+			childRenders.Insert(0, new Rectangle(0, 0, width, height).Render().Element);
 		}
 	}
 }

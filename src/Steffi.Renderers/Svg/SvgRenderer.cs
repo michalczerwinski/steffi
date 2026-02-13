@@ -16,22 +16,51 @@ public class SvgRenderer : IRenderer
 
 	private Renderable GetRenderable(SteffiObject @object)
 	{
+		if (@object is Models.Rectangle rectangle)
+		{
+			var canvasProperties = rectangle.ParentProperties as CanvasContainerProperties;
+
+			var x = canvasProperties?.X ?? 0;
+			var y = canvasProperties?.Y ?? 0;
+
+			return new Renderables.Rectangle(x, y, rectangle.Width, rectangle.Height);
+		}
+
+		if (@object is Models.Text text)
+		{
+			var canvasProperties = text.ParentProperties as CanvasContainerProperties;
+
+			var x = canvasProperties?.X ?? 0;
+			var y = canvasProperties?.Y ?? 0;
+
+			return new TextLine(text.Label ?? "", text.FontFamily ?? "Arial, Helvetica, sans-serif", text.FontColor ?? "black", text.FontSize ?? 20)
+			{
+				X = x,
+				Y = y
+			};
+		}
+
 		List<Renderable> children = [];
 
 		var labeledObject = @object as ILabeledObject;
 		var namedObject = @object as INamedObject;
 
-		var label = labeledObject?.Label ?? namedObject?.Name;
+		var label = labeledObject?.Label;
 
 		if (!string.IsNullOrWhiteSpace(label))
 		{
 			var lines = label.Split("\\n");
 			var textLines = lines
-				.Select(l => new TextLine(l, "Arial, Helvetica, sans-serif", labeledObject?.FontColor ?? "black", 20, 0))
+				.Select(l => new TextLine(
+					text: l,
+					fontFamily: labeledObject?.FontFamily ?? "Arial, Helvetica, sans-serif",
+					fontColor: labeledObject?.FontColor ?? "black",
+					fontSize: labeledObject?.FontSize ?? 20,
+					margin: 0))
 				.Cast<Renderable>()
 				.ToList();
 
-			var textBlock = new VerticalStackContainer(textLines, 0, 0, includeBorder: false);
+			var textBlock = new VerticalStackRenderable(textLines, 0, 0, includeBorder: false);
 			children.Add(textBlock);
 		}
 
@@ -39,18 +68,25 @@ public class SvgRenderer : IRenderer
 		{
 			foreach (var child in parentObject.Children)
 			{
-				var childRenderable = GetRenderable(child);
-				children.Add(childRenderable);
+				if (child is not IOverlayObject)
+				{
+					var childRenderable = GetRenderable(child);
+					children.Add(childRenderable);
+				}
 			}
+
+			var childObject = @object as IChildObject;
+			var absoluteProperties = childObject?.ParentProperties as CanvasContainerProperties;
 
 			return parentObject.Layout switch
 			{
-				LayoutType.Horizontal => new HorizontalStackContainer(children),
-				LayoutType.Vertical => new VerticalStackContainer(children),
+				LayoutType.Canvas => new CanvasContainer(children, padding: 5),
+				LayoutType.Horizontal => new HorizontalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
+				LayoutType.Vertical => new VerticalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
 				_ => throw new NotSupportedException($"Unsupported layout type: {parentObject.Layout}")
 			};
 		}
 
-		return new VerticalStackContainer(children);
+		return new VerticalStackRenderable(children);
 	}
 }

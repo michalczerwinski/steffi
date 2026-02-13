@@ -56,16 +56,22 @@ public class SteffiParser
 				var objectName = objectNameSegment.GetValueOrDefault(GenerateDefaultName);
 				var typeName = typeIdentifierSegment.Value;
 
-				var steffiObject = ModelBuilder.CreateObjectFactory(typeName, objectName);
-
-				if (steffiObject == null)
+				if (CurrentObject is IParentObject parent)
 				{
-					return (Document, [typeIdentifierSegment.CreateError($"Unknown type '{typeName}'")]);
+					var steffiObject = ModelBuilder.CreateObjectFactory(typeName, objectName, parent);
+					if (steffiObject == null)
+					{
+						return (Document, [typeIdentifierSegment.CreateError($"Unknown type '{typeName}'")]);
+					}
+
+					if (!NestObject(steffiObject))
+					{
+						return (Document, [$"{typeIdentifierSegment.GetPositionString()} Cannot nest children in {CurrentObject.GetType().Name}"]);
+					}
 				}
-
-				if (!NestObject(steffiObject))
+				else
 				{
-					return (Document, [$"{typeIdentifierSegment.GetPositionString()} Cannot nest children in {CurrentObject.GetType().Name}"]);
+					return (Document, [typeIdentifierSegment.CreateError($"Cannot nest children in {CurrentObject.GetType()}")]);
 				}
 
 				continue;
@@ -98,6 +104,11 @@ public class SteffiParser
 			}
 
 			return (Document, [parsingContext.CreateError($"Unexpected expression")]);
+		}
+
+		if (_parents.Count == 1)
+		{
+			Document.ResolveReferences();
 		}
 
 		return _parents.Count switch

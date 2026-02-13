@@ -5,4 +5,8 @@ public interface ILabeledObject
 	string? Label { get; set; }
 
 	string? FontColor { get; set; }
+
+	string? FontFamily { get; set; }
+
+	int? FontSize { get; set; }
 }

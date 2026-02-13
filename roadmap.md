@@ -1,7 +1,6 @@
 # To do list
-- text block issue
 - heredoc like strings
 - syntax highlighting generator
-- set block syntax
+- validation for missing/not allowed parent container properties
 - publish as winget package
 - publish as dotnet tool
