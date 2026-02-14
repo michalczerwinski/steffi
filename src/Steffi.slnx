@@ -7,6 +7,7 @@
     <File Path="../samples/simple.stf" />
   </Folder>
   <Project Path="Steffi.Cli/Steffi.Cli.csproj" />
+  <Project Path="Steffi.Models.SourceGenerators/Steffi.Models.SourceGenerators.csproj" />
   <Project Path="Steffi.Models/Steffi.Models.csproj" />
   <Project Path="Steffi.Parsers/Steffi.Parsers.csproj" />
   <Project Path="Steffi.Renderers/Steffi.Renderers.csproj" />
