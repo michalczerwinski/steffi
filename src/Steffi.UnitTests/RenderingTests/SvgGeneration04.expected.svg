@@ -1,6 +1,5 @@
-<svg width="174" height="43" xmlns="http://www.w3.org/2000/svg">
+<svg width="169" height="38" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(, )">
-    <rect x="0" y="0" width="174" height="43" fill="white" stroke="black" />
     <g transform="translate(5, 5)">
       <g>
         <text x="79" y="14" font-size="24" font-family="Courier New" text-anchor="middle" dominant-baseline="central" fill="green">Hello World</text>

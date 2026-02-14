@@ -19,4 +19,10 @@ public class Canvas : SteffiObject, INamedObject, IParentObject, IChildObject
 
 	[GenerateModelBuilderSetter]
 	public int? Height { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public bool? Border { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public int? Padding { get; set; }
 }

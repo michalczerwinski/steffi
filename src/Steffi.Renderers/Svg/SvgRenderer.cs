@@ -60,10 +60,9 @@ public class SvgRenderer : IRenderer
 		}
 
 
-		List<Renderable> children = [];
-
 		if (@object is IParentObject parentObject)
 		{
+			List<Renderable> children = [];
 
 			foreach (var child in parentObject.Children)
 			{
@@ -76,14 +75,26 @@ public class SvgRenderer : IRenderer
 
 			return parentObject switch
 			{
-				Canvas => new CanvasContainerRenderable(children, padding: 5),
-				HorizontalStack => new HorizontalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
-				VerticalStack => new VerticalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
+				Canvas canvas => new CanvasContainerRenderable(children, 
+					padding: canvas.Padding ?? 0, 
+					width: canvas.Width, 
+					height: canvas.Height,
+					includeBorder: canvas.Border ?? false),
+				HorizontalStack hStack => new HorizontalStackRenderable(children, 
+					padding: hStack.Padding ?? 0, 
+					spacing: 10,
+					includeBorder: hStack.Border ?? false) 
+					{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
+				VerticalStack vStack => new VerticalStackRenderable(children, 
+					padding: vStack.Padding ?? 0, 
+					spacing: 10,
+					includeBorder: vStack.Border ?? false) 
+					{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
 				SteffiDocument => new VerticalStackRenderable(children, padding: 5, spacing: 10),
 				_ => throw new NotSupportedException($"Unsupported layout type: {parentObject.GetType()}")
 			};
 		}
 
-		return new VerticalStackRenderable(children);
+		throw new InvalidOperationException($"Unknown element, no rendering for {@object.GetType().Name}");
 	}
 }

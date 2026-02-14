@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal abstract class ContainerRenderable(IList<Renderable> children, int padding = 5, int spacing = 3, bool inlcudeBorder = true)
+internal abstract class ContainerRenderable(IList<Renderable> children, int padding = 0, int spacing = 3, bool inlcudeBorder = false)
 	: Renderable
 {
 	protected IList<Renderable> Children { get; } = children;

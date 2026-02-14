@@ -2,7 +2,7 @@
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class Line(int x1, int y1, int x2, int y2) : Renderable
+internal class LineRenderable(int x1, int y1, int x2, int y2) : Renderable
 {
 	public override (XElement Element, int Width, int Height) Render()
 	{

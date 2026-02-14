@@ -40,7 +40,19 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 					foreach (var prop in setterProps)
 					{
 						var type = prop.Type.ToDisplayString();
-						var parseExpr = type == "int" || type == "int?" ? "int.Parse(value)" : "value.ToString()";
+						string parseExpr;
+						if (type == "int" || type == "int?")
+						{
+							parseExpr = "int.Parse(value)";
+						}
+						else if (type == "bool" || type == "bool?")
+						{
+							parseExpr = "bool.Parse(value)";
+						}
+						else
+						{
+							parseExpr = "value.ToString()";
+						}
 						setterMethods.AppendLine($"                if (propertyName.Equals(nameof({typeSymbol.Name}.{prop.Name}), StringComparison.InvariantCultureIgnoreCase))");
 						setterMethods.AppendLine("                {");
 						setterMethods.AppendLine($"                    obj.{prop.Name} = {parseExpr};");

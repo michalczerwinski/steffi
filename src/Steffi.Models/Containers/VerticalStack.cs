@@ -12,4 +12,10 @@ public class VerticalStack : SteffiObject, INamedObject, IParentObject, IChildOb
 	public required ParentContainerProperties ParentProperties { get; set; }
 
 	public ParentContainerProperties CreateContainerProperties() => new EmptyContainerProperties();
+
+	[GenerateModelBuilderSetter]
+	public bool? Border { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public int? Padding { get; set; }
 }

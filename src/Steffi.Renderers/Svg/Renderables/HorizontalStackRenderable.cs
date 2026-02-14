@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class HorizontalStackRenderable(IList<Renderable> children, int padding = 5, int spacing = 3, bool includeBorder = true)
+internal class HorizontalStackRenderable(IList<Renderable> children, int padding = 0, int spacing = 3, bool includeBorder = false)
 	: ContainerRenderable(children, padding, spacing, includeBorder)
 {
 	public override (XElement Element, int Width, int Height) Render()

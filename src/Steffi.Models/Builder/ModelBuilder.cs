@@ -6,5 +6,7 @@ public static partial class ModelBuilder
 		=> SetIChildObjectProperty(steffiObject, propertyName, value)
 		|| SetRectangleProperty(steffiObject, propertyName, value)
 		|| SetTextProperty(steffiObject, propertyName, value)
-		|| SetCanvasProperty(steffiObject, propertyName, value);
+		|| SetCanvasProperty(steffiObject, propertyName, value)
+		|| SetHorizontalStackProperty(steffiObject, propertyName, value)
+		|| SetVerticalStackProperty(steffiObject, propertyName, value);
 }

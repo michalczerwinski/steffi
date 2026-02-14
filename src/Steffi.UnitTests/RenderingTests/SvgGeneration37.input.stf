@@ -1,0 +1,13 @@
+HorizontalStack {
+  border: false;
+  Rectangle {
+    width: 50;
+    height: 50;
+    fill: "lightblue";
+  }
+  Rectangle {
+    width: 50;
+    height: 50;
+    fill: "lightgreen";
+  }
+}

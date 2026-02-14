@@ -1,15 +1,11 @@
-<svg width="65" height="95" xmlns="http://www.w3.org/2000/svg">
+<svg width="30" height="60" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(, )">
-    <rect x="0" y="0" width="65" height="95" fill="white" stroke="black" />
     <g transform="translate(5, 5)">
       <g>
-        <rect x="0" y="0" width="50" height="80" fill="white" stroke="black" />
-        <g transform="translate(5, 5)">
-          <rect x="0" y="0" width="40" height="70" fill="white" stroke="black" />
-          <g transform="translate(5, 5)">
-            <rect x="0" y="0" width="30" height="60" fill="white" stroke="black" />
-            <rect x="5" y="5" width="20" height="20" fill="white" stroke="black" />
-            <rect x="5" y="35" width="20" height="20" fill="white" stroke="black" />
+        <g>
+          <g>
+            <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" />
+            <rect x="0" y="30" width="20" height="20" fill="white" stroke="black" />
           </g>
         </g>
       </g>

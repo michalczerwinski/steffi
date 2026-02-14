@@ -2,10 +2,12 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class CanvasContainerRenderable(IList<Renderable> renderables, int padding = 5, int? width = null, int? height = null) : Renderable
+internal class CanvasContainerRenderable(IList<Renderable> renderables, int padding = 0, int? width = null, int? height = null, bool includeBorder = false) : Renderable
 {
 	private readonly int? _width = width;
 	private readonly int? _height = height;
+	private readonly int _padding = padding;
+	private readonly bool _includeBorder = includeBorder;
 
 	public override (XElement Element, int Width, int Height) Render()
 	{
@@ -23,17 +25,27 @@ internal class CanvasContainerRenderable(IList<Renderable> renderables, int padd
 			}
 
 			var childRender = child.Render();
+			child.X += _padding;
+			child.Y += _padding;
 
-			if (maxWidth < child.X.Value + childRender.Width + padding)
+			if (maxWidth < child.X.Value + childRender.Width + _padding)
 			{
-				maxWidth = child.X.Value + childRender.Width + padding;
+				maxWidth = child.X.Value + childRender.Width + _padding;
 			}
 
-			if (maxHeight < child.Y.Value + childRender.Height + padding)
+			if (maxHeight < child.Y.Value + childRender.Height + _padding)
 			{
-				maxHeight = child.Y.Value + childRender.Height + padding;
+				maxHeight = child.Y.Value + childRender.Height + _padding;
 			}
 			childRenders.Add(childRender.Element);
+		}
+
+		var finalWidth = _width ?? maxWidth;
+		var finalHeight = _height ?? maxHeight;
+
+		if (_includeBorder)
+		{
+			childRenders.Insert(0, new RectangleRenderable(0, 0, finalWidth, finalHeight).Render().Element);
 		}
 
 		var render = new XElement(SvgNamespace + "g",
@@ -41,6 +53,6 @@ internal class CanvasContainerRenderable(IList<Renderable> renderables, int padd
 			childRenders
 		);
 
-		return (render, _width ?? maxWidth, _height ?? maxHeight);
+		return (render, finalWidth, finalHeight);
 	}
 }

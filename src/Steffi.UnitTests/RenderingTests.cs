@@ -106,4 +106,13 @@ public class RenderingTests : SteffiParserTestsBase
 
 	[Test, DisplayName("Renders rectangle with stroke width")]
 	public async Task RendersRectangleWithStrokeWidth() => await RendersSvgCorrectly("SvgGeneration35");
+
+	[Test, DisplayName("Renders canvas with border false and custom padding")]
+	public async Task RendersCanvasWithoutBorderAndPadding() => await RendersSvgCorrectly("SvgGeneration36");
+
+	[Test, DisplayName("Renders horizontal stack without border")]
+	public async Task RendersHorizontalStackWithoutBorder() => await RendersSvgCorrectly("SvgGeneration37");
+
+	[Test, DisplayName("Renders vertical stack with custom padding")]
+	public async Task RendersVerticalStackWithCustomPadding() => await RendersSvgCorrectly("SvgGeneration38");
 }
