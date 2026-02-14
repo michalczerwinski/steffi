@@ -2,6 +2,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using System.Text;
 
+namespace Steffi.Models.SourceGenerators;
+
 [Generator]
 public class ModelBuilderSourceGenerator : IIncrementalGenerator
 {
@@ -11,6 +13,9 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 			context.CompilationProvider,
 			(sourceProductionContext, compilation) =>
 			{
+				//foreach classes marked with [GenerateModelBuilder] attribute
+
+
 				var source = """
 				namespace Steffi.Models.Builder
 				{

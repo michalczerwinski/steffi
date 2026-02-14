@@ -1,12 +1,12 @@
+using Steffi.Models.Attributes;
 using Steffi.Models.Interfaces;
 
 namespace Steffi.Models.Containers;
 
+[GenerateModelBuilder]
 public class Canvas : SteffiObject, INamedObject, IParentObject, IChildObject
 {
 	public required string Name { get; set; }
-
-	public LayoutType Layout { get; set; } = LayoutType.Canvas;
 
 	public List<SteffiObject> Children { get; } = [];
 	public required IParentObject Parent { get; set; }
