@@ -1,0 +1,31 @@
+Canvas {
+	// Simulated Login Form using only allowed elements
+	Text { x: 80; y: 10; spans: "Hello world!\n Please Log In"; fontSize: 16; fontColor: "red"; }
+
+	VerticalStack {
+		x: 40; y: 65;
+		// Username row
+		HorizontalStack {
+			Text { spans: "Username:"; fontSize: 12; }
+			Rectangle { width: 120; height: 20; }
+		}
+		// Password row
+		HorizontalStack {
+			Text { spans: "Password:"; fontSize: 12; }
+			Rectangle { width: 120; height: 20; }
+		}
+      // Buttons row
+       HorizontalStack {
+			// Login button
+			Canvas {
+				Rectangle { width: 60; height: 24; }
+				Text { x: 15; y: 4; spans: "Login"; fontSize: 12; }
+			}
+			// Cancel button
+			Canvas {
+				Rectangle { width: 60; height: 24; }
+				Text { x: 10; y: 4; spans: "Cancel"; fontSize: 12; }
+			}
+		}
+	}
+}

@@ -17,56 +17,49 @@ public class SvgRenderer : IRenderer
 
 	private Renderable GetRenderable(SteffiObject @object)
 	{
-		if (@object is Models.Rectangle rectangle)
+		if (@object is Rectangle rectangle)
 		{
 			var canvasProperties = rectangle.ParentProperties as CanvasContainerProperties;
 
 			var x = canvasProperties?.X ?? 0;
 			var y = canvasProperties?.Y ?? 0;
 
-			return new Renderables.Rectangle(x, y, rectangle.Width, rectangle.Height);
+			return new RectangleRenderable(x, y, rectangle.Width, rectangle.Height);
 		}
 
-		if (@object is Models.Text text)
+		if (@object is Text text)
 		{
 			var canvasProperties = text.ParentProperties as CanvasContainerProperties;
 
-			var x = canvasProperties?.X ?? 0;
-			var y = canvasProperties?.Y ?? 0;
+			if (!string.IsNullOrWhiteSpace(text.Spans))
+			{
+				var lines = text.Spans.Split("\\n");
+				var textLines = lines
+					.Select(l => new TextLine(
+						text: l,
+						fontFamily: text.FontFamily ?? "Arial, Helvetica, sans-serif",
+						fontColor: text.FontColor ?? "black",
+						fontSize: text.FontSize ?? 20,
+						margin: 0))
+					.Cast<Renderable>()
+					.ToList();
+
+				return new VerticalStackRenderable(textLines, 0, 0, includeBorder: false) { X = canvasProperties?.X ?? 0, Y = canvasProperties?.Y ?? 0 };
+			}
 
 			return new TextLine(text.Spans ?? "", text.FontFamily ?? "Arial, Helvetica, sans-serif", text.FontColor ?? "black", text.FontSize ?? 20)
 			{
-				X = x,
-				Y = y
+				X = canvasProperties?.X ?? 0,
+				Y = canvasProperties?.Y ?? 0
 			};
 		}
 
+
 		List<Renderable> children = [];
-
-		var textObject = @object as Text;
-		var namedObject = @object as INamedObject;
-
-		var label = textObject?.Spans;
-
-		if (!string.IsNullOrWhiteSpace(label))
-		{
-			var lines = label.Split("\\n");
-			var textLines = lines
-				.Select(l => new TextLine(
-					text: l,
-					fontFamily: textObject?.FontFamily ?? "Arial, Helvetica, sans-serif",
-					fontColor: textObject?.FontColor ?? "black",
-					fontSize: textObject?.FontSize ?? 20,
-					margin: 0))
-				.Cast<Renderable>()
-				.ToList();
-
-			var textBlock = new VerticalStackRenderable(textLines, 0, 0, includeBorder: false);
-			children.Add(textBlock);
-		}
 
 		if (@object is IParentObject parentObject)
 		{
+
 			foreach (var child in parentObject.Children)
 			{
 				var childRenderable = GetRenderable(child);

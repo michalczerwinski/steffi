@@ -2,14 +2,14 @@
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class Rectangle : Renderable
+internal class RectangleRenderable : Renderable
 {
 	private readonly int _width;
 	private readonly int _height;
 	private readonly string? _fill;
 	private readonly string? _stroke;
 
-	public Rectangle(int x, int y, int width, int height, string? fill = null, string? stroke = null)
+	public RectangleRenderable(int x, int y, int width, int height, string? fill = null, string? stroke = null)
 	{
 		X = x;
 		Y = y;

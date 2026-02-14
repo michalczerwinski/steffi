@@ -13,7 +13,7 @@ internal abstract class ContainerRenderable(IList<Renderable> children, int padd
 	{
 		if (inlcudeBorder)
 		{
-			childRenders.Insert(0, new Rectangle(0, 0, width, height).Render().Element);
+			childRenders.Insert(0, new RectangleRenderable(0, 0, width, height).Render().Element);
 		}
 	}
 }
