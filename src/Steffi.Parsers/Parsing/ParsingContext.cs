@@ -11,7 +11,7 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 
 	public (int Index, int Row, int Column) Position { get; private set; } = position;
 
-	public bool EndReached => Remaining.Length == 0;
+	public bool IsEndReached => Remaining.Length == 0;
 
 	public bool Matches(SyntaxRule syntaxRule) => Matches(syntaxRule, out var _, out _, out _);
 
@@ -28,9 +28,9 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 		var contextBefore = this;
 		int matchedSegmentIndex = 0;
 
-		foreach (var (name, termParser, arity) in syntaxRule.Segments)
+		foreach (var segment in syntaxRule.Segments)
 		{
-			var (matched, matchedLength) = SyntaxRule.MatchSegment(Remaining, termParser, arity);
+			var (matched, matchedLength) = SyntaxRule.MatchSegment(Remaining, segment.Parser, segment.Arity);
 
 			if (!matched)
 			{
@@ -44,9 +44,9 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 				var inputBefore = Remaining;
 
 				Advance(matchedLength);
-				if (name is not null)
+				if (segment.Name is not null)
 				{
-					var matchedSegment = new MatchedSegment(name, positionBefore.Index, matchedLength, positionBefore.Row, positionBefore.Column, inputBefore.Slice(0, matchedLength));
+					var matchedSegment = new MatchedSegment(segment.Name, positionBefore.Index, matchedLength, positionBefore.Row, positionBefore.Column, inputBefore.Slice(0, matchedLength));
 					switch (matchedSegmentIndex)
 					{
 						case 0:
@@ -67,7 +67,7 @@ public ref struct ParsingContext(ReadOnlySpan<char> input, ReadOnlySpan<char> re
 		return true;
 	}
 
-	public void Advance(int length)
+	private void Advance(int length)
 	{
 		var newRemaining = Remaining.Slice(length);
 		int newIndex = Position.Index + length;

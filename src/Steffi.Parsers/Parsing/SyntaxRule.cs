@@ -1,14 +1,16 @@
 ﻿namespace Steffi.Parsers.Parsing;
 
+
 public class SyntaxRule()
 {
-	internal List<(string? Name, TermParser, Arity Arity)> Segments { get; private set; } = [];
+	public record class SyntaxSegment(string? Name, TermParser Parser, Arity Arity);
 
+	internal List<SyntaxSegment> Segments { get; private set; } = [];
 	public SyntaxRule Add(TermParser termParser, Arity arity) => Add(null, termParser, arity);
 
 	public SyntaxRule Add(string? name, TermParser termParser, Arity arity)
 	{
-		Segments.Add((name, termParser, arity));
+		Segments.Add(new(name, termParser, arity));
 
 		return this;
 	}

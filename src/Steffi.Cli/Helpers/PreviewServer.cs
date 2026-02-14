@@ -57,7 +57,8 @@ internal class PreviewServer : IDisposable
 		app.MapGet("/svg", ServeGeneratedSvgFile);
 		app.MapGet("/events", ServeGenerationEvents);
 		// Redirect root to interactive path for convenience
-		app.MapGet("/", ctx => {
+		app.MapGet("/", ctx =>
+		{
 			ctx.Response.Redirect(_interactivePath);
 			return Task.CompletedTask;
 		});

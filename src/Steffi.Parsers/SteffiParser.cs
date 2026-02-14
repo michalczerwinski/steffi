@@ -49,7 +49,7 @@ public class SteffiParser
 		Initialize();
 		var parsingContext = new ParsingContext(content.AsSpan());
 
-		while (!parsingContext.EndReached)
+		while (!parsingContext.IsEndReached)
 		{
 			if (parsingContext.Matches(Syntax.ObjectDeclaration, out var typeIdentifierSegment, out var objectNameSegment))
 			{
