@@ -1,0 +1,15 @@
+<svg width="153" height="65" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="153" height="65" fill="white" stroke="black" />
+    <g transform="translate(5, 5)">
+      <g>
+        <rect x="0" y="0" width="138" height="50" fill="white" stroke="black" />
+        <rect x="5" y="5" width="40" height="40" fill="white" stroke="black" />
+        <g transform="translate(55, 5)">
+          <text x="14" y="8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Label</text>
+        </g>
+        <rect x="93" y="5" width="40" height="40" fill="white" stroke="black" />
+      </g>
+    </g>
+  </g>
+</svg>

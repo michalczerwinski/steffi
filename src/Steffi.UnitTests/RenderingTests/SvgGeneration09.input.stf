@@ -1,0 +1,7 @@
+Canvas {
+  VerticalStack {
+    Text { spans: "Header"; fontSize: 18; }
+    Rectangle { width: 100; height: 50; }
+    Text { spans: "Footer"; fontSize: 10; }
+  }
+}

@@ -1,0 +1,8 @@
+Canvas {
+  VerticalStack {
+    HorizontalStack {
+      Rectangle { width: 30; height: 30; }
+      Rectangle { width: 30; height: 30; }
+    }
+  }
+}

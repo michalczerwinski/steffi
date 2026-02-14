@@ -1,0 +1,6 @@
+Canvas {
+  Text {
+    spans: "Line 1\nLine 2\nLine 3";
+    fontSize: 14;
+  }
+}

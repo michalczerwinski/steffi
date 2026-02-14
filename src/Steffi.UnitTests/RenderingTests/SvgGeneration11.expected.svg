@@ -1,0 +1,10 @@
+<svg width="25" height="25" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="25" height="25" fill="white" stroke="black" />
+    <g transform="translate(5, 5)">
+      <g>
+        <rect x="0" y="0" width="10" height="10" fill="white" stroke="black" />
+      </g>
+    </g>
+  </g>
+</svg>

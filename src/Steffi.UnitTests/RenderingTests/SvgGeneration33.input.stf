@@ -1,0 +1,6 @@
+Canvas {
+  HorizontalStack {
+    Rectangle { width: 100; height: 400; fill: "#e0e0e0"; }
+    Rectangle { width: 500; height: 400; fill: "#ffffff"; }
+  }
+}

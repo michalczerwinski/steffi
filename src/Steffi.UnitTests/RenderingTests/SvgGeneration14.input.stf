@@ -1,0 +1,6 @@
+Canvas {
+  VerticalStack {
+    Rectangle { width: 80; height: 30; }
+    Rectangle { width: 80; height: 30; }
+  }
+}

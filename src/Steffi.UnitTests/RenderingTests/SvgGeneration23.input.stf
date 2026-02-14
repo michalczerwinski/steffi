@@ -1,0 +1,3 @@
+Canvas {
+  Text { spans: "Custom Font"; fontFamily: "Georgia"; fontSize: 28; }
+}

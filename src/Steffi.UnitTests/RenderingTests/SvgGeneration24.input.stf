@@ -1,0 +1,3 @@
+Canvas {
+  Text { spans: "Colored Text"; fontSize: 16; fontColor: "#FF00FF"; }
+}

@@ -1,0 +1,10 @@
+Canvas {
+  Rectangle {
+    width: 200;
+    height: 100;
+    fill: "blue";
+    stroke: "red";
+    rx: "10";
+    ry: "5";
+  }
+}

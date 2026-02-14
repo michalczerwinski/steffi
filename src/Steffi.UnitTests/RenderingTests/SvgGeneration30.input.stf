@@ -1,0 +1,8 @@
+Canvas {
+  VerticalStack {
+    Text { spans: "Name:"; fontSize: 14; }
+    Rectangle { width: 200; height: 30; }
+    Text { spans: "Email:"; fontSize: 14; }
+    Rectangle { width: 200; height: 30; }
+  }
+}

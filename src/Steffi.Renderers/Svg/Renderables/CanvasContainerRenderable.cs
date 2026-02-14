@@ -2,7 +2,7 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class CanvasContainer(IList<Renderable> renderables, int padding = 5, int? width = null, int? height = null) : Renderable
+internal class CanvasContainerRenderable(IList<Renderable> renderables, int padding = 5, int? width = null, int? height = null) : Renderable
 {
 	private readonly int? _width = width;
 	private readonly int? _height = height;

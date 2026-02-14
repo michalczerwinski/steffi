@@ -1,0 +1,8 @@
+Canvas {
+  Text {
+    spans: "Hello World";
+    fontFamily: "Courier New";
+    fontSize: 24;
+    fontColor: "green";
+  }
+}

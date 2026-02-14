@@ -17,6 +17,16 @@
   <ItemGroup>
     <ProjectReference Include="..\Steffi.Parsers\Steffi.Parsers.csproj" />
     <ProjectReference Include="..\Steffi.Models\Steffi.Models.csproj" />
+    <ProjectReference Include="..\Steffi.Renderers\Steffi.Renderers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="RenderingTests\*.input.stf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="RenderingTests\*.expected.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

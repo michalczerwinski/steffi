@@ -1,0 +1,5 @@
+Canvas {
+  Rectangle { width: 200; height: 150; fill: "lightgray"; }
+  Text { spans: "Card Title"; fontSize: 20; fontColor: "darkblue"; }
+  Text { spans: "Card content goes here"; fontSize: 14; }
+}

@@ -1,0 +1,8 @@
+Canvas {
+  HorizontalStack first {
+    Rectangle { width: 40; height: 40; }
+  }
+  HorizontalStack second {
+    Rectangle { width: 40; height: 40; }
+  }
+}

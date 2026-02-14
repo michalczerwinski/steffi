@@ -1,0 +1,13 @@
+<svg width="285" height="55" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="285" height="55" fill="white" stroke="black" />
+    <g transform="translate(5, 5)">
+      <g>
+        <rect x="0" y="0" width="270" height="40" fill="white" stroke="black" />
+        <rect x="5" y="5" width="80" height="30" fill="#4CAF50" stroke="black" />
+        <rect x="95" y="5" width="80" height="30" fill="#2196F3" stroke="black" />
+        <rect x="185" y="5" width="80" height="30" fill="#f44336" stroke="black" />
+      </g>
+    </g>
+  </g>
+</svg>

@@ -27,6 +27,7 @@ public class SvgRenderer : IRenderer
 			return new RectangleRenderable(x, y, rectangle.Width, rectangle.Height,
 				fill: rectangle.Fill,
 				stroke: rectangle.Stroke,
+				strokeWidth: rectangle.StrokeWidth,
 				rx: rectangle.Rx,
 				ry: rectangle.Ry);
 		}
@@ -75,7 +76,7 @@ public class SvgRenderer : IRenderer
 
 			return parentObject switch
 			{
-				Canvas => new CanvasContainer(children, padding: 5),
+				Canvas => new CanvasContainerRenderable(children, padding: 5),
 				HorizontalStack => new HorizontalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
 				VerticalStack => new VerticalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
 				SteffiDocument => new VerticalStackRenderable(children, padding: 5, spacing: 10),

@@ -1,0 +1,11 @@
+Canvas outer {
+  width: 200;
+  height: 150;
+  VerticalStack {
+    Canvas inner {
+      width: 100;
+      height: 80;
+      Rectangle { width: 80; height: 60; }
+    }
+  }
+}

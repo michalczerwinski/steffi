@@ -1,0 +1,10 @@
+Canvas {
+  VerticalStack outer {
+    HorizontalStack middle {
+      VerticalStack inner {
+        Rectangle { width: 20; height: 20; }
+        Rectangle { width: 20; height: 20; }
+      }
+    }
+  }
+}

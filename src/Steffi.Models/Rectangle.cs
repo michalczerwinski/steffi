@@ -24,6 +24,9 @@ public class Rectangle : SteffiObject, INamedObject, IChildObject
 	public string? Stroke { get; set; }
 
 	[GenerateModelBuilderSetter]
+	public string? StrokeWidth { get; set; }
+
+	[GenerateModelBuilderSetter]
 	public string? Rx { get; set; }
 
 	[GenerateModelBuilderSetter]

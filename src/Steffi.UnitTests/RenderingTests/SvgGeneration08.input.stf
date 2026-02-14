@@ -1,0 +1,7 @@
+Canvas {
+  HorizontalStack {
+    Rectangle { width: 40; height: 40; }
+    Text { spans: "Label"; fontSize: 12; }
+    Rectangle { width: 40; height: 40; }
+  }
+}

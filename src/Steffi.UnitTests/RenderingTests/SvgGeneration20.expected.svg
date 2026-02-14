@@ -1,0 +1,22 @@
+<svg width="165" height="70" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="165" height="70" fill="white" stroke="black" />
+    <g transform="translate(5, 5)">
+      <g>
+        <rect x="0" y="0" width="150" height="55" fill="white" stroke="black" />
+        <g transform="translate(5, 5)">
+          <g>
+            <text x="24" y="8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Widget 1</text>
+          </g>
+          <rect x="0" y="0" width="60" height="40" fill="white" stroke="black" />
+        </g>
+        <g transform="translate(80, 5)">
+          <g>
+            <text x="24" y="8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Widget 2</text>
+          </g>
+          <rect x="0" y="0" width="60" height="40" fill="white" stroke="black" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
