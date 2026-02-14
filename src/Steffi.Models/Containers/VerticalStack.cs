@@ -1,7 +1,9 @@
+using Steffi.Models.Attributes;
 using Steffi.Models.Interfaces;
 
 namespace Steffi.Models.Containers;
 
+[GenerateModelBuilder]
 public class VerticalStack : SteffiObject, INamedObject, IParentObject, IChildObject
 {
 	public required string Name { get; set; }
