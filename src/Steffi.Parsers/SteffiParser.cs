@@ -87,7 +87,10 @@ public class SteffiParser
 					propertyValue = propertyValue[1..^1].ToString();
 				}
 
-				ModelBuilder.SetObjectProperty(CurrentObject, propertyName, propertyValue.Trim());
+				if (!ModelBuilder.SetObjectProperty(CurrentObject, propertyName, propertyValue.Trim()))
+				{
+					return (Document, [typeIdentifierSegment.CreateError($"Cannot assign property '{propertyName}' to value {propertyValue}")]);
+				}
 
 				continue;
 			}

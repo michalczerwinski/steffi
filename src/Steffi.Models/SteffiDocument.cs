@@ -6,18 +6,7 @@ public class SteffiDocument : SteffiObject, IParentObject
 {
 	public List<SteffiObject> Children { get; } = [];
 
-	public LayoutType Layout { get; set; }
-
-	public ParentContainerProperties CreateContainerProperties()
-	{
-		return Layout switch
-		{
-			LayoutType.Canvas => new CanvasContainerProperties(),
-			LayoutType.Vertical => new EmptyContainerProperties(),
-			LayoutType.Horizontal => new EmptyContainerProperties(),
-			_ => throw new InvalidOperationException($"Unsupported layout type: {Layout}")
-		};
-	}
+	public ParentContainerProperties CreateContainerProperties() => new EmptyContainerProperties();
 
 	public void ResolveReferences()
 	{

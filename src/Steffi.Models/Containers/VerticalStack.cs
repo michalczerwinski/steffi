@@ -1,6 +1,6 @@
 using Steffi.Models.Interfaces;
 
-namespace Steffi.Models;
+namespace Steffi.Models.Containers;
 
 public class VerticalStack : SteffiObject, INamedObject, IParentObject, IChildObject
 {

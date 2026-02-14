@@ -1,3 +1,4 @@
+using Steffi.Models.Containers;
 using Steffi.Models.Interfaces;
 
 namespace Steffi.Models.Builder;
@@ -14,33 +15,29 @@ public static class ModelBuilder
 		_ => null,
 	};
 
-	public static void SetObjectProperty(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)
+	public static bool SetObjectProperty(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)
 	{
-		if (steffiObject is IParentObject parentObject)
-		{
-			if (propertyName.SequenceEqual("layout"))
-			{
-				parentObject.Layout = Enum.Parse<LayoutType>(value);
-			}
-		}
-
 		if (steffiObject is ILabeledObject labeledObject)
 		{
 			if (propertyName.SequenceEqual("label"))
 			{
 				labeledObject.Label = value.ToString();
+				return true;
 			}
 			else if (propertyName.SequenceEqual("fontColor"))
 			{
 				labeledObject.FontColor = value.ToString();
+				return true;
 			}
 			else if (propertyName.SequenceEqual("fontSize"))
 			{
 				labeledObject.FontSize = int.Parse(value);
+				return true;
 			}
 			else if (propertyName.SequenceEqual("fontFamily"))
 			{
 				labeledObject.FontFamily = value.ToString();
+				return true;
 			}
 		}
 
@@ -49,10 +46,12 @@ public static class ModelBuilder
 			if (propertyName.SequenceEqual("x"))
 			{
 				canvasContainerProperties.X = int.Parse(value);
+				return true;
 			}
 			else if (propertyName.SequenceEqual("y"))
 			{
 				canvasContainerProperties.Y = int.Parse(value);
+				return true;
 			}
 		}
 
@@ -61,11 +60,14 @@ public static class ModelBuilder
 			if (propertyName.SequenceEqual("width"))
 			{
 				rectangle.Width = int.Parse(value);
+				return true;
 			}
 			else if (propertyName.SequenceEqual("height"))
 			{
 				rectangle.Height = int.Parse(value);
+				return true;
 			}
 		}
+		return false;
 	}
 }

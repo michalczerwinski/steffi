@@ -17,6 +17,9 @@ namespace Steffi.Cli.Helpers;
 internal class PreviewServer : IDisposable
 {
 	private readonly string _inputFilePath;
+	private readonly string _fileName;
+	private readonly string _interactivePath;
+	private readonly string _interactiveUrl;
 
 	private FileSystemWatcher? _fileWatcher;
 
@@ -34,6 +37,9 @@ internal class PreviewServer : IDisposable
 	public PreviewServer(string inputFilePath, int port)
 	{
 		_inputFilePath = Path.GetFullPath(inputFilePath);
+		_fileName = Path.GetFileName(_inputFilePath);
+		_interactivePath = $"/interactive/{_fileName}";
+		_interactiveUrl = $"http://localhost:{port}{_interactivePath}";
 		_tempSvgPath = Path.Combine(Path.GetTempPath(), $"steffi-preview-{Guid.NewGuid()}.svg");
 		_tempErrorPath = Path.ChangeExtension(_tempSvgPath, ".errors");
 		_port = port;
@@ -47,9 +53,14 @@ internal class PreviewServer : IDisposable
 		using var app = builder.Build();
 		app.Urls.Add($"http://localhost:{_port}");
 
-		app.MapGet("/", ServeInteractivePreview);
+		app.MapGet(_interactivePath, ServeInteractivePreview);
 		app.MapGet("/svg", ServeGeneratedSvgFile);
 		app.MapGet("/events", ServeGenerationEvents);
+		// Redirect root to interactive path for convenience
+		app.MapGet("/", ctx => {
+			ctx.Response.Redirect(_interactivePath);
+			return Task.CompletedTask;
+		});
 		await app.StartAsync();
 
 
@@ -58,7 +69,7 @@ internal class PreviewServer : IDisposable
 		AnsiConsole.MarkupLine("[cyan bold]  Steffi Interactive Preview Started[/]");
 		AnsiConsole.MarkupLine("[cyan bold]═══════════════════════════════════════════════════════[/]");
 		AnsiConsole.MarkupLine($"  [green]File:[/] {Markup.Escape(_inputFilePath)}");
-		AnsiConsole.MarkupLine($"  [green]URL:[/] [link]{app.Urls.First()}[/]");
+		AnsiConsole.MarkupLine($"  [green]URL:[/] [link]{_interactiveUrl}[/]");
 		AnsiConsole.MarkupLine("[cyan bold]═══════════════════════════════════════════════════════[/]");
 		AnsiConsole.MarkupLine("[dim]Watching for changes... (Press Ctrl+C to stop)[/]");
 		AnsiConsole.WriteLine();
@@ -67,7 +78,7 @@ internal class PreviewServer : IDisposable
 		await GenerateSvgOrErrorsAsync(content);
 		SetupFileWatcher();
 
-		TryOpenLocalBrowser(app.Urls.First());
+		TryOpenLocalBrowser(_interactiveUrl);
 
 		try
 		{

@@ -1,4 +1,5 @@
 ﻿using Steffi.Models;
+using Steffi.Models.Containers;
 using Steffi.Models.Interfaces;
 using Steffi.Renderers.Svg.Renderables;
 using System.Xml.Linq;
@@ -78,12 +79,15 @@ public class SvgRenderer : IRenderer
 			var childObject = @object as IChildObject;
 			var absoluteProperties = childObject?.ParentProperties as CanvasContainerProperties;
 
-			return parentObject.Layout switch
+
+
+			return parentObject switch
 			{
-				LayoutType.Canvas => new CanvasContainer(children, padding: 5),
-				LayoutType.Horizontal => new HorizontalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
-				LayoutType.Vertical => new VerticalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
-				_ => throw new NotSupportedException($"Unsupported layout type: {parentObject.Layout}")
+				Canvas => new CanvasContainer(children, padding: 5),
+				HorizontalStack => new HorizontalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
+				VerticalStack => new VerticalStackRenderable(children, padding: 5, spacing: 10) { X = absoluteProperties?.X, Y = absoluteProperties?.Y },
+				SteffiDocument => new VerticalStackRenderable(children, padding: 5, spacing: 10),
+				_ => throw new NotSupportedException($"Unsupported layout type: {parentObject.GetType()}")
 			};
 		}
 

@@ -1,6 +1,6 @@
 using Steffi.Models.Interfaces;
 
-namespace Steffi.Models;
+namespace Steffi.Models.Containers;
 
 public class Canvas : SteffiObject, INamedObject, IParentObject, IChildObject
 {
