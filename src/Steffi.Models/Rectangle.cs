@@ -16,4 +16,11 @@ public class Rectangle : SteffiObject, INamedObject, IChildObject
 
 	[GenerateModelBuilderSetter]
 	public int Height { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public string? Rx { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public string? Ry { get; set; }
+
 }

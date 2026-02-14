@@ -4,7 +4,7 @@ VerticalStack {
 		VerticalStack {
 			HorizontalStack {
 				Canvas {
-					Rectangle {x:10; y:10; width:20;height:20;}
+					Rectangle {x:10; y:10; width:20;height:20; rx: 15; ry: 15;}
 					Rectangle {x:20; y:20; width:20;height:20;}
 					Rectangle {x:30; y:30; width:20;height:20;}
 					Rectangle {x:40; y:40; width:20;height:20;}
@@ -12,7 +12,7 @@ VerticalStack {
 				}
 				Canvas {
 					Rectangle {x:10; y:10; width:20;height:20;}
-					Rectangle {x:20; y:20; width:20;height:20;}
+					Rectangle {x:20; y:20; width:20;height:20; rx: 15; ry: 15;}
 					Rectangle {x:30; y:30; width:20;height:20;}
 					Rectangle {x:40; y:40; width:20;height:20;}
 					Rectangle {x:50; y:50; width:20;height:20;}
@@ -20,7 +20,7 @@ VerticalStack {
 				Canvas {
 					Rectangle {x:10; y:10; width:20;height:20;}
 					Rectangle {x:20; y:20; width:20;height:20;}
-					Rectangle {x:30; y:30; width:20;height:20;}
+					Rectangle {x:30; y:30; width:20;height:20; rx: 15; ry: 15;}
 					Rectangle {x:40; y:40; width:20;height:20;}
 					Rectangle {x:50; y:50; width:20;height:20;}
 				}

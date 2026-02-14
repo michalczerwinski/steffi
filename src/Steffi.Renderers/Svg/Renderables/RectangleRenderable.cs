@@ -8,8 +8,11 @@ internal class RectangleRenderable : Renderable
 	private readonly int _height;
 	private readonly string? _fill;
 	private readonly string? _stroke;
+	private readonly string? _rx;
+	private readonly string? _ry;
 
-	public RectangleRenderable(int x, int y, int width, int height, string? fill = null, string? stroke = null)
+	public RectangleRenderable(int x, int y, int width, int height, string? fill = null, string? stroke = null,
+		string? rx = null, string? ry = null)
 	{
 		X = x;
 		Y = y;
@@ -17,6 +20,8 @@ internal class RectangleRenderable : Renderable
 		_height = height;
 		_fill = fill;
 		_stroke = stroke;
+		_rx = rx;
+		_ry = ry;
 	}
 
 	public override (XElement Element, int Width, int Height) Render()
@@ -26,5 +31,7 @@ internal class RectangleRenderable : Renderable
 			new XAttribute("width", _width),
 			new XAttribute("height", _height),
 			new XAttribute("fill", _fill ?? "white"),
+			string.IsNullOrEmpty(_rx) ? null : new XAttribute("rx", _rx),
+			string.IsNullOrEmpty(_ry) ? null : new XAttribute("ry", _ry),
 			new XAttribute("stroke", _stroke ?? "black")), _width, _height);
 }

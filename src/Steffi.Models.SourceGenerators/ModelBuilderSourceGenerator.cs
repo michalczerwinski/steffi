@@ -26,8 +26,37 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 				var switchCases = string.Join("\n", modelBuilderTypes.Select(typeName =>
 					$"			nameof({typeName}) => new {typeName} {{ Name = name.ToString(), Parent = parentObject, ParentProperties = parentObject.CreateContainerProperties() }},"));
 
-				var source = $$"""
+				// Generate SetXProperty methods for all classes with [GenerateModelBuilderSetter]
+				var setterMethods = new StringBuilder();
+				foreach (var typeSymbol in modelBuilderTypes.OfType<INamedTypeSymbol>())
+				{
+					var setterProps = typeSymbol.GetMembers().OfType<IPropertySymbol>()
+						.Where(p => p.GetAttributes().Any(a => a.AttributeClass?.Name == "GenerateModelBuilderSetterAttribute"));
+					if (!setterProps.Any()) continue;
+					setterMethods.AppendLine($"        private static bool Set{typeSymbol.Name}Property(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)");
+					setterMethods.AppendLine("        {");
+					setterMethods.AppendLine($"            if (steffiObject is {typeSymbol.Name} obj)");
+					setterMethods.AppendLine("            {");
+					foreach (var prop in setterProps)
+					{
+						var type = prop.Type.ToDisplayString();
+						var parseExpr = type == "int" || type == "int?" ? "int.Parse(value)" : "value.ToString()";
+						setterMethods.AppendLine($"                if (propertyName.Equals(nameof({typeSymbol.Name}.{prop.Name}), StringComparison.InvariantCultureIgnoreCase))");
+						setterMethods.AppendLine("                {");
+						setterMethods.AppendLine($"                    obj.{prop.Name} = {parseExpr};");
+						setterMethods.AppendLine("                    return true;");
+						setterMethods.AppendLine("                }");
+					}
+					setterMethods.AppendLine("            }");
+					setterMethods.AppendLine("            return false;");
+					setterMethods.AppendLine("        }");
+				}
+
+				var fullSource = $$"""
 				{{usingDirectives}}
+
+				#nullable enable
+
 				namespace Steffi.Models.Builder
 				{
 				    public static partial class ModelBuilder
@@ -37,11 +66,14 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 				{{switchCases}}
 				            _ => null,
 				        };
+
+				{{setterMethods}}
 				    }
 				}
+
 				""";
 
-				sourceProductionContext.AddSource("ModelBuilder.SourceGen.g.cs", SourceText.From(source, Encoding.UTF8));
+				sourceProductionContext.AddSource("ModelBuilder.SourceGen.g.cs", SourceText.From(fullSource, Encoding.UTF8));
 			});
 	}
 
