@@ -13,4 +13,10 @@ public class Canvas : SteffiObject, INamedObject, IParentObject, IChildObject
 	public required ParentContainerProperties ParentProperties { get; set; }
 
 	public ParentContainerProperties CreateContainerProperties() => new CanvasContainerProperties();
+
+	[GenerateModelBuilderSetter]
+	public int? Width { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public int? Height { get; set; }
 }

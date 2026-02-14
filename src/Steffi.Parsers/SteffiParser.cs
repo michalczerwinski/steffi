@@ -71,7 +71,7 @@ public class SteffiParser
 				}
 				else
 				{
-					return (Document, [typeIdentifierSegment.CreateError($"Cannot nest children in {CurrentObject.GetType()}")]);
+					return (Document, [typeIdentifierSegment.CreateError($"Cannot nest children in {CurrentObject.GetType().Name}")]);
 				}
 
 				continue;

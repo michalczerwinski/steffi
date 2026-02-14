@@ -5,5 +5,6 @@ public static partial class ModelBuilder
 	public static bool SetObjectProperty(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)
 		=> SetIChildObjectProperty(steffiObject, propertyName, value)
 		|| SetRectangleProperty(steffiObject, propertyName, value)
-		|| SetTextProperty(steffiObject, propertyName, value);
+		|| SetTextProperty(steffiObject, propertyName, value)
+		|| SetCanvasProperty(steffiObject, propertyName, value);
 }

@@ -2,8 +2,11 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class CanvasContainer(IList<Renderable> renderables, int padding = 5) : Renderable
+internal class CanvasContainer(IList<Renderable> renderables, int padding = 5, int? width = null, int? height = null) : Renderable
 {
+	private readonly int? _width = width;
+	private readonly int? _height = height;
+
 	public override (XElement Element, int Width, int Height) Render()
 	{
 		var childRenders = new List<XElement>();
@@ -38,6 +41,6 @@ internal class CanvasContainer(IList<Renderable> renderables, int padding = 5) :
 			childRenders
 		);
 
-		return (render, maxWidth, maxHeight);
+		return (render, _width ?? maxWidth, _height ?? maxHeight);
 	}
 }

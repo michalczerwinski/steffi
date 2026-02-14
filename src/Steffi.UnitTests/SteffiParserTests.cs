@@ -1,4 +1,5 @@
 using Steffi.Models;
+using Steffi.Models.Containers;
 
 namespace Steffi.UnitTests;
 
@@ -10,7 +11,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 		"""
 		//this is a test
 
-		Graph
+		Canvas
 		{
 			//to do
 		}
@@ -21,7 +22,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 		"""
 		//this is a test
 
-		Graph cloud
+		Canvas cloud
 		{
 			//to do
 		}
@@ -29,14 +30,14 @@ public class SteffiParserTests : SteffiParserTestsBase
 
 
 	[Test, DisplayName("Compiles single line")]
-	public async Task CompilesCase03() => await CompilesWithoutError("Graph graph {Node{}Graph{Graph{}Graph{}}}");
+	public async Task CompilesCase03() => await CompilesWithoutError("HorizontalStack stack {Rectangle{}HorizontalStack{HorizontalStack{}HorizontalStack{}}}");
 
 	[Test, DisplayName("Compiles nested objects")]
 	public async Task CompilesCase04() => await CompilesWithoutError(
 		"""
-		Graph cloud
+		Canvas cloud
 		{
-			Node nested{ }
+			Rectangle nested{ }
 		}
 		""");
 
@@ -45,7 +46,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 		"""
 		//this is a test
 
-		Graph cloud
+		Canvas cloud
 		{$ERROR
 			//to do
 		}
@@ -64,7 +65,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 	[Test, DisplayName("Fails when object not finished")]
 	public async Task FailsCase03() => await FailsWithError(
 		"""
-			Graph name
+			Canvas name
 			{
 		""",
 		"(2,3): Unexpected end of file, object not closed");
@@ -72,7 +73,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 	[Test, DisplayName("Fails when object closed too many times")]
 	public async Task FailsCase04() => await FailsWithError(
 		"""
-		Graph name
+		Canvas name
 		{
 		}
 		}
@@ -85,7 +86,7 @@ public class SteffiParserTests : SteffiParserTestsBase
 		/* this is a block comment */
 		/* another one */
 		
-		Graph
+		Canvas
 		{
 			/* this is a block comment */
 
@@ -109,33 +110,33 @@ public class SteffiParserTests : SteffiParserTestsBase
 		await Assert.That(((Rectangle)result.Document!.Children[0]).Width).IsEqualTo(12);
 	}
 
-	//[Test, DisplayName("Compiles mixed property and nesting"),]
-	//public async Task CompilesCase07()
-	//{
-	//	var result = await CompilesWithoutError(
-	//	"""
-	//	Graph
-	//	{
-	//		Node n1 {}
-	//		layout: Horizontal;
-	//		Node n2 {}
-	//	}
-	//	""");
+	[Test, DisplayName("Compiles mixed property and nesting"),]
+	public async Task CompilesCase07()
+	{
+		var result = await CompilesWithoutError(
+		"""
+		Canvas canvas
+		{
+			Rectangle r1 {x: 0; y: 0;}
+			width: 13;
+			Rectangle r1 {x: 0; y: 0;}
+		}
+		""");
 
-	//	await Assert.That(result.Document).IsNotNull();
-	//	await Assert.That(result.Document!.Children.Count).IsEqualTo(1);
-	//	await Assert.That(((Graph)result.Document!.Children[0]).Children.Count).IsEqualTo(2);
-	//}
+		await Assert.That(result.Document).IsNotNull();
+		await Assert.That(result.Document!.Children.Count).IsEqualTo(1);
+		await Assert.That(((Canvas)result.Document!.Children[0]).Children.Count).IsEqualTo(2);
+	}
 
 	[Test, DisplayName("Fails when object cannot be nested")]
 	public async Task FailsCase08() => await FailsWithError(
 		"""
-		Node name
+		Rectangle name
 		{
-			Node child
+			HorizontalStack child
 			{
 			}
 		}		
 		""",
-		"(3,2): Cannot nest children in Node");
+		"(3,2): Cannot nest children in Rectangle");
 }
