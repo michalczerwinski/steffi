@@ -17,38 +17,39 @@ public static class ModelBuilder
 
 	public static bool SetObjectProperty(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)
 	{
-		if (steffiObject is ILabeledObject labeledObject)
+		if (steffiObject is Text text)
 		{
-			if (propertyName.SequenceEqual("label"))
+
+			if (propertyName.Equals(nameof(Text.Spans), StringComparison.InvariantCultureIgnoreCase))
 			{
-				labeledObject.Label = value.ToString();
+				text.Spans = value.ToString();
 				return true;
 			}
-			else if (propertyName.SequenceEqual("fontColor"))
+			else if (propertyName.Equals(nameof(Text.FontColor), StringComparison.InvariantCultureIgnoreCase))
 			{
-				labeledObject.FontColor = value.ToString();
+				text.FontColor = value.ToString();
 				return true;
 			}
-			else if (propertyName.SequenceEqual("fontSize"))
+			else if (propertyName.Equals(nameof(Text.FontSize), StringComparison.InvariantCultureIgnoreCase))
 			{
-				labeledObject.FontSize = int.Parse(value);
+				text.FontSize = int.Parse(value);
 				return true;
 			}
-			else if (propertyName.SequenceEqual("fontFamily"))
+			else if (propertyName.Equals(nameof(Text.FontFamily), StringComparison.InvariantCultureIgnoreCase))
 			{
-				labeledObject.FontFamily = value.ToString();
+				text.FontFamily = value.ToString();
 				return true;
 			}
 		}
 
 		if (steffiObject is IChildObject childObject && childObject.ParentProperties is CanvasContainerProperties canvasContainerProperties)
 		{
-			if (propertyName.SequenceEqual("x"))
+			if (propertyName.Equals(nameof(CanvasContainerProperties.X), StringComparison.InvariantCultureIgnoreCase))
 			{
 				canvasContainerProperties.X = int.Parse(value);
 				return true;
 			}
-			else if (propertyName.SequenceEqual("y"))
+			else if (propertyName.Equals(nameof(CanvasContainerProperties.Y), StringComparison.InvariantCultureIgnoreCase))
 			{
 				canvasContainerProperties.Y = int.Parse(value);
 				return true;
@@ -57,12 +58,12 @@ public static class ModelBuilder
 
 		if (steffiObject is Rectangle rectangle)
 		{
-			if (propertyName.SequenceEqual("width"))
+			if (propertyName.Equals(nameof(Rectangle.Width), StringComparison.InvariantCultureIgnoreCase))
 			{
 				rectangle.Width = int.Parse(value);
 				return true;
 			}
-			else if (propertyName.SequenceEqual("height"))
+			else if (propertyName.Equals(nameof(Rectangle.Height), StringComparison.InvariantCultureIgnoreCase))
 			{
 				rectangle.Height = int.Parse(value);
 				return true;

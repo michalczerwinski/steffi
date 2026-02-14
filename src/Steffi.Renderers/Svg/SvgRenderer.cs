@@ -34,7 +34,7 @@ public class SvgRenderer : IRenderer
 			var x = canvasProperties?.X ?? 0;
 			var y = canvasProperties?.Y ?? 0;
 
-			return new TextLine(text.Label ?? "", text.FontFamily ?? "Arial, Helvetica, sans-serif", text.FontColor ?? "black", text.FontSize ?? 20)
+			return new TextLine(text.Spans ?? "", text.FontFamily ?? "Arial, Helvetica, sans-serif", text.FontColor ?? "black", text.FontSize ?? 20)
 			{
 				X = x,
 				Y = y
@@ -43,10 +43,10 @@ public class SvgRenderer : IRenderer
 
 		List<Renderable> children = [];
 
-		var labeledObject = @object as ILabeledObject;
+		var textObject = @object as Text;
 		var namedObject = @object as INamedObject;
 
-		var label = labeledObject?.Label;
+		var label = textObject?.Spans;
 
 		if (!string.IsNullOrWhiteSpace(label))
 		{
@@ -54,9 +54,9 @@ public class SvgRenderer : IRenderer
 			var textLines = lines
 				.Select(l => new TextLine(
 					text: l,
-					fontFamily: labeledObject?.FontFamily ?? "Arial, Helvetica, sans-serif",
-					fontColor: labeledObject?.FontColor ?? "black",
-					fontSize: labeledObject?.FontSize ?? 20,
+					fontFamily: textObject?.FontFamily ?? "Arial, Helvetica, sans-serif",
+					fontColor: textObject?.FontColor ?? "black",
+					fontSize: textObject?.FontSize ?? 20,
 					margin: 0))
 				.Cast<Renderable>()
 				.ToList();
@@ -69,17 +69,12 @@ public class SvgRenderer : IRenderer
 		{
 			foreach (var child in parentObject.Children)
 			{
-				if (child is not IOverlayObject)
-				{
-					var childRenderable = GetRenderable(child);
-					children.Add(childRenderable);
-				}
+				var childRenderable = GetRenderable(child);
+				children.Add(childRenderable);
 			}
 
 			var childObject = @object as IChildObject;
 			var absoluteProperties = childObject?.ParentProperties as CanvasContainerProperties;
-
-
 
 			return parentObject switch
 			{
