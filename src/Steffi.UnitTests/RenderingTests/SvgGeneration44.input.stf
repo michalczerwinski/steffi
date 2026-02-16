@@ -1,0 +1,8 @@
+VerticalStack {
+  border: true;
+  fill: "lightgray";
+  stroke: "darkred";
+  strokeWidth: "2";
+  Rectangle { width: 70; height: 30; fill: "salmon"; }
+  Rectangle { width: 70; height: 30; fill: "coral"; }
+}

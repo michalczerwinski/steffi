@@ -75,22 +75,31 @@ public class SvgRenderer : IRenderer
 
 			return parentObject switch
 			{
-				Canvas canvas => new CanvasContainerRenderable(children, 
-					padding: canvas.Padding ?? 0, 
-					width: canvas.Width, 
+				Canvas canvas => new CanvasContainerRenderable(children,
+					padding: canvas.Padding ?? 0,
+					width: canvas.Width,
 					height: canvas.Height,
-					includeBorder: canvas.Border ?? false),
-				HorizontalStack hStack => new HorizontalStackRenderable(children, 
-					padding: hStack.Padding ?? 0, 
+					includeBorder: canvas.Border ?? false,
+					fill: canvas.Fill,
+					stroke: canvas.Stroke,
+					strokeWidth: canvas.StrokeWidth),
+				HorizontalStack hStack => new HorizontalStackRenderable(children,
+					padding: hStack.Padding ?? 0,
 					spacing: 10,
-					includeBorder: hStack.Border ?? false) 
-					{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
-				VerticalStack vStack => new VerticalStackRenderable(children, 
-					padding: vStack.Padding ?? 0, 
+					includeBorder: hStack.Border ?? false,
+					fill: hStack.Fill,
+					stroke: hStack.Stroke,
+					strokeWidth: hStack.StrokeWidth)
+				{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
+				VerticalStack vStack => new VerticalStackRenderable(children,
+					padding: vStack.Padding ?? 0,
 					spacing: 10,
-					includeBorder: vStack.Border ?? false) 
-					{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
-				SteffiDocument => new VerticalStackRenderable(children, padding: 5, spacing: 10),
+					includeBorder: vStack.Border ?? false,
+					fill: vStack.Fill,
+					stroke: vStack.Stroke,
+					strokeWidth: vStack.StrokeWidth)
+				{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
+				SteffiDocument => new VerticalStackRenderable(children, padding: 0, spacing: 10),
 				_ => throw new NotSupportedException($"Unsupported layout type: {parentObject.GetType()}")
 			};
 		}

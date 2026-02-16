@@ -1,0 +1,8 @@
+VerticalStack {
+  border: true;
+  padding: 8;
+  fill: "honeydew";
+  stroke: "green";
+  Rectangle { width: 70; height: 30; fill: "skyblue"; }
+  Rectangle { width: 70; height: 30; fill: "steelblue"; }
+}

@@ -1,0 +1,6 @@
+Canvas {
+  border: true;
+  stroke: "darkgreen";
+  strokeWidth: "4";
+  Rectangle { x: 10; y: 10; width: 60; height: 40; fill: "lightgreen"; }
+}

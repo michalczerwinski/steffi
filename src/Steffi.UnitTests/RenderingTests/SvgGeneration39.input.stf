@@ -1,0 +1,13 @@
+Canvas {
+  border: true;
+  padding: 5;
+  fill: "lightcyan";
+  stroke: "navy";
+  Rectangle {
+    x: 10;
+    y: 10;
+    width: 60;
+    height: 40;
+    fill: "pink";
+  }
+}

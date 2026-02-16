@@ -1,7 +1,10 @@
-<svg width="47" height="67" xmlns="http://www.w3.org/2000/svg">
+<svg width="37" height="57" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(, )">
-    <g transform="translate(5, 5)">
+    <rect x="0" y="0" width="37" height="57" fill="white" stroke="none" />
+    <g>
+      <rect x="0" y="0" width="37" height="57" fill="white" stroke="none" />
       <g>
+        <rect x="0" y="0" width="37" height="57" fill="white" stroke="none" />
         <text x="18" y="9" font-size="14" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Line 1</text>
         <text x="18" y="28" font-size="14" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Line 2</text>
         <text x="18" y="47" font-size="14" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Line 3</text>

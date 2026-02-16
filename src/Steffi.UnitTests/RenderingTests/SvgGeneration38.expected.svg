@@ -1,6 +1,8 @@
-<svg width="150" height="140" xmlns="http://www.w3.org/2000/svg">
+<svg width="140" height="130" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(, )">
-    <g transform="translate(5, 5)">
+    <rect x="0" y="0" width="140" height="130" fill="white" stroke="none" />
+    <g>
+      <rect x="0" y="0" width="140" height="130" fill="white" stroke="none" />
       <rect x="20" y="20" width="100" height="40" fill="coral" stroke="black" />
       <rect x="20" y="70" width="100" height="40" fill="gold" stroke="black" />
     </g>

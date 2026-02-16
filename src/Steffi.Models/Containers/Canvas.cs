@@ -25,4 +25,13 @@ public class Canvas : SteffiObject, INamedObject, IParentObject, IChildObject
 
 	[GenerateModelBuilderSetter]
 	public int? Padding { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public string? Fill { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public string? Stroke { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public string? StrokeWidth { get; set; }
 }

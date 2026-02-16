@@ -1,12 +1,17 @@
-<svg width="210" height="138" xmlns="http://www.w3.org/2000/svg">
+<svg width="200" height="128" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(, )">
-    <g transform="translate(5, 5)">
+    <rect x="0" y="0" width="200" height="128" fill="white" stroke="none" />
+    <g>
+      <rect x="0" y="0" width="200" height="128" fill="white" stroke="none" />
       <g>
+        <rect x="0" y="0" width="200" height="128" fill="white" stroke="none" />
         <g>
+          <rect x="0" y="0" width="41" height="19" fill="white" stroke="none" />
           <text x="20" y="9" font-size="14" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Name:</text>
         </g>
         <rect x="0" y="29" width="200" height="30" fill="white" stroke="black" />
         <g transform="translate(0, 69)">
+          <rect x="0" y="0" width="37" height="19" fill="white" stroke="none" />
           <text x="18" y="9" font-size="14" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Email:</text>
         </g>
         <rect x="0" y="98" width="200" height="30" fill="white" stroke="black" />

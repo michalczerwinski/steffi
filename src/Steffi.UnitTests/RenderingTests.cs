@@ -115,4 +115,22 @@ public class RenderingTests : SteffiParserTestsBase
 
 	[Test, DisplayName("Renders vertical stack with custom padding")]
 	public async Task RendersVerticalStackWithCustomPadding() => await RendersSvgCorrectly("SvgGeneration38");
+
+	[Test, DisplayName("Renders canvas with custom fill and stroke")]
+	public async Task RendersCanvasWithFillAndStroke() => await RendersSvgCorrectly("SvgGeneration39");
+
+	[Test, DisplayName("Renders horizontal stack with custom fill and stroke")]
+	public async Task RendersHorizontalStackWithFillAndStroke() => await RendersSvgCorrectly("SvgGeneration40");
+
+	[Test, DisplayName("Renders vertical stack with custom fill and stroke")]
+	public async Task RendersVerticalStackWithFillAndStroke() => await RendersSvgCorrectly("SvgGeneration41");
+
+	[Test, DisplayName("Renders canvas with custom stroke width")]
+	public async Task RendersCanvasWithStrokeWidth() => await RendersSvgCorrectly("SvgGeneration42");
+
+	[Test, DisplayName("Renders horizontal stack with custom stroke width")]
+	public async Task RendersHorizontalStackWithStrokeWidth() => await RendersSvgCorrectly("SvgGeneration43");
+
+	[Test, DisplayName("Renders vertical stack with custom stroke width")]
+	public async Task RendersVerticalStackWithStrokeWidth() => await RendersSvgCorrectly("SvgGeneration44");
 }

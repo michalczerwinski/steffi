@@ -1,0 +1,10 @@
+<svg width="86" height="86" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="86" height="86" fill="white" stroke="none" />
+    <g>
+      <rect x="0" y="0" width="86" height="86" fill="honeydew" stroke="green" />
+      <rect x="8" y="8" width="70" height="30" fill="skyblue" stroke="black" />
+      <rect x="8" y="48" width="70" height="30" fill="steelblue" stroke="black" />
+    </g>
+  </g>
+</svg>
