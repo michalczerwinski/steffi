@@ -1,15 +1,15 @@
 using Steffi.Models.Interfaces;
 using System.Xml.Linq;
 
-namespace Steffi.Renderers.Svg.Renderables;
+namespace Steffi.Renderers.Svg.Renderables.Containers;
 
-internal class CanvasRenderable(IList<Renderable> children, IFillAndStrokeProperties fillAndStroke, int padding = 0, int? width = null, int? height = null, bool includeBorder = false)
+internal class CanvasRenderable(IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, int? width = null, int? height = null, bool includeBorder = false)
 : ContainerRenderable(children, fillAndStroke, padding, includeBorder)
 {
 	private readonly int? _width = width;
 	private readonly int? _height = height;
 	private readonly int _padding = padding;
-	private readonly IFillAndStrokeProperties _fillAndStroke = fillAndStroke;
+	private readonly IFillAndStroke _fillAndStroke = fillAndStroke;
 
 	public override (XElement Element, int Width, int Height) Render()
 	{

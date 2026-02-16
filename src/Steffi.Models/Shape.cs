@@ -4,7 +4,7 @@ using Steffi.Models.Interfaces;
 
 namespace Steffi.Models;
 
-public class Shape : SteffiObject, IChildObject, IFillAndStrokeProperties
+public class Shape : SteffiObject, IChildObject, IFillAndStroke
 {
 	public required IParentObject Parent { get; set; }
 	public required ParentProperties ParentProperties { get; set; }

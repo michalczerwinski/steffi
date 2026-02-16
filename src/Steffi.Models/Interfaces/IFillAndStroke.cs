@@ -1,6 +1,6 @@
 namespace Steffi.Models.Interfaces;
 
-public interface IFillAndStrokeProperties
+public interface IFillAndStroke
 {
 	public string? Fill { get; }
 	public string? FillOpacity { get; }

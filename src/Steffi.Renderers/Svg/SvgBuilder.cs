@@ -7,7 +7,7 @@ internal static class SvgBuilder
 {
 	private static readonly XNamespace SvgNamespace = "http://www.w3.org/2000/svg";
 
-	private static IEnumerable<XAttribute?> GetFillAndStrokeAttributes(IFillAndStrokeProperties fillAndStroke) =>
+	private static IEnumerable<XAttribute?> GetFillAndStrokeAttributes(IFillAndStroke fillAndStroke) =>
 	[
 		string.IsNullOrEmpty(fillAndStroke.Fill) ? null : new XAttribute("fill", fillAndStroke.Fill),
 		string.IsNullOrEmpty(fillAndStroke.FillOpacity) ? null : new XAttribute("fill-opacity", fillAndStroke.FillOpacity),
@@ -20,7 +20,7 @@ internal static class SvgBuilder
 
 	internal static XElement Rect(
 		int x, int y, int width, int height,
-		IFillAndStrokeProperties fillAndStroke,
+		IFillAndStroke fillAndStroke,
 		string? rx = null, string? ry = null)
 		=> new(SvgNamespace + "rect",
 			new XAttribute("x", x),

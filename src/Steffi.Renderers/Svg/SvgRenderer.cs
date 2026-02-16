@@ -4,6 +4,7 @@ using Steffi.Models.Containers.Properties;
 using Steffi.Models.Interfaces;
 using Steffi.Models.Properties;
 using Steffi.Renderers.Svg.Renderables;
+using Steffi.Renderers.Svg.Renderables.Containers;
 
 namespace Steffi.Renderers.Svg;
 
@@ -81,9 +82,9 @@ public class SvgRenderer : IRenderer
 		return new RectangleRenderable(
 				x: canvasProperties?.X ?? 0,
 				y: canvasProperties?.Y ?? 0,
-				shape: rectangle,
 				width: rectangle.Width,
 				height: rectangle.Height,
+				fillAndStroke: rectangle,
 				rx: rectangle.Rx,
 				ry: rectangle.Ry);
 	}

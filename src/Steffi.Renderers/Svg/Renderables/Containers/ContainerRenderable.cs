@@ -1,12 +1,12 @@
 using Steffi.Models.Interfaces;
 using System.Xml.Linq;
 
-namespace Steffi.Renderers.Svg.Renderables;
+namespace Steffi.Renderers.Svg.Renderables.Containers;
 
-internal abstract class ContainerRenderable(IList<Renderable> children, IFillAndStrokeProperties fillAndStroke, int padding = 0, bool inlcudeBorder = false)
+internal abstract class ContainerRenderable(IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, bool inlcudeBorder = false)
 	: Renderable
 {
-	protected IFillAndStrokeProperties FillAndStroke { get; } = fillAndStroke;
+	protected IFillAndStroke FillAndStroke { get; } = fillAndStroke;
 	protected IList<Renderable> Children { get; } = children;
 	protected int Padding { get; } = padding;
 

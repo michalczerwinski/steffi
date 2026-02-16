@@ -2,7 +2,7 @@ using Steffi.Models.Interfaces;
 
 namespace Steffi.Models.Properties;
 
-public class FillAndStrokeProperties : IFillAndStrokeProperties
+public class FillAndStrokeProperties : IFillAndStroke
 {
 	public string? Fill { get; set; }
 
