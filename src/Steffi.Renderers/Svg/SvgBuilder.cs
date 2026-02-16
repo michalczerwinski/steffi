@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using Steffi.Models.Interfaces;
+using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg;
 
@@ -6,25 +7,29 @@ internal static class SvgBuilder
 {
 	private static readonly XNamespace SvgNamespace = "http://www.w3.org/2000/svg";
 
+	private static IEnumerable<XAttribute?> GetFillAndStrokeAttributes(IFillAndStrokeProperties fillAndStroke) =>
+	[
+		string.IsNullOrEmpty(fillAndStroke.Fill) ? null : new XAttribute("fill", fillAndStroke.Fill),
+		string.IsNullOrEmpty(fillAndStroke.FillOpacity) ? null : new XAttribute("fill-opacity", fillAndStroke.FillOpacity),
+		string.IsNullOrEmpty(fillAndStroke.FillRule) ? null : new XAttribute("fill-rule", fillAndStroke.FillRule),
+		string.IsNullOrEmpty(fillAndStroke.Stroke) ? null : new XAttribute("stroke", fillAndStroke.Stroke),
+		string.IsNullOrEmpty(fillAndStroke.StrokeWidth) ? null : new XAttribute("stroke-width", fillAndStroke.StrokeWidth),
+		string.IsNullOrEmpty(fillAndStroke.StrokeOpacity) ? null : new XAttribute("stroke-opacity", fillAndStroke.StrokeOpacity),
+		string.IsNullOrEmpty(fillAndStroke.StrokeLineCap) ? null : new XAttribute("stroke-linecap", fillAndStroke.StrokeLineCap)
+	];
+
 	internal static XElement Rect(
 		int x, int y, int width, int height,
-		string? fill = null, string? fillOpacity = null, string? fillRule = null,
-		string? stroke = null, string? strokeWidth = null, string? strokeOpacity = null, string? strokeLineCap = null,
+		IFillAndStrokeProperties fillAndStroke,
 		string? rx = null, string? ry = null)
 		=> new(SvgNamespace + "rect",
 			new XAttribute("x", x),
 			new XAttribute("y", y),
 			new XAttribute("width", width),
 			new XAttribute("height", height),
-			new XAttribute("fill", fill ?? "white"),
-			string.IsNullOrEmpty(fillOpacity) ? null : new XAttribute("fill-opacity", fillOpacity),
-			string.IsNullOrEmpty(fillRule) ? null : new XAttribute("fill-rule", fillRule),
 			string.IsNullOrEmpty(rx) ? null : new XAttribute("rx", rx),
 			string.IsNullOrEmpty(ry) ? null : new XAttribute("ry", ry),
-			new XAttribute("stroke", stroke ?? "black"),
-			string.IsNullOrEmpty(strokeWidth) ? null : new XAttribute("stroke-width", strokeWidth),
-			string.IsNullOrEmpty(strokeOpacity) ? null : new XAttribute("stroke-opacity", strokeOpacity),
-			string.IsNullOrEmpty(strokeLineCap) ? null : new XAttribute("stroke-linecap", strokeLineCap));
+			GetFillAndStrokeAttributes(fillAndStroke));
 
 	internal static XElement Group(int? x, int? y, List<XElement> children)
 		=> new(SvgNamespace + "g",

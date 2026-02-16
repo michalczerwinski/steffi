@@ -4,13 +4,13 @@ using Steffi.Models.Interfaces;
 
 namespace Steffi.Models;
 
-public class Shape : SteffiObject, IChildObject
+public class Shape : SteffiObject, IChildObject, IFillAndStrokeProperties
 {
 	public required IParentObject Parent { get; set; }
 	public required ParentContainerProperties ParentProperties { get; set; }
 
 	[GenerateModelBuilderSetter]
-	public string? Fill { get; set; }
+	public string? Fill { get; set; } = "white";
 
 	[GenerateModelBuilderSetter]
 	public string? FillOpacity { get; set; }
@@ -19,7 +19,7 @@ public class Shape : SteffiObject, IChildObject
 	public string? FillRule { get; set; }
 
 	[GenerateModelBuilderSetter]
-	public string? Stroke { get; set; }
+	public string? Stroke { get; set; } = "black";
 
 	[GenerateModelBuilderSetter]
 	public string? StrokeWidth { get; set; }

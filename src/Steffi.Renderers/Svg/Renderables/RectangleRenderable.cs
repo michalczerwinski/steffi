@@ -24,13 +24,7 @@ internal class RectangleRenderable : Renderable
 
 	public override (XElement Element, int Width, int Height) Render() => (
 		Element: SvgBuilder.Rect(X ?? 0, Y ?? 0, _width, _height,
-			fill: _shape.Fill,
-			fillOpacity: _shape.FillOpacity,
-			fillRule: _shape.FillRule,
-			stroke: _shape.Stroke,
-			strokeWidth: _shape.StrokeWidth,
-			strokeOpacity: _shape.StrokeOpacity,
-			strokeLineCap: _shape.StrokeLineCap,
+			fillAndStroke: _shape,
 			rx: _rx,
 			ry: _ry), _width, _height);
 }

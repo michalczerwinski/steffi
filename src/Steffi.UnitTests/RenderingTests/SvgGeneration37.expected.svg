@@ -1,10 +1,7 @@
 <svg width="110" height="50" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(, )">
     <rect x="0" y="0" width="110" height="50" fill="white" stroke="none" />
-    <g>
-      <rect x="0" y="0" width="110" height="50" fill="white" stroke="none" />
-      <rect x="0" y="0" width="50" height="50" fill="lightblue" stroke="black" />
-      <rect x="60" y="0" width="50" height="50" fill="lightgreen" stroke="black" />
-    </g>
+    <rect x="0" y="0" width="50" height="50" fill="lightblue" stroke="black" />
+    <rect x="60" y="0" width="50" height="50" fill="lightgreen" stroke="black" />
   </g>
 </svg>

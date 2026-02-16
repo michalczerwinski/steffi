@@ -7,11 +7,8 @@
         <rect x="0" y="0" width="20" height="50" fill="white" stroke="none" />
         <g>
           <rect x="0" y="0" width="20" height="50" fill="white" stroke="none" />
-          <g>
-            <rect x="0" y="0" width="20" height="50" fill="white" stroke="none" />
-            <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" />
-            <rect x="0" y="30" width="20" height="20" fill="white" stroke="black" />
-          </g>
+          <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" />
+          <rect x="0" y="30" width="20" height="20" fill="white" stroke="black" />
         </g>
       </g>
     </g>

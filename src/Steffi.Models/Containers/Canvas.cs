@@ -22,4 +22,9 @@ public class Canvas : Shape, IParentObject
 
 	[GenerateModelBuilderSetter]
 	public int? Padding { get; set; }
+
+	public Canvas()
+	{
+		Stroke = "none";
+	}
 }

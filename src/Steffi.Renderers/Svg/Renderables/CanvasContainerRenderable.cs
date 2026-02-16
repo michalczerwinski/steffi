@@ -1,16 +1,15 @@
+using Steffi.Models;
 using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class CanvasContainerRenderable(IList<Renderable> renderables, int padding = 0, int? width = null, int? height = null, bool includeBorder = false, string? fill = null, string? stroke = null, string? strokeWidth = null) : Renderable
+internal class CanvasContainerRenderable(IList<Renderable> renderables, Shape shape, int padding = 0, int? width = null, int? height = null, bool includeBorder = false) : Renderable
 {
 	private readonly int? _width = width;
 	private readonly int? _height = height;
 	private readonly int _padding = padding;
 	private readonly bool _includeBorder = includeBorder;
-	private readonly string? _fill = fill;
-	private readonly string? _stroke = stroke;
-	private readonly string? _strokeWidth = strokeWidth;
+	private readonly Shape _shape = shape;
 
 	public override (XElement Element, int Width, int Height) Render()
 	{
@@ -47,8 +46,11 @@ internal class CanvasContainerRenderable(IList<Renderable> renderables, int padd
 		var finalHeight = _height ?? maxHeight;
 
 		// Always insert background rectangle, but use empty stroke when border is disabled
-		var effectiveStroke = _includeBorder ? _stroke : "none";
-		childRenders.Insert(0, SvgBuilder.Rect(0, 0, finalWidth, finalHeight, fill: _fill, stroke: effectiveStroke, strokeWidth: _strokeWidth));
+		if (!_includeBorder)
+		{
+			_shape.Stroke = "none";
+		}
+		childRenders.Insert(0, SvgBuilder.Rect(0, 0, finalWidth, finalHeight, _shape));
 
 		var render = SvgBuilder.Group(X, Y, childRenders);
 

@@ -5,11 +5,8 @@
       <rect x="0" y="0" width="70" height="30" fill="white" stroke="none" />
       <g>
         <rect x="0" y="0" width="70" height="30" fill="white" stroke="none" />
-        <g>
-          <rect x="0" y="0" width="70" height="30" fill="white" stroke="none" />
-          <rect x="0" y="0" width="30" height="30" fill="white" stroke="black" />
-          <rect x="40" y="0" width="30" height="30" fill="white" stroke="black" />
-        </g>
+        <rect x="0" y="0" width="30" height="30" fill="white" stroke="black" />
+        <rect x="40" y="0" width="30" height="30" fill="white" stroke="black" />
       </g>
     </g>
   </g>

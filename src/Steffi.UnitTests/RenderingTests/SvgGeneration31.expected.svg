@@ -3,12 +3,9 @@
     <rect x="0" y="0" width="260" height="30" fill="white" stroke="none" />
     <g>
       <rect x="0" y="0" width="260" height="30" fill="white" stroke="none" />
-      <g>
-        <rect x="0" y="0" width="260" height="30" fill="white" stroke="none" />
-        <rect x="0" y="0" width="80" height="30" fill="#4CAF50" stroke="black" />
-        <rect x="90" y="0" width="80" height="30" fill="#2196F3" stroke="black" />
-        <rect x="180" y="0" width="80" height="30" fill="#f44336" stroke="black" />
-      </g>
+      <rect x="0" y="0" width="80" height="30" fill="#4CAF50" stroke="black" />
+      <rect x="90" y="0" width="80" height="30" fill="#2196F3" stroke="black" />
+      <rect x="180" y="0" width="80" height="30" fill="#f44336" stroke="black" />
     </g>
   </g>
 </svg>

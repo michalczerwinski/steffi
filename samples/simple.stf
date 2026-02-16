@@ -2,6 +2,7 @@ VerticalStack {
 	padding: 10;
 	VerticalStack {
 		Canvas {
+			width: 200;
 			Text {spans: "SteffiDocument:\n-Svg";fontSize: 12;fontColor: black;}
 		}
 		Canvas {

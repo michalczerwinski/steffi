@@ -1,9 +1,6 @@
 <svg width="120" height="80" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(, )">
     <rect x="0" y="0" width="120" height="80" fill="white" stroke="none" />
-    <g>
-      <rect x="0" y="0" width="120" height="80" fill="white" stroke="none" />
-      <rect x="0" y="0" width="120" height="80" fill="#FF5733" stroke="#000000" />
-    </g>
+    <rect x="0" y="0" width="120" height="80" fill="#FF5733" stroke="#000000" />
   </g>
 </svg>

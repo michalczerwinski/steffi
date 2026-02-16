@@ -3,10 +3,7 @@
     <rect x="0" y="0" width="161" height="32" fill="white" stroke="none" />
     <g>
       <rect x="0" y="0" width="161" height="32" fill="white" stroke="none" />
-      <g>
-        <rect x="0" y="0" width="161" height="32" fill="white" stroke="none" />
-        <text x="80" y="16" font-size="28" font-family="Georgia" text-anchor="middle" dominant-baseline="central" fill="black">Custom Font</text>
-      </g>
+      <text x="80" y="16" font-size="28" font-family="Georgia" text-anchor="middle" dominant-baseline="central" fill="black">Custom Font</text>
     </g>
   </g>
 </svg>

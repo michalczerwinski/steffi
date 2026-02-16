@@ -30,31 +30,25 @@ public class SvgRenderer : IRenderer
 		return parentObject switch
 		{
 			Canvas canvas => new CanvasContainerRenderable(children,
+				shape: canvas,
 				padding: canvas.Padding ?? 0,
 				width: canvas.Width,
 				height: canvas.Height,
-				includeBorder: canvas.Border ?? false,
-				fill: canvas.Fill,
-				stroke: canvas.Stroke,
-				strokeWidth: canvas.StrokeWidth)
+				includeBorder: canvas.Border ?? false)
 			{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
 			HorizontalStack hStack => new HorizontalStackRenderable(children,
+				fillAndStroke: hStack,
 				padding: hStack.Padding ?? 0,
 				spacing: hStack.Spacing ?? 10,
-				includeBorder: hStack.Border ?? false,
-				fill: hStack.Fill,
-				stroke: hStack.Stroke,
-				strokeWidth: hStack.StrokeWidth)
+				includeBorder: hStack.Border ?? false)
 			{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
 			VerticalStack vStack => new VerticalStackRenderable(children,
+				fillAndStroke: vStack,
 				padding: vStack.Padding ?? 0,
 				spacing: vStack.Spacing ?? 10,
-				includeBorder: vStack.Border ?? false,
-				fill: vStack.Fill,
-				stroke: vStack.Stroke,
-				strokeWidth: vStack.StrokeWidth)
+				includeBorder: vStack.Border ?? false)
 			{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
-			SteffiDocument => new VerticalStackRenderable(children, padding: 0, spacing: 10),
+			SteffiDocument steffiDocument => children.Single(),
 			_ => throw new NotSupportedException($"Unsupported layout type: {parentObject.GetType()}")
 		};
 
@@ -76,7 +70,7 @@ public class SvgRenderer : IRenderer
 			.Cast<Renderable>()
 			.ToList();
 
-		return new VerticalStackRenderable(textLines, 0, 0, includeBorder: false) { X = canvasProperties?.X ?? 0, Y = canvasProperties?.Y ?? 0 };
+		return new VerticalStackRenderable(textLines, new FillAndStrokeProperties { Stroke = "none", Fill = "white" }, padding: 0, spacing: 0, includeBorder: false) { X = canvasProperties?.X ?? 0, Y = canvasProperties?.Y ?? 0 };
 	}
 
 	private Renderable GetRenderableForRectangle(Rectangle rectangle)

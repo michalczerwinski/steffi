@@ -4,25 +4,22 @@
     <g>
       <rect x="0" y="0" width="80" height="80" fill="white" stroke="none" />
       <g>
-        <rect x="0" y="0" width="80" height="80" fill="white" stroke="none" />
-        <g>
-          <rect x="0" y="0" width="80" height="20" fill="white" stroke="none" />
-          <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" />
-          <rect x="30" y="0" width="20" height="20" fill="white" stroke="black" />
-          <rect x="60" y="0" width="20" height="20" fill="white" stroke="black" />
-        </g>
-        <g transform="translate(0, 30)">
-          <rect x="0" y="0" width="80" height="20" fill="white" stroke="none" />
-          <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" />
-          <rect x="30" y="0" width="20" height="20" fill="white" stroke="black" />
-          <rect x="60" y="0" width="20" height="20" fill="white" stroke="black" />
-        </g>
-        <g transform="translate(0, 60)">
-          <rect x="0" y="0" width="80" height="20" fill="white" stroke="none" />
-          <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" />
-          <rect x="30" y="0" width="20" height="20" fill="white" stroke="black" />
-          <rect x="60" y="0" width="20" height="20" fill="white" stroke="black" />
-        </g>
+        <rect x="0" y="0" width="80" height="20" fill="white" stroke="none" />
+        <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" />
+        <rect x="30" y="0" width="20" height="20" fill="white" stroke="black" />
+        <rect x="60" y="0" width="20" height="20" fill="white" stroke="black" />
+      </g>
+      <g transform="translate(0, 30)">
+        <rect x="0" y="0" width="80" height="20" fill="white" stroke="none" />
+        <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" />
+        <rect x="30" y="0" width="20" height="20" fill="white" stroke="black" />
+        <rect x="60" y="0" width="20" height="20" fill="white" stroke="black" />
+      </g>
+      <g transform="translate(0, 60)">
+        <rect x="0" y="0" width="80" height="20" fill="white" stroke="none" />
+        <rect x="0" y="0" width="20" height="20" fill="white" stroke="black" />
+        <rect x="30" y="0" width="20" height="20" fill="white" stroke="black" />
+        <rect x="60" y="0" width="20" height="20" fill="white" stroke="black" />
       </g>
     </g>
   </g>

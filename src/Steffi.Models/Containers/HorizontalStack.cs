@@ -19,4 +19,9 @@ public class HorizontalStack : Shape, IParentObject
 
 	[GenerateModelBuilderSetter]
 	public int? Spacing { get; set; }
+
+	public HorizontalStack()
+	{
+		Stroke = "none";
+	}
 }

@@ -3,11 +3,8 @@
     <rect x="0" y="0" width="110" height="50" fill="white" stroke="none" />
     <g>
       <rect x="0" y="0" width="110" height="50" fill="white" stroke="none" />
-      <g>
-        <rect x="0" y="0" width="110" height="50" fill="white" stroke="none" />
-        <rect x="0" y="0" width="50" height="50" fill="white" stroke="black" />
-        <rect x="60" y="0" width="50" height="50" fill="white" stroke="black" />
-      </g>
+      <rect x="0" y="0" width="50" height="50" fill="white" stroke="black" />
+      <rect x="60" y="0" width="50" height="50" fill="white" stroke="black" />
     </g>
   </g>
 </svg>

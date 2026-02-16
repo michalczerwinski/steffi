@@ -19,4 +19,9 @@ public class VerticalStack : Shape, IParentObject
 
 	[GenerateModelBuilderSetter]
 	public int? Spacing { get; set; }
+
+	public VerticalStack()
+	{
+		Stroke = "none";
+	}
 }

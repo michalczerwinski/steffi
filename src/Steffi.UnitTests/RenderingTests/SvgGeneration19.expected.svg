@@ -1,17 +1,14 @@
 <svg width="200" height="150" xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(, )">
     <rect x="0" y="0" width="200" height="150" fill="white" stroke="none" />
+    <rect x="0" y="0" width="200" height="150" fill="lightgray" stroke="black" />
     <g>
-      <rect x="0" y="0" width="200" height="150" fill="white" stroke="none" />
-      <rect x="0" y="0" width="200" height="150" fill="lightgray" stroke="black" />
-      <g>
-        <rect x="0" y="0" width="85" height="27" fill="white" stroke="none" />
-        <text x="42" y="13" font-size="20" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="darkblue">Card Title</text>
-      </g>
-      <g>
-        <rect x="0" y="0" width="145" height="19" fill="white" stroke="none" />
-        <text x="72" y="9" font-size="14" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Card content goes here</text>
-      </g>
+      <rect x="0" y="0" width="85" height="27" fill="white" stroke="none" />
+      <text x="42" y="13" font-size="20" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="darkblue">Card Title</text>
+    </g>
+    <g>
+      <rect x="0" y="0" width="145" height="19" fill="white" stroke="none" />
+      <text x="72" y="9" font-size="14" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="black">Card content goes here</text>
     </g>
   </g>
 </svg>
