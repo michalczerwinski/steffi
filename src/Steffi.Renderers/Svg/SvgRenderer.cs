@@ -15,9 +15,9 @@ public class SvgRenderer : IRenderer
 
 	private Renderable GetRenderable(SteffiObject @object) => @object switch
 	{
-		_ when @object is Rectangle rectangle => GetRenderableForRectangle(rectangle),
-		_ when @object is Text text => GetRenderableForText(text),
-		_ when @object is IParentObject parentObject => GetRenderableForParentObject(parentObject),
+		Rectangle rectangle => GetRenderableForRectangle(rectangle),
+		Text text => GetRenderableForText(text),
+		IParentObject parentObject => GetRenderableForParentObject(parentObject),
 		_ => throw new NotSupportedException($"Unsupported element type: {@object.GetType()}"),
 	};
 
@@ -40,7 +40,7 @@ public class SvgRenderer : IRenderer
 			{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
 			HorizontalStack hStack => new HorizontalStackRenderable(children,
 				padding: hStack.Padding ?? 0,
-				spacing: 10,
+				spacing: hStack.Spacing ?? 10,
 				includeBorder: hStack.Border ?? false,
 				fill: hStack.Fill,
 				stroke: hStack.Stroke,
@@ -48,7 +48,7 @@ public class SvgRenderer : IRenderer
 			{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
 			VerticalStack vStack => new VerticalStackRenderable(children,
 				padding: vStack.Padding ?? 0,
-				spacing: 10,
+				spacing: vStack.Spacing ?? 10,
 				includeBorder: vStack.Border ?? false,
 				fill: vStack.Fill,
 				stroke: vStack.Stroke,
@@ -86,15 +86,9 @@ public class SvgRenderer : IRenderer
 		return new RectangleRenderable(
 				x: canvasProperties?.X ?? 0,
 				y: canvasProperties?.Y ?? 0,
+				shape: rectangle,
 				width: rectangle.Width,
 				height: rectangle.Height,
-				fill: rectangle.Fill,
-				fillOpacity: rectangle.FillOpacity,
-				fillRule: rectangle.FillRule,
-				stroke: rectangle.Stroke,
-				strokeWidth: rectangle.StrokeWidth,
-				strokeOpacity: rectangle.StrokeOpacity,
-				strokeLineCap: rectangle.StrokeLineCap,
 				rx: rectangle.Rx,
 				ry: rectangle.Ry);
 	}

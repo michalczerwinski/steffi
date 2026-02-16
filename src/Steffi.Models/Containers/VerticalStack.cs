@@ -16,4 +16,7 @@ public class VerticalStack : Shape, IParentObject
 
 	[GenerateModelBuilderSetter]
 	public int? Padding { get; set; }
+
+	[GenerateModelBuilderSetter]
+	public int? Spacing { get; set; }
 }
