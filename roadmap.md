@@ -1,4 +1,6 @@
 # To do list
+- clean up renderables
+- 
 - more SVG objects and properties
 	- defs
 	- circle

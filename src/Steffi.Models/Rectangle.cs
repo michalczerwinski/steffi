@@ -1,4 +1,5 @@
-using Steffi.Models.Attributes;
+
+using Steffi.Models.Builder.Attributes;
 
 namespace Steffi.Models;
 

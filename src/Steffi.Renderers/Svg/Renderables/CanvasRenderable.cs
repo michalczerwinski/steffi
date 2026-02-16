@@ -3,12 +3,11 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class CanvasContainerRenderable(IList<Renderable> renderables, Shape shape, int padding = 0, int? width = null, int? height = null, bool includeBorder = false) : Renderable
+internal class CanvasRenderable(IList<Renderable> renderables, Shape shape, int padding = 0, int? width = null, int? height = null, bool includeBorder = false) : Renderable
 {
 	private readonly int? _width = width;
 	private readonly int? _height = height;
 	private readonly int _padding = padding;
-	private readonly bool _includeBorder = includeBorder;
 	private readonly Shape _shape = shape;
 
 	public override (XElement Element, int Width, int Height) Render()
@@ -45,12 +44,10 @@ internal class CanvasContainerRenderable(IList<Renderable> renderables, Shape sh
 		var finalWidth = _width ?? maxWidth;
 		var finalHeight = _height ?? maxHeight;
 
-		// Always insert background rectangle, but use empty stroke when border is disabled
-		if (!_includeBorder)
+		if (includeBorder)
 		{
-			_shape.Stroke = "none";
+			childRenders.Insert(0, SvgBuilder.Rect(0, 0, finalWidth, finalHeight, _shape));
 		}
-		childRenders.Insert(0, SvgBuilder.Rect(0, 0, finalWidth, finalHeight, _shape));
 
 		var render = SvgBuilder.Group(X, Y, childRenders);
 

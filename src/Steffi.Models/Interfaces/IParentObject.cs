@@ -6,5 +6,5 @@ public interface IParentObject
 {
 	List<SteffiObject> Children { get; }
 
-	ParentContainerProperties CreateContainerProperties();
+	ParentProperties CreateContainerProperties();
 }

@@ -1,16 +1,11 @@
-using Steffi.Models.Attributes;
+using Steffi.Models.Builder.Attributes;
 using Steffi.Models.Containers.Properties;
-using Steffi.Models.Interfaces;
 
 namespace Steffi.Models.Containers;
 
 [GenerateModelBuilder]
-public class VerticalStack : Shape, IParentObject
+public class VerticalStack : ContainerBase<EmptyParentProperties>
 {
-	public List<SteffiObject> Children { get; } = [];
-
-	public ParentContainerProperties CreateContainerProperties() => new EmptyContainerProperties();
-
 	[GenerateModelBuilderSetter]
 	public bool? Border { get; set; }
 
@@ -19,9 +14,4 @@ public class VerticalStack : Shape, IParentObject
 
 	[GenerateModelBuilderSetter]
 	public int? Spacing { get; set; }
-
-	public VerticalStack()
-	{
-		Stroke = "none";
-	}
 }

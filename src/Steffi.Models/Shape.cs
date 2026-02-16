@@ -1,4 +1,4 @@
-using Steffi.Models.Attributes;
+using Steffi.Models.Builder.Attributes;
 using Steffi.Models.Containers.Properties;
 using Steffi.Models.Interfaces;
 
@@ -7,7 +7,7 @@ namespace Steffi.Models;
 public class Shape : SteffiObject, IChildObject, IFillAndStrokeProperties
 {
 	public required IParentObject Parent { get; set; }
-	public required ParentContainerProperties ParentProperties { get; set; }
+	public required ParentProperties ParentProperties { get; set; }
 
 	[GenerateModelBuilderSetter]
 	public string? Fill { get; set; } = "white";

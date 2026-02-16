@@ -7,7 +7,7 @@ public class SteffiDocument : SteffiObject, IParentObject
 {
 	public List<SteffiObject> Children { get; } = [];
 
-	public ParentContainerProperties CreateContainerProperties() => new EmptyContainerProperties();
+	public ParentProperties CreateContainerProperties() => new EmptyParentProperties();
 
 	public void ResolveReferences()
 	{

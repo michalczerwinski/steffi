@@ -2,6 +2,7 @@
 using Steffi.Models.Containers;
 using Steffi.Models.Containers.Properties;
 using Steffi.Models.Interfaces;
+using Steffi.Models.Properties;
 using Steffi.Renderers.Svg.Renderables;
 
 namespace Steffi.Renderers.Svg;
@@ -25,11 +26,11 @@ public class SvgRenderer : IRenderer
 	{
 		List<Renderable> children = [.. parentObject.Children.Select(GetRenderable)];
 		var childObject = parentObject as IChildObject;
-		var absoluteProperties = childObject?.ParentProperties as CanvasContainerProperties;
+		var absoluteProperties = childObject?.ParentProperties as CanvasParentProperties;
 
 		return parentObject switch
 		{
-			Canvas canvas => new CanvasContainerRenderable(children,
+			Canvas canvas => new CanvasRenderable(children,
 				shape: canvas,
 				padding: canvas.Padding ?? 0,
 				width: canvas.Width,
@@ -57,7 +58,7 @@ public class SvgRenderer : IRenderer
 
 	private Renderable GetRenderableForText(Text text)
 	{
-		var canvasProperties = text.ParentProperties as CanvasContainerProperties;
+		var canvasProperties = text.ParentProperties as CanvasParentProperties;
 
 		var lines = text.Spans?.Split("\\n") ?? [];
 		var textLines = lines
@@ -75,7 +76,7 @@ public class SvgRenderer : IRenderer
 
 	private Renderable GetRenderableForRectangle(Rectangle rectangle)
 	{
-		var canvasProperties = rectangle.ParentProperties as CanvasContainerProperties;
+		var canvasProperties = rectangle.ParentProperties as CanvasParentProperties;
 
 		return new RectangleRenderable(
 				x: canvasProperties?.X ?? 0,

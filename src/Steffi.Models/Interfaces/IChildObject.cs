@@ -6,5 +6,5 @@ public interface IChildObject
 {
 	IParentObject Parent { get; set; }
 
-	ParentContainerProperties ParentProperties { get; set; }
+	ParentProperties ParentProperties { get; set; }
 }

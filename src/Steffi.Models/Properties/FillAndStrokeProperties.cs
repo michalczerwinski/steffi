@@ -1,6 +1,6 @@
 using Steffi.Models.Interfaces;
 
-namespace Steffi.Models;
+namespace Steffi.Models.Properties;
 
 public class FillAndStrokeProperties : IFillAndStrokeProperties
 {
