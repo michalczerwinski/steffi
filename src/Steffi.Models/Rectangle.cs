@@ -5,7 +5,7 @@ using Steffi.Models.Interfaces;
 namespace Steffi.Models;
 
 [GenerateModelBuilder]
-public class Rectangle : SteffiObject, IChildObject
+public class Rectangle : Shape, IChildObject
 {
 	public required IParentObject Parent { get; set; }
 	public required ParentContainerProperties ParentProperties { get; set; }
@@ -17,18 +17,8 @@ public class Rectangle : SteffiObject, IChildObject
 	public int Height { get; set; }
 
 	[GenerateModelBuilderSetter]
-	public string? Fill { get; set; }
-
-	[GenerateModelBuilderSetter]
-	public string? Stroke { get; set; }
-
-	[GenerateModelBuilderSetter]
-	public string? StrokeWidth { get; set; }
-
-	[GenerateModelBuilderSetter]
 	public string? Rx { get; set; }
 
 	[GenerateModelBuilderSetter]
 	public string? Ry { get; set; }
-
 }

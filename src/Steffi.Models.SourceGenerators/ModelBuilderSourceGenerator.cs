@@ -27,11 +27,11 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 					$"			nameof({typeName}) => new {typeName} {{ Name = name.ToString(), Parent = parentObject, ParentProperties = parentObject.CreateContainerProperties() }},"));
 
 				// Generate SetXProperty methods for all classes with [GenerateModelBuilderSetter]
-				var setterMethods = new StringBuilder();
-				foreach (var typeSymbol in modelBuilderTypes.OfType<INamedTypeSymbol>())
-				{
-					var setterProps = typeSymbol.GetMembers().OfType<IPropertySymbol>()
-						.Where(p => p.GetAttributes().Any(a => a.AttributeClass?.Name == "GenerateModelBuilderSetterAttribute"));
+					var setterMethods = new StringBuilder();
+					foreach (var typeSymbol in modelBuilderTypes.OfType<INamedTypeSymbol>())
+					{
+						var setterProps = GetAllMembers(typeSymbol).OfType<IPropertySymbol>()
+							.Where(p => p.GetAttributes().Any(a => a.AttributeClass?.Name == "GenerateModelBuilderSetterAttribute"));
 					if (!setterProps.Any()) continue;
 					setterMethods.AppendLine($"        private static bool Set{typeSymbol.Name}Property(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)");
 					setterMethods.AppendLine("        {");
@@ -115,5 +115,18 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 		}
 
 		return modelBuilderTypes;
+	}
+
+	private static IEnumerable<ISymbol> GetAllMembers(INamedTypeSymbol typeSymbol)
+	{
+		var current = typeSymbol;
+		while (current != null)
+		{
+			foreach (var member in current.GetMembers())
+			{
+				yield return member;
+			}
+			current = current.BaseType;
+		}
 	}
 }

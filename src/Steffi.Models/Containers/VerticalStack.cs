@@ -4,7 +4,7 @@ using Steffi.Models.Interfaces;
 namespace Steffi.Models.Containers;
 
 [GenerateModelBuilder]
-public class VerticalStack : SteffiObject, IParentObject, IChildObject
+public class VerticalStack : Shape, IParentObject, IChildObject
 {
 	public List<SteffiObject> Children { get; } = [];
 	public required IParentObject Parent { get; set; }
@@ -17,13 +17,4 @@ public class VerticalStack : SteffiObject, IParentObject, IChildObject
 
 	[GenerateModelBuilderSetter]
 	public int? Padding { get; set; }
-
-	[GenerateModelBuilderSetter]
-	public string? Fill { get; set; }
-
-	[GenerateModelBuilderSetter]
-	public string? Stroke { get; set; }
-
-	[GenerateModelBuilderSetter]
-	public string? StrokeWidth { get; set; }
 }
