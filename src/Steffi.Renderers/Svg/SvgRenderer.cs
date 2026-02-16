@@ -25,11 +25,15 @@ public class SvgRenderer : IRenderer
 			var y = canvasProperties?.Y ?? 0;
 
 			return new RectangleRenderable(x, y, rectangle.Width, rectangle.Height,
-				fill: rectangle.Fill,
-				stroke: rectangle.Stroke,
-				strokeWidth: rectangle.StrokeWidth,
-				rx: rectangle.Rx,
-				ry: rectangle.Ry);
+					fill: rectangle.Fill,
+					fillOpacity: rectangle.FillOpacity,
+					fillRule: rectangle.FillRule,
+					stroke: rectangle.Stroke,
+					strokeWidth: rectangle.StrokeWidth,
+					strokeOpacity: rectangle.StrokeOpacity,
+					strokeLineCap: rectangle.StrokeLineCap,
+					rx: rectangle.Rx,
+					ry: rectangle.Ry);
 		}
 
 		if (@object is Text text)

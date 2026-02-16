@@ -1,5 +1,14 @@
 VerticalStack {
 	padding: 10;
+	VerticalStack {
+		Canvas {
+			Text {spans: "SteffiDocument:\n-Svg";fontSize: 12;fontColor: black;}
+		}
+		Canvas {
+			Text {spans: "Shape:\n-Rectangle\n-Circle\n-Ellipse";fontSize: 12;fontColor: black;}
+		}
+	}
+
 	Text {spans: "Alek robalek!\nJurek ogórek\nkiełbaska i sznurek\nTata łopata";fontSize: 25;fontColor: red;}
 	HorizontalStack {
 		VerticalStack {

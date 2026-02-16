@@ -18,6 +18,6 @@ public static class Syntax
 		.Add(Terms.WhiteSpaceBlock | Terms.LineComment | Terms.BlockComment, Arity.ZeroOrMore)
 		.Add(Terms.PropertySeparator, Arity.ExactlyOne)
 		.Add(Terms.WhiteSpaceBlock | Terms.LineComment | Terms.BlockComment, Arity.ZeroOrMore)
-		.Add("PropertyValue", Terms.IntegerNumber | Terms.StringLiteral | Terms.Identifier, Arity.ExactlyOne)
+		.Add("PropertyValue", Terms.FloatingNumber | Terms.IntegerNumber | Terms.StringLiteral | Terms.Identifier, Arity.ExactlyOne)
 		.Add(Terms.AssignmentEnd, Arity.ExactlyOne);
 }

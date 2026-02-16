@@ -133,4 +133,16 @@ public class RenderingTests : SteffiParserTestsBase
 
 	[Test, DisplayName("Renders vertical stack with custom stroke width")]
 	public async Task RendersVerticalStackWithStrokeWidth() => await RendersSvgCorrectly("SvgGeneration44");
+
+	[Test, DisplayName("Renders rectangle with fill opacity")]
+	public async Task RendersRectangleWithFillOpacity() => await RendersSvgCorrectly("SvgGeneration45");
+
+	[Test, DisplayName("Renders rectangle with fill rule")]
+	public async Task RendersRectangleWithFillRule() => await RendersSvgCorrectly("SvgGeneration46");
+
+	[Test, DisplayName("Renders rectangle with stroke opacity")]
+	public async Task RendersRectangleWithStrokeOpacity() => await RendersSvgCorrectly("SvgGeneration47");
+
+	[Test, DisplayName("Renders rectangle with stroke line cap")]
+	public async Task RendersRectangleWithStrokeLineCap() => await RendersSvgCorrectly("SvgGeneration48");
 }

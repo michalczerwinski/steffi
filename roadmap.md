@@ -1,5 +1,4 @@
 # To do list
-- cleanup model interitance chain
 - more SVG objects and properties
 	- defs
 	- circle

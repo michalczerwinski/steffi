@@ -16,6 +16,9 @@ public static class Terms
 
 	public readonly static TermParser IntegerNumber = TermParser.AtLeastOne(char.IsDigit);
 
+	public readonly static TermParser FloatingNumber =
+		IntegerNumber >> TermParser.Character('.') >> IntegerNumber;
+
 	public readonly static TermParser BlockComment = TermParser.String("/*") >> TermParser.AnythingUntil("*/");
 
 	public readonly static TermParser NestingOpen = TermParser.Character('{');

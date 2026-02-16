@@ -1,0 +1,9 @@
+Canvas {
+  Rectangle {
+    width: 100;
+    height: 50;
+    fill: "blue";
+    fillRule: "evenodd";
+    stroke: "black";
+  }
+}
