@@ -4,8 +4,10 @@ using System.Xml.Linq;
 namespace Steffi.Renderers.Svg.Renderables;
 
 internal class VerticalStackRenderable(IList<Renderable> children, IFillAndStrokeProperties fillAndStroke, int padding = 0, int spacing = 3, bool includeBorder = false)
-	: ContainerRenderable(children, fillAndStroke, padding, spacing, includeBorder)
+	: ContainerRenderable(children, fillAndStroke, padding, includeBorder)
 {
+	private readonly int _spacing = spacing;
+
 	public override (XElement Element, int Width, int Height) Render()
 	{
 		int positionY = Padding;
@@ -23,7 +25,7 @@ internal class VerticalStackRenderable(IList<Renderable> children, IFillAndStrok
 
 			if (i != Children.Count - 1)
 			{
-				positionY += Spacing;
+				positionY += _spacing;
 			}
 
 			if (width < childRender.Width)

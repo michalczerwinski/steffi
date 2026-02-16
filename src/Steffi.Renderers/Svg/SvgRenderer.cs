@@ -31,7 +31,7 @@ public class SvgRenderer : IRenderer
 		return parentObject switch
 		{
 			Canvas canvas => new CanvasRenderable(children,
-				shape: canvas,
+				fillAndStroke: canvas,
 				padding: canvas.Padding ?? 0,
 				width: canvas.Width,
 				height: canvas.Height,

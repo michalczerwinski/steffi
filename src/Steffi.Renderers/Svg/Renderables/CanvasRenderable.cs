@@ -1,14 +1,15 @@
-using Steffi.Models;
+using Steffi.Models.Interfaces;
 using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class CanvasRenderable(IList<Renderable> renderables, Shape shape, int padding = 0, int? width = null, int? height = null, bool includeBorder = false) : Renderable
+internal class CanvasRenderable(IList<Renderable> children, IFillAndStrokeProperties fillAndStroke, int padding = 0, int? width = null, int? height = null, bool includeBorder = false)
+: ContainerRenderable(children, fillAndStroke, padding, includeBorder)
 {
 	private readonly int? _width = width;
 	private readonly int? _height = height;
 	private readonly int _padding = padding;
-	private readonly Shape _shape = shape;
+	private readonly IFillAndStrokeProperties _fillAndStroke = fillAndStroke;
 
 	public override (XElement Element, int Width, int Height) Render()
 	{
@@ -17,9 +18,9 @@ internal class CanvasRenderable(IList<Renderable> renderables, Shape shape, int 
 		int maxWidth = 0;
 		int maxHeight = 0;
 
-		for (int i = 0; i < renderables.Count; i++)
+		for (int i = 0; i < Children.Count; i++)
 		{
-			Renderable? child = renderables[i];
+			Renderable? child = Children[i];
 			if (child?.X == null || child.Y == null)
 			{
 				throw new InvalidOperationException("Object inside absolute container needs to have position set");
@@ -44,10 +45,7 @@ internal class CanvasRenderable(IList<Renderable> renderables, Shape shape, int 
 		var finalWidth = _width ?? maxWidth;
 		var finalHeight = _height ?? maxHeight;
 
-		if (includeBorder)
-		{
-			childRenders.Insert(0, SvgBuilder.Rect(0, 0, finalWidth, finalHeight, _shape));
-		}
+		InsertBorder(finalWidth, finalHeight, childRenders);
 
 		var render = SvgBuilder.Group(X, Y, childRenders);
 

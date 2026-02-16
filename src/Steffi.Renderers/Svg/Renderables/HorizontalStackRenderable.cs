@@ -3,9 +3,11 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class HorizontalStackRenderable(IList<Renderable> children, IFillAndStrokeProperties fillAndStroke, int padding = 0, int spacing = 3, bool includeBorder = false, string? fill = null, string? stroke = null, string? strokeWidth = null)
-	: ContainerRenderable(children, fillAndStroke, padding, spacing, includeBorder, fill, stroke, strokeWidth)
+internal class HorizontalStackRenderable(IList<Renderable> children, IFillAndStrokeProperties fillAndStroke, int padding = 0, int spacing = 3, bool includeBorder = false)
+	: ContainerRenderable(children, fillAndStroke, padding, includeBorder)
 {
+	private readonly int _spacing = spacing;
+
 	public override (XElement Element, int Width, int Height) Render()
 	{
 		int positionX = Padding;
@@ -23,7 +25,7 @@ internal class HorizontalStackRenderable(IList<Renderable> children, IFillAndStr
 
 			if (i != Children.Count - 1)
 			{
-				positionX += Spacing;
+				positionX += _spacing;
 			}
 
 			if (height < childRender.Height)
