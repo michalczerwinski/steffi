@@ -3,13 +3,12 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables.Containers;
 
-internal class CanvasRenderable(IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, int? width = null, int? height = null)
-: ContainerRenderable(children, fillAndStroke, padding)
+internal class CanvasRenderable(int? x, int? y, IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, int? width = null, int? height = null)
+: ContainerRenderable(x, y, children, fillAndStroke, padding)
 {
 	private readonly int? _width = width;
 	private readonly int? _height = height;
 	private readonly int _padding = padding;
-	private readonly IFillAndStroke _fillAndStroke = fillAndStroke;
 
 	public override (XElement Element, int Width, int Height) Render()
 	{

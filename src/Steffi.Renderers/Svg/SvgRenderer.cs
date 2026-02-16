@@ -31,22 +31,28 @@ public class SvgRenderer : IRenderer
 
 		return parentObject switch
 		{
-			Canvas canvas => new CanvasRenderable(children,
+			Canvas canvas => new CanvasRenderable(
+				absoluteProperties?.X,
+				absoluteProperties?.Y,
+				children,
 				fillAndStroke: canvas,
 				padding: canvas.Padding ?? 0,
 				width: canvas.Width,
-				height: canvas.Height)
-			{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
-			HorizontalStack hStack => new HorizontalStackRenderable(children,
+				height: canvas.Height),
+			HorizontalStack hStack => new HorizontalStackRenderable(
+				absoluteProperties?.X,
+				absoluteProperties?.Y,
+				children,
 				fillAndStroke: hStack,
 				padding: hStack.Padding ?? 0,
-				spacing: hStack.Spacing ?? 10)
-			{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
-			VerticalStack vStack => new VerticalStackRenderable(children,
+				spacing: hStack.Spacing ?? 10),
+			VerticalStack vStack => new VerticalStackRenderable(
+				absoluteProperties?.X,
+				absoluteProperties?.Y,
+				children,
 				fillAndStroke: vStack,
 				padding: vStack.Padding ?? 0,
-				spacing: vStack.Spacing ?? 10)
-			{ X = absoluteProperties?.X, Y = absoluteProperties?.Y },
+				spacing: vStack.Spacing ?? 10),
 			SteffiDocument steffiDocument => children.Single(),
 			_ => throw new NotSupportedException($"Unsupported layout type: {parentObject.GetType()}")
 		};
@@ -69,7 +75,12 @@ public class SvgRenderer : IRenderer
 			.Cast<Renderable>()
 			.ToList();
 
-		return new VerticalStackRenderable(textLines, new FillAndStrokeProperties { Stroke = "none", Fill = "white" }, padding: 0, spacing: 0) { X = canvasProperties?.X ?? 0, Y = canvasProperties?.Y ?? 0 };
+		return new VerticalStackRenderable(
+			canvasProperties?.X ?? 0,
+			canvasProperties?.Y ?? 0,
+			textLines,
+			new FillAndStrokeProperties { Stroke = "none", Fill = "white" },
+			padding: 0, spacing: 0);
 	}
 
 	private Renderable GetRenderableForRectangle(Rectangle rectangle)

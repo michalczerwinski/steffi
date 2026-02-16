@@ -3,8 +3,8 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables.Containers;
 
-internal abstract class ContainerRenderable(IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0)
-	: Renderable
+internal abstract class ContainerRenderable(int? x, int? y, IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0)
+	: Renderable(x, y)
 {
 	protected IFillAndStroke FillAndStroke { get; } = fillAndStroke;
 	protected IList<Renderable> Children { get; } = children;
