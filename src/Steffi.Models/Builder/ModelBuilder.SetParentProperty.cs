@@ -1,11 +1,11 @@
-using Steffi.Models.Containers;
+using Steffi.Models.Containers.Properties;
 using Steffi.Models.Interfaces;
 
 namespace Steffi.Models.Builder;
 
 public static partial class ModelBuilder
 {
-	private static bool SetIChildObjectProperty(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)
+	private static bool SetParentProperty(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)
 	{
 		if (steffiObject is IChildObject childObject && childObject.ParentProperties is CanvasContainerProperties canvasContainerProperties)
 		{

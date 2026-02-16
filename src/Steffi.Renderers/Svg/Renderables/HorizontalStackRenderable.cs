@@ -34,10 +34,7 @@ internal class HorizontalStackRenderable(IList<Renderable> children, int padding
 
 		InsertBorder(positionX + Padding, height + 2 * Padding, childRenders);
 
-		var render = new XElement(SvgNamespace + "g",
-			(X != 0 || Y != 0) ? new XAttribute("transform", $"translate({X}, {Y})") : null,
-			childRenders
-		);
+		var render = SvgBuilder.Group(X, Y, childRenders);
 
 		return (render, positionX + Padding, height + 2 * Padding);
 	}

@@ -1,3 +1,3 @@
-namespace Steffi.Models.Containers;
+namespace Steffi.Models.Containers.Properties;
 
 public abstract class ParentContainerProperties;

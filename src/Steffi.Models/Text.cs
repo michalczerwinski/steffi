@@ -1,5 +1,5 @@
 using Steffi.Models.Attributes;
-using Steffi.Models.Containers;
+using Steffi.Models.Containers.Properties;
 using Steffi.Models.Interfaces;
 
 namespace Steffi.Models;

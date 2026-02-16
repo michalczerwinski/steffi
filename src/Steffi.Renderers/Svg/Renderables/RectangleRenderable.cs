@@ -36,18 +36,8 @@ internal class RectangleRenderable : Renderable
 	}
 
 	public override (XElement Element, int Width, int Height) Render()
-		=> (Element: new XElement(SvgNamespace + "rect",
-			new XAttribute("x", X ?? 0),
-			new XAttribute("y", Y ?? 0),
-			new XAttribute("width", _width),
-			new XAttribute("height", _height),
-			new XAttribute("fill", _fill ?? "white"),
-			string.IsNullOrEmpty(_fillOpacity) ? null : new XAttribute("fill-opacity", _fillOpacity),
-			string.IsNullOrEmpty(_fillRule) ? null : new XAttribute("fill-rule", _fillRule),
-			string.IsNullOrEmpty(_rx) ? null : new XAttribute("rx", _rx),
-			string.IsNullOrEmpty(_ry) ? null : new XAttribute("ry", _ry),
-			new XAttribute("stroke", _stroke ?? "black"),
-			string.IsNullOrEmpty(_strokeWidth) ? null : new XAttribute("stroke-width", _strokeWidth),
-			string.IsNullOrEmpty(_strokeOpacity) ? null : new XAttribute("stroke-opacity", _strokeOpacity),
-			string.IsNullOrEmpty(_strokeLineCap) ? null : new XAttribute("stroke-linecap", _strokeLineCap)), _width, _height);
+		=> (Element: SvgBuilder.Rect(X ?? 0, Y ?? 0, _width, _height,
+			fill: _fill, fillOpacity: _fillOpacity, fillRule: _fillRule,
+			stroke: _stroke, strokeWidth: _strokeWidth, strokeOpacity: _strokeOpacity, strokeLineCap: _strokeLineCap,
+			rx: _rx, ry: _ry), _width, _height);
 }

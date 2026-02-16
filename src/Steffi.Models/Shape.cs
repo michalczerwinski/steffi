@@ -1,9 +1,14 @@
 using Steffi.Models.Attributes;
+using Steffi.Models.Containers.Properties;
+using Steffi.Models.Interfaces;
 
 namespace Steffi.Models;
 
-public class Shape : SteffiObject
+public class Shape : SteffiObject, IChildObject
 {
+	public required IParentObject Parent { get; set; }
+	public required ParentContainerProperties ParentProperties { get; set; }
+
 	[GenerateModelBuilderSetter]
 	public string? Fill { get; set; }
 

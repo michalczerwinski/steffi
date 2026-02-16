@@ -16,6 +16,6 @@ internal abstract class ContainerRenderable(IList<Renderable> children, int padd
 	{
 		// Always insert background rectangle, but use empty stroke when border is disabled
 		var effectiveStroke = inlcudeBorder ? Stroke : "none";
-		childRenders.Insert(0, new RectangleRenderable(0, 0, width, height, fill: Fill, stroke: effectiveStroke, strokeWidth: StrokeWidth).Render().Element);
+		childRenders.Insert(0, SvgBuilder.Rect(0, 0, width, height, fill: Fill, stroke: effectiveStroke, strokeWidth: StrokeWidth));
 	}
 }

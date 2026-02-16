@@ -1,4 +1,4 @@
-namespace Steffi.Models.Containers;
+namespace Steffi.Models.Containers.Properties;
 
 public class EmptyContainerProperties : ParentContainerProperties
 {

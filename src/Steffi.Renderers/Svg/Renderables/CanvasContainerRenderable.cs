@@ -48,12 +48,9 @@ internal class CanvasContainerRenderable(IList<Renderable> renderables, int padd
 
 		// Always insert background rectangle, but use empty stroke when border is disabled
 		var effectiveStroke = _includeBorder ? _stroke : "none";
-		childRenders.Insert(0, new RectangleRenderable(0, 0, finalWidth, finalHeight, fill: _fill, stroke: effectiveStroke, strokeWidth: _strokeWidth).Render().Element);
+		childRenders.Insert(0, SvgBuilder.Rect(0, 0, finalWidth, finalHeight, fill: _fill, stroke: effectiveStroke, strokeWidth: _strokeWidth));
 
-		var render = new XElement(SvgNamespace + "g",
-			(X != 0 || Y != 0) ? new XAttribute("transform", $"translate({X ?? 0}, {Y ?? 0})") : null,
-			childRenders
-		);
+		var render = SvgBuilder.Group(X, Y, childRenders);
 
 		return (render, finalWidth, finalHeight);
 	}
