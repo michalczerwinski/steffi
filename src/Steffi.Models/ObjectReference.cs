@@ -1,8 +1,8 @@
 namespace Steffi.Models;
 
-public class ObjectReference
+public class ObjectReference<TReferencedObject> where TReferencedObject : SteffiObject
 {
 	public required string Name { get; set; }
 
-	public SteffiObject? Object { get; set; }
+	public TReferencedObject? Object { get; set; }
 }

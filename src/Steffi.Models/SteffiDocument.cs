@@ -15,9 +15,9 @@ public class SteffiDocument : SteffiObject, IParentObject
 
 		void AddChildren(SteffiObject @object)
 		{
-			if (@object is INamedObject namedObject)
+			if (!string.IsNullOrEmpty(@object.Name))
 			{
-				childrenByName[namedObject.Name] = @object;
+				childrenByName[@object.Name] = @object;
 			}
 
 			if (@object is IParentObject parentObject)

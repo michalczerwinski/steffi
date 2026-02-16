@@ -5,9 +5,8 @@ using Steffi.Models.Interfaces;
 namespace Steffi.Models;
 
 [GenerateModelBuilder]
-public class Text : SteffiObject, INamedObject, IChildObject
+public class Text : SteffiObject, IChildObject
 {
-	public required string Name { get; set; }
 	public required IParentObject Parent { get; set; }
 	public required ParentContainerProperties ParentProperties { get; set; }
 

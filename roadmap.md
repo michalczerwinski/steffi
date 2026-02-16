@@ -1,4 +1,9 @@
 # To do list
+- cleanup model interitance chain
+- more SVG objects and properties
+	- defs
+	- circle
+	- ellipse
 - heredoc like strings
 - syntax highlighting generator
 - validation for missing/not allowed parent container properties

@@ -52,8 +52,7 @@ public static class SteffiTreeRenderer
 		return steffiObject switch
 		{
 			SteffiDocument => ("Document", "dodgerblue1"),
-			INamedObject named => ($"{steffiObject.GetType().Name}: {FormatName(named.Name)}", "white"),
-			_ => (steffiObject.GetType().Name, "white")
+			_ => ($"{steffiObject.GetType().Name}: {FormatName(steffiObject.Name)}", "white")
 		};
 	}
 

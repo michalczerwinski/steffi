@@ -55,8 +55,7 @@ public static class SteffiConsole
 		return steffiObject switch
 		{
 			SteffiDocument => "Steffi Document",
-			INamedObject named => $"{steffiObject.GetType().Name}: {FormatName(named.Name)}",
-			_ => steffiObject.GetType().Name
+			_ => $"{steffiObject.GetType().Name}: {FormatName(steffiObject.Name)}"
 		};
 	}
 

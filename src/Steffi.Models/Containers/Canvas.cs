@@ -4,10 +4,8 @@ using Steffi.Models.Interfaces;
 namespace Steffi.Models.Containers;
 
 [GenerateModelBuilder]
-public class Canvas : SteffiObject, INamedObject, IParentObject, IChildObject
+public class Canvas : SteffiObject, IParentObject, IChildObject
 {
-	public required string Name { get; set; }
-
 	public List<SteffiObject> Children { get; } = [];
 	public required IParentObject Parent { get; set; }
 	public required ParentContainerProperties ParentProperties { get; set; }
