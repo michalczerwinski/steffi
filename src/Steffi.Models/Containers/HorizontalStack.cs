@@ -7,9 +7,6 @@ namespace Steffi.Models.Containers;
 public class HorizontalStack : ContainerBase<EmptyParentProperties>
 {
 	[GenerateModelBuilderSetter]
-	public bool? Border { get; set; }
-
-	[GenerateModelBuilderSetter]
 	public int? Padding { get; set; }
 
 	[GenerateModelBuilderSetter]

@@ -1,5 +1,5 @@
 HorizontalStack {
-  border: false;
+
   Rectangle {
     width: 50;
     height: 50;

@@ -3,8 +3,8 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables.Containers;
 
-internal class HorizontalStackRenderable(IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, int spacing = 3, bool includeBorder = false)
-	: ContainerRenderable(children, fillAndStroke, padding, includeBorder)
+internal class HorizontalStackRenderable(IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, int spacing = 3)
+	: ContainerRenderable(children, fillAndStroke, padding)
 {
 	private readonly int _spacing = spacing;
 

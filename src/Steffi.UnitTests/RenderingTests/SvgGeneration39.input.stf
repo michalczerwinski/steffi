@@ -1,5 +1,5 @@
 Canvas {
-  border: true;
+
   padding: 5;
   fill: "lightcyan";
   stroke: "navy";

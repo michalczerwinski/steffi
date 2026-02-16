@@ -1,5 +1,5 @@
 VerticalStack {
-  border: true;
+
   padding: 8;
   fill: "honeydew";
   stroke: "green";

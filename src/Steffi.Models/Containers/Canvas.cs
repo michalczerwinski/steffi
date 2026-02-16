@@ -14,9 +14,6 @@ public class Canvas : ContainerBase<CanvasParentProperties>
 	public int? Height { get; set; }
 
 	[GenerateModelBuilderSetter]
-	public bool? Border { get; set; }
-
-	[GenerateModelBuilderSetter]
 	public int? Padding { get; set; }
 
 }
