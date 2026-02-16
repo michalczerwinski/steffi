@@ -8,6 +8,8 @@ VerticalStack {
 		Canvas {
 			Text {spans: "Shape:\n-Rectangle\n-Circle\n-Ellipse";fontSize: 12;fontColor: black;}
 		}
+		Circle { r:120;strokeWidth:13;stroke: green;fill:red;}
+		padding:10;
 	}
 
 	Text {spans: "Alek robalek!\nJurek ogórek\nkiełbaska i sznurek\nTata łopata";fontSize: 25;fontColor: red;}

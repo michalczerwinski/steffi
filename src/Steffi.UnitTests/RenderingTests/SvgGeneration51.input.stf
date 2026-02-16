@@ -1,0 +1,3 @@
+Canvas {
+  Circle { r: 30; fill: "red"; stroke: "blue"; strokeWidth: "2"; }
+}

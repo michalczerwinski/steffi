@@ -1,0 +1,6 @@
+<svg width="60" height="70" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="60" height="70" fill="white" stroke="none" />
+    <circle cx="35" cy="45" r="25" fill="green" stroke="black" />
+  </g>
+</svg>

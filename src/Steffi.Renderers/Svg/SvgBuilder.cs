@@ -31,6 +31,15 @@ internal static class SvgBuilder
 			string.IsNullOrEmpty(ry) ? null : new XAttribute("ry", ry),
 			GetFillAndStrokeAttributes(fillAndStroke));
 
+	internal static XElement Circle(
+		int cx, int cy, int r,
+		IFillAndStroke fillAndStroke)
+		=> new(SvgNamespace + "circle",
+			new XAttribute("cx", cx),
+			new XAttribute("cy", cy),
+			new XAttribute("r", r),
+			GetFillAndStrokeAttributes(fillAndStroke));
+
 	internal static XElement Group(int? x, int? y, List<XElement> children)
 		=> new(SvgNamespace + "g",
 			(x != 0 || y != 0)

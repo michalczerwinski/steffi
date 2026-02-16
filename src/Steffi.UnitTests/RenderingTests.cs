@@ -145,4 +145,16 @@ public class RenderingTests : SteffiParserTestsBase
 
 	[Test, DisplayName("Renders rectangle with stroke line cap")]
 	public async Task RendersRectangleWithStrokeLineCap() => await RendersSvgCorrectly("SvgGeneration48");
+
+	[Test, DisplayName("Renders basic circle in canvas")]
+	public async Task RendersBasicCircle() => await RendersSvgCorrectly("SvgGeneration49");
+
+	[Test, DisplayName("Renders single circle without canvas")]
+	public async Task RendersSingleCircle() => await RendersSvgCorrectly("SvgGeneration50");
+
+	[Test, DisplayName("Renders circle with custom fill and stroke")]
+	public async Task RendersCircleWithFillAndStroke() => await RendersSvgCorrectly("SvgGeneration51");
+
+	[Test, DisplayName("Renders circle with position in canvas")]
+	public async Task RendersCircleWithPosition() => await RendersSvgCorrectly("SvgGeneration52");
 }

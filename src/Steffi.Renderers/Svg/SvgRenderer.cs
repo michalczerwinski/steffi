@@ -18,6 +18,7 @@ public class SvgRenderer : IRenderer
 	private Renderable GetRenderable(SteffiObject @object) => @object switch
 	{
 		Rectangle rectangle => GetRenderableForRectangle(rectangle),
+		Circle circle => GetRenderableForCircle(circle),
 		Text text => GetRenderableForText(text),
 		IParentObject parentObject => GetRenderableForParentObject(parentObject),
 		_ => throw new NotSupportedException($"Unsupported element type: {@object.GetType()}"),
@@ -95,5 +96,16 @@ public class SvgRenderer : IRenderer
 				fillAndStroke: rectangle,
 				rx: rectangle.Rx,
 				ry: rectangle.Ry);
+	}
+
+	private Renderable GetRenderableForCircle(Circle circle)
+	{
+		var canvasProperties = circle.ParentProperties as CanvasParentProperties;
+
+		return new CircleRenderable(
+				x: canvasProperties?.X ?? 0,
+				y: canvasProperties?.Y ?? 0,
+				r: circle.R,
+				fillAndStroke: circle);
 	}
 }
