@@ -181,4 +181,10 @@ public class RenderingTests : SteffiParserTestsBase
 
 	[Test, DisplayName("Renders polyline with position in canvas")]
 	public async Task RendersPolylineWithPosition() => await RendersSvgCorrectly("SvgGeneration60");
+
+	[Test, DisplayName("Renders standalone line")]
+	public async Task RendersStandaloneLine() => await RendersSvgCorrectly("SvgGeneration61");
+
+	[Test, DisplayName("Renders line with custom stroke")]
+	public async Task RendersLineWithCustomStroke() => await RendersSvgCorrectly("SvgGeneration62");
 }

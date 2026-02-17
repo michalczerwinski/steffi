@@ -139,4 +139,129 @@ public class SteffiParserTests : SteffiParserTestsBase
 		}		
 		""",
 		"(3,2): Cannot nest children in Rectangle");
+
+	[Test, DisplayName("Compiles basic line with x2 and y2")]
+	public async Task CompilesBasicLine()
+	{
+		var result = await CompilesWithoutError(
+			"""
+			Line {
+				x2: 100;
+				y2: 50;
+			}
+			""");
+
+		await Assert.That(result.Document).IsNotNull();
+		await Assert.That(result.Document!.Children.Count).IsEqualTo(1);
+		await Assert.That(result.Document!.Children[0]).IsTypeOf<Line>();
+
+		var line = (Line)result.Document!.Children[0];
+		await Assert.That(line.X2).IsEqualTo(100);
+		await Assert.That(line.Y2).IsEqualTo(50);
+	}
+
+	[Test, DisplayName("Line has null x1 and y1 by default")]
+	public async Task LineHasNullX1Y1ByDefault()
+	{
+		var result = await CompilesWithoutError(
+			"""
+			Line {
+				x2: 200;
+				y2: 100;
+			}
+			""");
+
+		var line = (Line)result.Document!.Children[0];
+		await Assert.That(line.X1).IsNull();
+		await Assert.That(line.Y1).IsNull();
+	}
+
+	[Test, DisplayName("Compiles line with all coordinate properties")]
+	public async Task CompilesLineWithAllCoordinates()
+	{
+		var result = await CompilesWithoutError(
+			"""
+			Line {
+				x1: 10;
+				y1: 20;
+				x2: 150;
+				y2: 75;
+			}
+			""");
+
+		var line = (Line)result.Document!.Children[0];
+		await Assert.That(line.X1).IsEqualTo(10);
+		await Assert.That(line.Y1).IsEqualTo(20);
+		await Assert.That(line.X2).IsEqualTo(150);
+		await Assert.That(line.Y2).IsEqualTo(75);
+	}
+
+	[Test, DisplayName("Compiles line with custom stroke and fill")]
+	public async Task CompilesLineWithStrokeAndFill()
+	{
+		var result = await CompilesWithoutError(
+			"""
+			Line {
+				x2: 100;
+				y2: 50;
+				stroke: "red";
+				strokeWidth: "3";
+				fill: "none";
+			}
+			""");
+
+		var line = (Line)result.Document!.Children[0];
+		await Assert.That(line.Stroke).IsEqualTo("red");
+		await Assert.That(line.StrokeWidth).IsEqualTo("3");
+		await Assert.That(line.Fill).IsEqualTo("none");
+	}
+
+	[Test, DisplayName("Line inherits default fill and stroke from Shape")]
+	public async Task LineHasDefaultFillAndStroke()
+	{
+		var result = await CompilesWithoutError(
+			"""
+			Line {
+				x2: 50;
+				y2: 50;
+			}
+			""");
+
+		var line = (Line)result.Document!.Children[0];
+		await Assert.That(line.Fill).IsEqualTo("white");
+		await Assert.That(line.Stroke).IsEqualTo("black");
+	}
+
+	[Test, DisplayName("Compiles named line")]
+	public async Task CompilesNamedLine()
+	{
+		var result = await CompilesWithoutError(
+			"""
+			Line myLine {
+				x2: 80;
+				y2: 40;
+			}
+			""");
+
+		var line = (Line)result.Document!.Children[0];
+		await Assert.That(line.Name).IsEqualTo("myLine");
+	}
+
+	[Test, DisplayName("Compiles line with stroke opacity and line cap")]
+	public async Task CompilesLineWithStrokeOpacityAndLineCap()
+	{
+		var result = await CompilesWithoutError(
+			"""
+			Line {
+				x2: 100;
+				y2: 50;
+				strokeOpacity: "0.5";
+				strokeLineCap: "round";
+			}
+			""");
+
+		var line = (Line)result.Document!.Children[0];
+		await Assert.That(line.StrokeOpacity).IsEqualTo("0.5");
+		await Assert.That(line.StrokeLineCap).IsEqualTo("round");
+	}
 }

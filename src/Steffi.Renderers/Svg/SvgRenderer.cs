@@ -17,6 +17,7 @@ public class SvgRenderer : IRenderer
 
 	private Renderable GetRenderable(SteffiObject @object) => @object switch
 	{
+		Line line => GetRenderableForLine(line),
 		Rectangle rectangle => GetRenderableForRectangle(rectangle),
 		Circle circle => GetRenderableForCircle(circle),
 		Ellipse ellipse => GetRenderableForEllipse(ellipse),
@@ -86,6 +87,18 @@ public class SvgRenderer : IRenderer
 			new FillAndStrokeProperties { Stroke = "none", Fill = "white" },
 			padding: 0, spacing: 0);
 	}
+	private Renderable GetRenderableForLine(Line line)
+	{
+		var canvasProperties = line.ParentProperties as CanvasParentProperties;
+
+		return new LineRenderable(
+				x1: canvasProperties?.X ?? 0,
+				y1: canvasProperties?.Y ?? 0,
+				x2: line.X2,
+				y2: line.Y2,
+				fillAndStroke: line);
+	}
+
 
 	private Renderable GetRenderableForRectangle(Rectangle rectangle)
 	{

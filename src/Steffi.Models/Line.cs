@@ -4,17 +4,14 @@ using Steffi.Models.Builder.Attributes;
 namespace Steffi.Models;
 
 [GenerateModelBuilder]
-public class Rectangle : Shape
+public class Line : Shape
 {
 	[GenerateModelBuilderSetter]
-	public int Width { get; set; }
-
+	public decimal? X1 { get; set; }
 	[GenerateModelBuilderSetter]
-	public int Height { get; set; }
-
+	public decimal? Y1 { get; set; }
 	[GenerateModelBuilderSetter]
-	public decimal? Rx { get; set; }
-
+	public decimal X2 { get; set; }
 	[GenerateModelBuilderSetter]
-	public decimal? Ry { get; set; }
+	public decimal Y2 { get; set; }
 }

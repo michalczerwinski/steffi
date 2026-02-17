@@ -9,6 +9,7 @@ public static partial class ModelBuilder
 		|| SetEllipseProperty(steffiObject, propertyName, value)
 		|| SetPolygonProperty(steffiObject, propertyName, value)
 		|| SetPolylineProperty(steffiObject, propertyName, value)
+		|| SetLineProperty(steffiObject, propertyName, value)
 		|| SetTextProperty(steffiObject, propertyName, value)
 		|| SetCanvasProperty(steffiObject, propertyName, value)
 		|| SetHorizontalStackProperty(steffiObject, propertyName, value)

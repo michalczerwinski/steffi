@@ -71,13 +71,13 @@ internal static class SvgBuilder
 				: null,
 			children);
 
-	internal static XElement Line(decimal x1, decimal y1, decimal x2, decimal y2, string stroke = "black")
+	internal static XElement Line(decimal x1, decimal y1, decimal x2, decimal y2, IFillAndStroke fillAndStroke)
 		=> new(SvgNamespace + "line",
 			new XAttribute("x1", x1),
 			new XAttribute("y1", y1),
 			new XAttribute("x2", x2),
 			new XAttribute("y2", y2),
-			new XAttribute("stroke", stroke));
+			GetFillAndStrokeAttributes(fillAndStroke));
 
 	internal static XElement Text(decimal x, decimal y, int fontSize, string fontFamily, string textAnchor, string dominantBaseline, string fill, string text)
 		=> new(SvgNamespace + "text",

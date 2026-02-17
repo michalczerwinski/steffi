@@ -1,0 +1,1 @@
+Line { x2: 200; y2: 100; stroke: "red"; strokeWidth: "2"; fill: "none"; }
