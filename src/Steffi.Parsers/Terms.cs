@@ -28,4 +28,8 @@ public static class Terms
 	public readonly static TermParser PropertySeparator = TermParser.Character(':');
 
 	public readonly static TermParser StringLiteral = TermParser.Character('"') >> TermParser.AnythingUntil('"');
+
+	public readonly static TermParser PointsList =
+		IntegerNumber >> TermParser.Character(',') >> IntegerNumber
+		>> TermParser.EverythingWhile(c => char.IsDigit(c) || c == ',' || c == ' ');
 }

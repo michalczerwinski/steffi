@@ -20,6 +20,8 @@ public class SvgRenderer : IRenderer
 		Rectangle rectangle => GetRenderableForRectangle(rectangle),
 		Circle circle => GetRenderableForCircle(circle),
 		Ellipse ellipse => GetRenderableForEllipse(ellipse),
+		Polygon polygon => GetRenderableForPolygon(polygon),
+		Polyline polyline => GetRenderableForPolyline(polyline),
 		Text text => GetRenderableForText(text),
 		IParentObject parentObject => GetRenderableForParentObject(parentObject),
 		_ => throw new NotSupportedException($"Unsupported element type: {@object.GetType()}"),
@@ -120,5 +122,27 @@ public class SvgRenderer : IRenderer
 				rx: ellipse.Rx,
 				ry: ellipse.Ry,
 				fillAndStroke: ellipse);
+	}
+
+	private Renderable GetRenderableForPolygon(Polygon polygon)
+	{
+		var canvasProperties = polygon.ParentProperties as CanvasParentProperties;
+
+		return new PolygonRenderable(
+				x: canvasProperties?.X ?? 0,
+				y: canvasProperties?.Y ?? 0,
+				points: polygon.Points,
+				fillAndStroke: polygon);
+	}
+
+	private Renderable GetRenderableForPolyline(Polyline polyline)
+	{
+		var canvasProperties = polyline.ParentProperties as CanvasParentProperties;
+
+		return new PolylineRenderable(
+				x: canvasProperties?.X ?? 0,
+				y: canvasProperties?.Y ?? 0,
+				points: polyline.Points,
+				fillAndStroke: polyline);
 	}
 }

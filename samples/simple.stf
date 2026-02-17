@@ -1,4 +1,17 @@
 VerticalStack {
+	Canvas {
+		VerticalStack {
+			spacing: 0;
+			Ellipse { rx: 25; ry:20; strokeWidth:2; fill:lightgray;}
+			Ellipse { rx: 25; ry:25; strokeWidth:2; fill:lightgray;}
+			Ellipse { rx: 25; ry:20; strokeWidth:2; fill:lightgray;}
+			Canvas {
+			  Polyline { x: 10; y: 10; points: 0,0 50,30 100,0 0,0; fill: "blue"; stroke: "green"; }
+			}
+		}
+		Circle { x:10; y:12; r:4;fill:black;}
+		Circle { x:32; y:12; r:4;fill:black;}
+	}
 	Ellipse { rx: 50; ry:20; strokeWidth:2; fill:blue;}
 	padding: 10;
 	VerticalStack {

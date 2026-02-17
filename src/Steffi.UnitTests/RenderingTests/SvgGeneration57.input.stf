@@ -1,0 +1,3 @@
+Canvas {
+  Polygon { points: 50,0 100,80 0,80; fill: "lime"; stroke: "black"; }
+}

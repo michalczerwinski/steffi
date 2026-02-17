@@ -49,6 +49,10 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 						{
 							parseExpr = "bool.Parse(value)";
 						}
+						else if (type.Contains("List") && type.Contains("Point2D"))
+						{
+							parseExpr = "Steffi.Models.Point2D.ParseList(value)";
+						}
 						else
 						{
 							parseExpr = "value.ToString()";

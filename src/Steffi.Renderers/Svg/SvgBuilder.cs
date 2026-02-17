@@ -50,6 +50,20 @@ internal static class SvgBuilder
 			new XAttribute("ry", ry),
 			GetFillAndStrokeAttributes(fillAndStroke));
 
+	internal static XElement Polygon(
+		string points,
+		IFillAndStroke fillAndStroke)
+		=> new(SvgNamespace + "polygon",
+			new XAttribute("points", points),
+			GetFillAndStrokeAttributes(fillAndStroke));
+
+	internal static XElement Polyline(
+		string points,
+		IFillAndStroke fillAndStroke)
+		=> new(SvgNamespace + "polyline",
+			new XAttribute("points", points),
+			GetFillAndStrokeAttributes(fillAndStroke));
+
 	internal static XElement Group(int? x, int? y, List<XElement> children)
 		=> new(SvgNamespace + "g",
 			(x != 0 || y != 0)

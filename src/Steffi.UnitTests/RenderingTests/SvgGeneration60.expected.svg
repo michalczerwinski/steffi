@@ -1,0 +1,6 @@
+<svg width="110" height="40" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="110" height="40" fill="white" stroke="none" />
+    <polyline points="10,10 60,40 110,10" fill="none" stroke="green" />
+  </g>
+</svg>

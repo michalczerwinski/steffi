@@ -169,4 +169,16 @@ public class RenderingTests : SteffiParserTestsBase
 
 	[Test, DisplayName("Renders ellipse with position in canvas")]
 	public async Task RendersEllipseWithPosition() => await RendersSvgCorrectly("SvgGeneration56");
+
+	[Test, DisplayName("Renders polygon in canvas")]
+	public async Task RendersPolygonInCanvas() => await RendersSvgCorrectly("SvgGeneration57");
+
+	[Test, DisplayName("Renders polygon with position in canvas")]
+	public async Task RendersPolygonWithPosition() => await RendersSvgCorrectly("SvgGeneration58");
+
+	[Test, DisplayName("Renders polyline in canvas")]
+	public async Task RendersPolylineInCanvas() => await RendersSvgCorrectly("SvgGeneration59");
+
+	[Test, DisplayName("Renders polyline with position in canvas")]
+	public async Task RendersPolylineWithPosition() => await RendersSvgCorrectly("SvgGeneration60");
 }
