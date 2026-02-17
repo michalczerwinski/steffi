@@ -40,6 +40,16 @@ internal static class SvgBuilder
 			new XAttribute("r", r),
 			GetFillAndStrokeAttributes(fillAndStroke));
 
+	internal static XElement Ellipse(
+		int cx, int cy, int rx, int ry,
+		IFillAndStroke fillAndStroke)
+		=> new(SvgNamespace + "ellipse",
+			new XAttribute("cx", cx),
+			new XAttribute("cy", cy),
+			new XAttribute("rx", rx),
+			new XAttribute("ry", ry),
+			GetFillAndStrokeAttributes(fillAndStroke));
+
 	internal static XElement Group(int? x, int? y, List<XElement> children)
 		=> new(SvgNamespace + "g",
 			(x != 0 || y != 0)

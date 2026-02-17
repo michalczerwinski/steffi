@@ -1,4 +1,5 @@
 VerticalStack {
+	Ellipse { rx: 50; ry:20; strokeWidth:2; fill:blue;}
 	padding: 10;
 	VerticalStack {
 		Canvas {

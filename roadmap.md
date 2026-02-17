@@ -1,12 +1,14 @@
 # To do list
 - clean up renderables
-- 
 - more SVG objects and properties
 	- defs
-	- circle
-	- ellipse
+	- ~~ellipse~~
+	- polygon
+	- polyline
+	- 
 - heredoc like strings
 - syntax highlighting generator
+- better size calculation (taking stroke width into account)
 - validation for missing/not allowed parent container properties
 - publish as winget package
 - publish as dotnet tool

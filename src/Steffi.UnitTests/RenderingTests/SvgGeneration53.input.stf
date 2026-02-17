@@ -1,0 +1,3 @@
+Canvas {
+  Ellipse { rx: 60; ry: 30; }
+}

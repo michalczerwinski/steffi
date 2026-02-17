@@ -6,6 +6,7 @@ public static partial class ModelBuilder
 		=> SetParentProperty(steffiObject, propertyName, value)
 		|| SetRectangleProperty(steffiObject, propertyName, value)
 		|| SetCircleProperty(steffiObject, propertyName, value)
+		|| SetEllipseProperty(steffiObject, propertyName, value)
 		|| SetTextProperty(steffiObject, propertyName, value)
 		|| SetCanvasProperty(steffiObject, propertyName, value)
 		|| SetHorizontalStackProperty(steffiObject, propertyName, value)

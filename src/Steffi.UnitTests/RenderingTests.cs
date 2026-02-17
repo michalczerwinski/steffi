@@ -157,4 +157,16 @@ public class RenderingTests : SteffiParserTestsBase
 
 	[Test, DisplayName("Renders circle with position in canvas")]
 	public async Task RendersCircleWithPosition() => await RendersSvgCorrectly("SvgGeneration52");
+
+	[Test, DisplayName("Renders basic ellipse in canvas")]
+	public async Task RendersBasicEllipse() => await RendersSvgCorrectly("SvgGeneration53");
+
+	[Test, DisplayName("Renders single ellipse without canvas")]
+	public async Task RendersSingleEllipse() => await RendersSvgCorrectly("SvgGeneration54");
+
+	[Test, DisplayName("Renders ellipse with custom fill and stroke")]
+	public async Task RendersEllipseWithFillAndStroke() => await RendersSvgCorrectly("SvgGeneration55");
+
+	[Test, DisplayName("Renders ellipse with position in canvas")]
+	public async Task RendersEllipseWithPosition() => await RendersSvgCorrectly("SvgGeneration56");
 }

@@ -1,0 +1,3 @@
+Canvas {
+  Ellipse { rx: 50; ry: 25; fill: "orange"; stroke: "navy"; strokeWidth: "3"; }
+}
