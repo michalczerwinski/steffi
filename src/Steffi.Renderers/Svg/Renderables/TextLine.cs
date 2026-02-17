@@ -6,7 +6,7 @@ namespace Steffi.Renderers.Svg.Renderables;
 internal class TextLine(string text, string fontFamily, string fontColor = "black", int fontSize = 20, int margin = 5)
 	: Renderable
 {
-	public override (XElement Element, int Width, int Height) Render()
+	public override (XElement Element, decimal Width, decimal Height) Render()
 	{
 		var (textWidth, textHeight) = TextMeasurementHelper.MeasureText(text, fontSize, fontFamily);
 

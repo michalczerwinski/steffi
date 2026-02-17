@@ -11,12 +11,12 @@ public static partial class ModelBuilder
 		{
 			if (propertyName.Equals(nameof(CanvasParentProperties.X), StringComparison.InvariantCultureIgnoreCase))
 			{
-				canvasContainerProperties.X = int.Parse(value);
+				canvasContainerProperties.X = decimal.Parse(value);
 				return true;
 			}
 			else if (propertyName.Equals(nameof(CanvasParentProperties.Y), StringComparison.InvariantCultureIgnoreCase))
 			{
-				canvasContainerProperties.Y = int.Parse(value);
+				canvasContainerProperties.Y = decimal.Parse(value);
 				return true;
 			}
 		}

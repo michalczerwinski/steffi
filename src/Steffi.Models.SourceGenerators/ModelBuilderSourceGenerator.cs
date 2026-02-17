@@ -27,11 +27,11 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 					$"			nameof({typeName}) => new {typeName} {{ Name = name.ToString(), Parent = parentObject, ParentProperties = parentObject.CreateContainerProperties() }},"));
 
 				// Generate SetXProperty methods for all classes with [GenerateModelBuilderSetter]
-					var setterMethods = new StringBuilder();
-					foreach (var typeSymbol in modelBuilderTypes.OfType<INamedTypeSymbol>())
-					{
-						var setterProps = GetAllMembers(typeSymbol).OfType<IPropertySymbol>()
-							.Where(p => p.GetAttributes().Any(a => a.AttributeClass?.Name == "GenerateModelBuilderSetterAttribute"));
+				var setterMethods = new StringBuilder();
+				foreach (var typeSymbol in modelBuilderTypes.OfType<INamedTypeSymbol>())
+				{
+					var setterProps = GetAllMembers(typeSymbol).OfType<IPropertySymbol>()
+						.Where(p => p.GetAttributes().Any(a => a.AttributeClass?.Name == "GenerateModelBuilderSetterAttribute"));
 					if (!setterProps.Any()) continue;
 					setterMethods.AppendLine($"        private static bool Set{typeSymbol.Name}Property(SteffiObject steffiObject, ReadOnlySpan<char> propertyName, ReadOnlySpan<char> value)");
 					setterMethods.AppendLine("        {");
@@ -41,7 +41,11 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 					{
 						var type = prop.Type.ToDisplayString();
 						string parseExpr;
-						if (type == "int" || type == "int?")
+						if (type == "decimal" || type == "decimal?")
+						{
+							parseExpr = "decimal.Parse(value)";
+						}
+						else if (type == "int" || type == "int?")
 						{
 							parseExpr = "int.Parse(value)";
 						}
@@ -51,7 +55,7 @@ public class ModelBuilderSourceGenerator : IIncrementalGenerator
 						}
 						else if (type.Contains("List") && type.Contains("Point2D"))
 						{
-							parseExpr = "Steffi.Models.Point2D.ParseList(value)";
+							parseExpr = "Steffi.Models.Point2D.Parse(value)";
 						}
 						else
 						{

@@ -7,5 +7,5 @@ namespace Steffi.Models;
 public class Circle : Shape
 {
 	[GenerateModelBuilderSetter]
-	public int R { get; set; }
+	public decimal R { get; set; }
 }

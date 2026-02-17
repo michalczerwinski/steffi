@@ -7,8 +7,8 @@ namespace Steffi.Models;
 public class Ellipse : Shape
 {
 	[GenerateModelBuilderSetter]
-	public int Rx { get; set; }
+	public decimal Rx { get; set; }
 
 	[GenerateModelBuilderSetter]
-	public int Ry { get; set; }
+	public decimal Ry { get; set; }
 }

@@ -3,10 +3,10 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class EllipseRenderable(int x, int y, int rx, int ry,
+internal class EllipseRenderable(decimal x, decimal y, decimal rx, decimal ry,
 	IFillAndStroke fillAndStroke) : Renderable(x, y)
 {
-	public override (XElement Element, int Width, int Height) Render() => (
+	public override (XElement Element, decimal Width, decimal Height) Render() => (
 		Element: SvgBuilder.Ellipse(
 			cx: (X ?? 0) + rx,
 			cy: (Y ?? 0) + ry,

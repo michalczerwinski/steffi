@@ -4,10 +4,10 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal class PolygonRenderable(int x, int y, List<Point2D> points,
+internal class PolygonRenderable(decimal x, decimal y, List<Point2D> points,
 	IFillAndStroke fillAndStroke) : Renderable(x, y)
 {
-	public override (XElement Element, int Width, int Height) Render()
+	public override (XElement Element, decimal Width, decimal Height) Render()
 	{
 		var svgPoints = PointsHelper.ToSvgString(points, X ?? 0, Y ?? 0);
 		var (width, height) = PointsHelper.MeasureBounds(points);

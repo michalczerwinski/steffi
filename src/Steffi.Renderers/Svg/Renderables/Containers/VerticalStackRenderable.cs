@@ -3,15 +3,15 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables.Containers;
 
-internal class VerticalStackRenderable(int? x, int? y, IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, int spacing = 3)
+internal class VerticalStackRenderable(decimal? x, decimal? y, IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, int spacing = 3)
 	: ContainerRenderable(x, y, children, fillAndStroke, padding)
 {
 	private readonly int _spacing = spacing;
 
-	public override (XElement Element, int Width, int Height) Render()
+	public override (XElement Element, decimal Width, decimal Height) Render()
 	{
-		int positionY = Padding;
-		int width = 0;
+		decimal positionY = Padding;
+		decimal width = 0;
 
 		var childRenders = new List<XElement>();
 

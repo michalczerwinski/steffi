@@ -2,11 +2,11 @@
 
 namespace Steffi.Renderers.Svg.Renderables;
 
-internal abstract class Renderable(int? x = null, int? y = null)
+internal abstract class Renderable(decimal? x = null, decimal? y = null)
 {
-	public int? X { get; set; } = x;
+	public decimal? X { get; set; } = x;
 
-	public int? Y { get; set; } = y;
+	public decimal? Y { get; set; } = y;
 
-	public abstract (XElement Element, int Width, int Height) Render();
+	public abstract (XElement Element, decimal Width, decimal Height) Render();
 }

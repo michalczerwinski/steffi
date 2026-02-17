@@ -3,19 +3,19 @@ using System.Xml.Linq;
 
 namespace Steffi.Renderers.Svg.Renderables.Containers;
 
-internal class CanvasRenderable(int? x, int? y, IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, int? width = null, int? height = null)
+internal class CanvasRenderable(decimal? x, decimal? y, IList<Renderable> children, IFillAndStroke fillAndStroke, int padding = 0, int? width = null, int? height = null)
 : ContainerRenderable(x, y, children, fillAndStroke, padding)
 {
-	private readonly int? _width = width;
-	private readonly int? _height = height;
+	private readonly decimal? _width = width;
+	private readonly decimal? _height = height;
 	private readonly int _padding = padding;
 
-	public override (XElement Element, int Width, int Height) Render()
+	public override (XElement Element, decimal Width, decimal Height) Render()
 	{
 		var childRenders = new List<XElement>();
 
-		int maxWidth = 0;
-		int maxHeight = 0;
+		decimal maxWidth = 0;
+		decimal maxHeight = 0;
 
 		for (int i = 0; i < Children.Count; i++)
 		{
@@ -41,8 +41,8 @@ internal class CanvasRenderable(int? x, int? y, IList<Renderable> children, IFil
 			childRenders.Add(childRender.Element);
 		}
 
-		var finalWidth = _width ?? maxWidth;
-		var finalHeight = _height ?? maxHeight;
+		decimal finalWidth = _width ?? maxWidth;
+		decimal finalHeight = _height ?? maxHeight;
 
 		InsertBorder(finalWidth, finalHeight, childRenders);
 

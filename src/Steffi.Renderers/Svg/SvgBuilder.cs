@@ -19,20 +19,20 @@ internal static class SvgBuilder
 	];
 
 	internal static XElement Rect(
-		int x, int y, int width, int height,
+		decimal x, decimal y, decimal width, decimal height,
 		IFillAndStroke fillAndStroke,
-		string? rx = null, string? ry = null)
+		decimal? rx = null, decimal? ry = null)
 		=> new(SvgNamespace + "rect",
 			new XAttribute("x", x),
 			new XAttribute("y", y),
 			new XAttribute("width", width),
 			new XAttribute("height", height),
-			string.IsNullOrEmpty(rx) ? null : new XAttribute("rx", rx),
-			string.IsNullOrEmpty(ry) ? null : new XAttribute("ry", ry),
+			!rx.HasValue ? null : new XAttribute("rx", rx),
+			!ry.HasValue ? null : new XAttribute("ry", ry),
 			GetFillAndStrokeAttributes(fillAndStroke));
 
 	internal static XElement Circle(
-		int cx, int cy, int r,
+		decimal cx, decimal cy, decimal r,
 		IFillAndStroke fillAndStroke)
 		=> new(SvgNamespace + "circle",
 			new XAttribute("cx", cx),
@@ -41,7 +41,7 @@ internal static class SvgBuilder
 			GetFillAndStrokeAttributes(fillAndStroke));
 
 	internal static XElement Ellipse(
-		int cx, int cy, int rx, int ry,
+		decimal cx, decimal cy, decimal rx, decimal ry,
 		IFillAndStroke fillAndStroke)
 		=> new(SvgNamespace + "ellipse",
 			new XAttribute("cx", cx),
@@ -64,14 +64,14 @@ internal static class SvgBuilder
 			new XAttribute("points", points),
 			GetFillAndStrokeAttributes(fillAndStroke));
 
-	internal static XElement Group(int? x, int? y, List<XElement> children)
+	internal static XElement Group(decimal? x, decimal? y, List<XElement> children)
 		=> new(SvgNamespace + "g",
 			(x != 0 || y != 0)
 				? new XAttribute("transform", $"translate({x}, {y})")
 				: null,
 			children);
 
-	internal static XElement Line(int x1, int y1, int x2, int y2, string stroke = "black")
+	internal static XElement Line(decimal x1, decimal y1, decimal x2, decimal y2, string stroke = "black")
 		=> new(SvgNamespace + "line",
 			new XAttribute("x1", x1),
 			new XAttribute("y1", y1),
@@ -79,7 +79,7 @@ internal static class SvgBuilder
 			new XAttribute("y2", y2),
 			new XAttribute("stroke", stroke));
 
-	internal static XElement Text(int x, int y, int fontSize, string fontFamily, string textAnchor, string dominantBaseline, string fill, string text)
+	internal static XElement Text(decimal x, decimal y, int fontSize, string fontFamily, string textAnchor, string dominantBaseline, string fill, string text)
 		=> new(SvgNamespace + "text",
 			new XAttribute("x", x),
 			new XAttribute("y", y),
@@ -90,7 +90,7 @@ internal static class SvgBuilder
 			new XAttribute("fill", fill),
 			text);
 
-	internal static XElement Svg(int width, int height, XElement content)
+	internal static XElement Svg(decimal width, decimal height, XElement content)
 		=> new(SvgNamespace + "svg",
 			new XAttribute("width", width),
 			new XAttribute("height", height),

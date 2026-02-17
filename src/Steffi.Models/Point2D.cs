@@ -1,8 +1,8 @@
 namespace Steffi.Models;
 
-public record struct Point2D(int X, int Y)
+public record struct Point2D(decimal X, decimal Y)
 {
-	public static List<Point2D> ParseList(ReadOnlySpan<char> input)
+	public static List<Point2D> Parse(ReadOnlySpan<char> input)
 	{
 		var result = new List<Point2D>();
 
@@ -19,8 +19,8 @@ public record struct Point2D(int X, int Y)
 			var end = input.IndexOf(' ');
 			if (end < 0) end = input.Length;
 
-			var x = int.Parse(input[..comma]);
-			var y = int.Parse(input[(comma + 1)..end]);
+			var x = decimal.Parse(input[..comma]);
+			var y = decimal.Parse(input[(comma + 1)..end]);
 			result.Add(new Point2D(x, y));
 
 			input = input[end..];

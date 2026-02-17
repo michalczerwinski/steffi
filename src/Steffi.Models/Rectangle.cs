@@ -13,8 +13,8 @@ public class Rectangle : Shape
 	public int Height { get; set; }
 
 	[GenerateModelBuilderSetter]
-	public string? Rx { get; set; }
+	public decimal? Rx { get; set; }
 
 	[GenerateModelBuilderSetter]
-	public string? Ry { get; set; }
+	public decimal? Ry { get; set; }
 }
