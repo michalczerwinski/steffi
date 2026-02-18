@@ -25,9 +25,9 @@ internal class CanvasRenderable(decimal? x, decimal? y, IList<Renderable> childr
 				throw new InvalidOperationException("Object inside absolute container needs to have position set");
 			}
 
-			var childRender = child.Render();
 			child.X += _padding;
 			child.Y += _padding;
+			var childRender = child.Render();
 
 			if (maxWidth < child.X.Value + childRender.Width + _padding)
 			{
