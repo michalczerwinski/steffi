@@ -71,7 +71,7 @@ public class SvgRenderer : IRenderer
 
 		var lines = text.Spans?.Split("\\n") ?? [];
 		var textLines = lines
-			.Select(l => new TextLine(
+			.Select(l => new TextLineRenderable(
 				text: l,
 				fontFamily: text.FontFamily ?? "Arial, Helvetica, sans-serif",
 				fontColor: text.FontColor ?? "black",
@@ -84,7 +84,7 @@ public class SvgRenderer : IRenderer
 			canvasProperties?.X ?? 0,
 			canvasProperties?.Y ?? 0,
 			textLines,
-			new FillAndStrokeProperties { Stroke = "none", Fill = "white" },
+			new FillAndStrokeProperties { Stroke = "none", Fill = "none" },
 			padding: 0, spacing: 0);
 	}
 	private Renderable GetRenderableForLine(Line line)

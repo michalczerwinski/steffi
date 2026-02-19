@@ -1,14 +1,96 @@
-Canvas {
-	padding: 5;
-	VerticalStack {
-		stroke: black;
-		x: 0;
-		spacing: 0;
-		Ellipse { rx: 25; ry:20; strokeWidth:2; fill:lightgray;}
-		Ellipse { rx: 25; ry:25; strokeWidth:2; fill:lightgray;}
-		Ellipse { rx: 25; ry:20; strokeWidth:2; fill:lightgray;}
+HorizontalStack
+{
+	Canvas {
+		padding: 5;
+		VerticalStack {
+			stroke: black;
+			x: 0;
+			spacing: 0;
+			Ellipse { rx: 35; ry:15; strokeWidth:2; fill:lightgray;}
+			Ellipse { rx: 35; ry:20; strokeWidth:2; fill:lightgray;}
+			Ellipse { rx: 35; ry:25; strokeWidth:2; fill:lightgray;}
+		}
+		Polyline { x: 15; y: 40; points: 0,0 20,25 40,0 0,0; fill: blue; stroke: green; }
+		Circle eyeLeft { x:10; y:12; r:4;fill:black;}
+		Circle eyeRight { x:32; y:12; r:4;fill:black;}
 	}
-	Polyline { x: 7; y: 50; points: 0,0 20,40 40,0 0,0; fill: blue; stroke: green; }
-	Circle { x:10; y:12; r:4;fill:black;}
-	Circle { x:32; y:12; r:4;fill:black;}
+	VerticalStack {
+		spacing: 0;
+		padding: 5;
+		HorizontalStack {
+			spacing: 0;
+			Canvas t1 {
+				stroke: red;
+				width: 25;
+				Text {x:7;y:0; spans: "1";}
+			}
+			Canvas t2 {
+				stroke: red;
+				width: 25;
+				Text {x:7;y:0; spans: "2";}
+			}
+			Canvas t3 {
+				stroke: red;
+				width: 25;
+				Text {x:7;y:0; spans: "3";}
+			}
+		}
+		HorizontalStack {
+			spacing: 0;
+			Canvas t1 {
+				stroke: red;
+				width: 25;
+				Text {x:7;y:0; spans: "1";}
+			}
+			Canvas t2 {
+				stroke: red;
+				width: 25;
+				Text {x:7;y:0; spans: "2";}
+			}
+			Canvas t3 {
+				stroke: red;
+				width: 25;
+				Text {x:7;y:0; spans: "3";}
+			}
+		}
+		HorizontalStack {
+			spacing: 0;
+			Canvas t1 {
+				stroke: red;
+				width: 25;
+				Text {x:7;y:0; spans: "1";}
+			}
+			Canvas t2 {
+				stroke: red;
+				width: 25;
+				Text {x:7;y:0; spans: "2";}
+			}
+			Canvas t3 {
+				stroke: red;
+				width: 25;
+				Text {x:7;y:0; spans: "3";}
+			}
+		}
+	}
+	Timeline 
+	{
+		Keyframe 
+		{
+			start: 2s;
+			Animation {
+				property: t1.Text.x;
+				to: t2.Text.x;
+				time: 2s;
+			}
+			Animation {
+				property: t2.Text.x;
+				to: t1.Text.x; 
+				time: 2s;
+			}
+		}
+		Keyframe 
+		{
+			start: 2s;
+		}
+	}
 }
