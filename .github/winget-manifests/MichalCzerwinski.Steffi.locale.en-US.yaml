@@ -1,0 +1,36 @@
+PackageIdentifier: MichalCzerwinski.Steffi
+PackageVersion: <VERSION>
+PackageLocale: en-US
+Publisher: Michal Czerwinski
+PublisherUrl: https://github.com/michalczerwinski
+PublisherSupportUrl: https://github.com/michalczerwinski/steffi/issues
+Author: Michal Czerwinski
+PackageName: Steffi
+PackageUrl: https://github.com/michalczerwinski/steffi
+License: MIT
+LicenseUrl: https://github.com/michalczerwinski/steffi/blob/main/LICENSE
+Copyright: Copyright (c) Michal Czerwinski
+ShortDescription: A domain-specific language for vector graphics and animations
+Description: |-
+  Steffi is a domain-specific language (DSL) for vector graphics and animations.
+  Describe shapes, layouts, and styles in .stf files and render them to SVG.
+  
+  Features:
+  - Expressive DSL for describing vector graphics
+  - SVG output with standards-compliant rendering
+  - Layout engine with VerticalStack, HorizontalStack, and Canvas containers
+  - Robust parsing pipeline with lexer and parser layers
+  - Rich console UX using Spectre.Console
+  - AOT-compiled for fast startup and execution
+Moniker: steffi
+Tags:
+- vector-graphics
+- svg
+- dsl
+- graphics
+- cli
+- dotnet
+- aot
+ReleaseNotesUrl: https://github.com/michalczerwinski/steffi/releases/tag/v<VERSION>
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0

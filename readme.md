@@ -49,6 +49,32 @@ Canvas {
 - **Animations** *(coming soon)* – Declarative keyframe animations for shapes and properties.
 - **Testable core** – A dedicated unit test suite exercises every parsing rule and regression scenario.
 
+## Installation
+
+### Windows (WinGet)
+
+Install Steffi using Windows Package Manager:
+
+```powershell
+winget install MichalCzerwinski.Steffi
+```
+
+### From Source
+
+Clone the repository and build from source:
+
+```bash
+git clone https://github.com/michalczerwinski/steffi.git
+cd steffi
+dotnet build src/Steffi.Cli/Steffi.Cli.csproj
+```
+
+### Download Binaries
+
+Download pre-built AOT binaries from the [Releases](https://github.com/michalczerwinski/steffi/releases) page:
+- Windows x64
+- Windows ARM64
+
 ## Development
 
 ### Running the CLI
