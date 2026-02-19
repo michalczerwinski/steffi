@@ -1,0 +1,59 @@
+<svg width="313" height="310" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="313" height="310" fill="white" stroke="none" />
+    <g transform="translate(12, 12)">
+      <rect x="0" y="0" width="107" height="30" fill="none" stroke="none" />
+      <text x="53" y="15" font-size="22" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="dimgray">Dashboard</text>
+    </g>
+    <g transform="translate(12, 50)">
+      <rect x="0" y="0" width="289" height="100" fill="white" stroke="none" />
+      <g>
+        <rect x="0" y="0" width="120" height="100" fill="lavender" stroke="slateblue" stroke-width="1" />
+        <g transform="translate(10, 10)">
+          <rect x="0" y="0" width="29" height="16" fill="none" stroke="none" />
+          <text x="14" y="8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="slateblue">Users</text>
+        </g>
+        <g transform="translate(10, 36)">
+          <rect x="0" y="0" width="67" height="38" fill="none" stroke="none" />
+          <text x="33" y="19" font-size="28" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="navy">1,247</text>
+        </g>
+        <rect x="10" y="84" width="100" height="6" rx="3" ry="3" fill="slateblue" stroke="black" />
+      </g>
+      <g transform="translate(128, 0)">
+        <rect x="0" y="0" width="102" height="100" fill="honeydew" stroke="mediumseagreen" stroke-width="1" />
+        <g transform="translate(10, 10)">
+          <rect x="0" y="0" width="46" height="16" fill="none" stroke="none" />
+          <text x="23" y="8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="mediumseagreen">Revenue</text>
+        </g>
+        <g transform="translate(10, 36)">
+          <rect x="0" y="0" width="82" height="38" fill="none" stroke="none" />
+          <text x="41" y="19" font-size="28" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="darkgreen">$8,420</text>
+        </g>
+        <rect x="10" y="84" width="80" height="6" rx="3" ry="3" fill="mediumseagreen" stroke="black" />
+      </g>
+      <g transform="translate(238, 0)">
+        <rect x="0" y="0" width="51" height="100" fill="mistyrose" stroke="tomato" stroke-width="1" />
+        <g transform="translate(10, 10)">
+          <rect x="0" y="0" width="31" height="16" fill="none" stroke="none" />
+          <text x="15" y="8" font-size="12" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="tomato">Errors</text>
+        </g>
+        <g transform="translate(10, 36)">
+          <rect x="0" y="0" width="16" height="38" fill="none" stroke="none" />
+          <text x="8" y="19" font-size="28" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="firebrick">3</text>
+        </g>
+        <rect x="10" y="84" width="20" height="6" rx="3" ry="3" fill="tomato" stroke="black" />
+      </g>
+    </g>
+    <g transform="translate(12, 158)">
+      <rect x="0" y="0" width="268" height="140" fill="white" stroke="none" />
+      <rect x="0" y="0" width="30" height="80" rx="2" ry="2" fill="slateblue" stroke="black" />
+      <rect x="34" y="0" width="30" height="120" rx="2" ry="2" fill="slateblue" stroke="black" />
+      <rect x="68" y="0" width="30" height="60" rx="2" ry="2" fill="slateblue" stroke="black" />
+      <rect x="102" y="0" width="30" height="100" rx="2" ry="2" fill="slateblue" stroke="black" />
+      <rect x="136" y="0" width="30" height="140" rx="2" ry="2" fill="mediumseagreen" stroke="black" />
+      <rect x="170" y="0" width="30" height="90" rx="2" ry="2" fill="slateblue" stroke="black" />
+      <rect x="204" y="0" width="30" height="110" rx="2" ry="2" fill="slateblue" stroke="black" />
+      <rect x="238" y="0" width="30" height="70" rx="2" ry="2" fill="tomato" stroke="black" />
+    </g>
+  </g>
+</svg>

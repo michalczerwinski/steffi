@@ -1,0 +1,8 @@
+Canvas {
+	Circle { x: 0; y: 0; r: 110; fill: "firebrick"; stroke: "darkred"; strokeWidth: 2; }
+	Circle { x: 20; y: 20; r: 90; fill: "white"; stroke: "darkred"; strokeWidth: 2; }
+	Circle { x: 40; y: 40; r: 70; fill: "firebrick"; stroke: "darkred"; strokeWidth: 2; }
+	Circle { x: 60; y: 60; r: 50; fill: "white"; stroke: "darkred"; strokeWidth: 2; }
+	Circle { x: 80; y: 80; r: 30; fill: "firebrick"; stroke: "darkred"; strokeWidth: 2; }
+	Circle { x: 100; y: 100; r: 10; fill: "gold"; stroke: "goldenrod"; strokeWidth: 2; }
+}

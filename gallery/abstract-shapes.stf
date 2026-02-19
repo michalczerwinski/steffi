@@ -1,0 +1,8 @@
+Canvas {
+	Circle { x: 80; y: 80; r: 70; fill: "dodgerblue"; fillOpacity: "0.4"; stroke: "royalblue"; strokeWidth: 2; }
+	Circle { x: 140; y: 80; r: 70; fill: "tomato"; fillOpacity: "0.4"; stroke: "firebrick"; strokeWidth: 2; }
+	Circle { x: 110; y: 140; r: 70; fill: "gold"; fillOpacity: "0.4"; stroke: "goldenrod"; strokeWidth: 2; }
+	Rectangle { x: 40; y: 40; width: 60; height: 60; fill: "mediumseagreen"; fillOpacity: "0.5"; rx: 10; ry: 10; stroke: "darkgreen"; strokeWidth: 2; }
+	Rectangle { x: 160; y: 160; width: 60; height: 60; fill: "orchid"; fillOpacity: "0.5"; rx: 10; ry: 10; stroke: "purple"; strokeWidth: 2; }
+	Ellipse { x: 110; y: 110; rx: 100; ry: 50; fill: "none"; stroke: "slategray"; strokeWidth: 3; fillOpacity: "0.2"; }
+}

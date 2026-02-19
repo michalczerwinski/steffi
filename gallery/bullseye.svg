@@ -1,0 +1,11 @@
+<svg width="220" height="220" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="220" height="220" fill="white" stroke="none" />
+    <circle cx="110" cy="110" r="110" fill="firebrick" stroke="darkred" stroke-width="2" />
+    <circle cx="110" cy="110" r="90" fill="white" stroke="darkred" stroke-width="2" />
+    <circle cx="110" cy="110" r="70" fill="firebrick" stroke="darkred" stroke-width="2" />
+    <circle cx="110" cy="110" r="50" fill="white" stroke="darkred" stroke-width="2" />
+    <circle cx="110" cy="110" r="30" fill="firebrick" stroke="darkred" stroke-width="2" />
+    <circle cx="110" cy="110" r="10" fill="gold" stroke="goldenrod" stroke-width="2" />
+  </g>
+</svg>

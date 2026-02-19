@@ -1,0 +1,46 @@
+VerticalStack {
+	spacing: 8;
+	padding: 12;
+	Text { spans: "Dashboard"; fontSize: 22; fontColor: "dimgray"; }
+	HorizontalStack {
+		spacing: 8;
+		VerticalStack {
+			padding: 10;
+			fill: "lavender";
+			stroke: "slateblue";
+			strokeWidth: 1;
+			Text { spans: "Users"; fontSize: 12; fontColor: "slateblue"; }
+			Text { spans: "1,247"; fontSize: 28; fontColor: "navy"; }
+			Rectangle { width: 100; height: 6; fill: "slateblue"; rx: 3; ry: 3; }
+		}
+		VerticalStack {
+			padding: 10;
+			fill: "honeydew";
+			stroke: "mediumseagreen";
+			strokeWidth: 1;
+			Text { spans: "Revenue"; fontSize: 12; fontColor: "mediumseagreen"; }
+			Text { spans: "$8,420"; fontSize: 28; fontColor: "darkgreen"; }
+			Rectangle { width: 80; height: 6; fill: "mediumseagreen"; rx: 3; ry: 3; }
+		}
+		VerticalStack {
+			padding: 10;
+			fill: "mistyrose";
+			stroke: "tomato";
+			strokeWidth: 1;
+			Text { spans: "Errors"; fontSize: 12; fontColor: "tomato"; }
+			Text { spans: "3"; fontSize: 28; fontColor: "firebrick"; }
+			Rectangle { width: 20; height: 6; fill: "tomato"; rx: 3; ry: 3; }
+		}
+	}
+	HorizontalStack {
+		spacing: 4;
+		Rectangle { width: 30; height: 80; fill: "slateblue"; rx: 2; ry: 2; }
+		Rectangle { width: 30; height: 120; fill: "slateblue"; rx: 2; ry: 2; }
+		Rectangle { width: 30; height: 60; fill: "slateblue"; rx: 2; ry: 2; }
+		Rectangle { width: 30; height: 100; fill: "slateblue"; rx: 2; ry: 2; }
+		Rectangle { width: 30; height: 140; fill: "mediumseagreen"; rx: 2; ry: 2; }
+		Rectangle { width: 30; height: 90; fill: "slateblue"; rx: 2; ry: 2; }
+		Rectangle { width: 30; height: 110; fill: "slateblue"; rx: 2; ry: 2; }
+		Rectangle { width: 30; height: 70; fill: "tomato"; rx: 2; ry: 2; }
+	}
+}

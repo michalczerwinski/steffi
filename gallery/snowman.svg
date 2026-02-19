@@ -1,0 +1,25 @@
+<svg width="72" height="152" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="72" height="152" fill="white" stroke="none" />
+    <g>
+      <rect x="0" y="0" width="56" height="36" fill="white" stroke="none" />
+      <ellipse cx="36" cy="18" rx="20" ry="18" fill="white" stroke="slategray" stroke-width="2" />
+      <circle cx="30" cy="13" r="3" fill="black" stroke="black" />
+      <circle cx="42" cy="13" r="3" fill="black" stroke="black" />
+      <ellipse cx="36" cy="24" rx="4" ry="2" fill="orange" stroke="darkorange" stroke-width="1" />
+    </g>
+    <g transform="translate(0, 36)">
+      <rect x="0" y="0" width="64" height="52" fill="white" stroke="none" />
+      <ellipse cx="36" cy="26" rx="28" ry="26" fill="white" stroke="slategray" stroke-width="2" />
+      <circle cx="36" cy="21" r="3" fill="dimgray" stroke="black" />
+      <circle cx="36" cy="33" r="3" fill="dimgray" stroke="black" />
+    </g>
+    <g transform="translate(0, 88)">
+      <rect x="0" y="0" width="72" height="64" fill="white" stroke="none" />
+      <ellipse cx="36" cy="32" rx="36" ry="32" fill="white" stroke="slategray" stroke-width="2" />
+      <circle cx="36" cy="19" r="3" fill="dimgray" stroke="black" />
+      <circle cx="36" cy="31" r="3" fill="dimgray" stroke="black" />
+      <circle cx="36" cy="43" r="3" fill="dimgray" stroke="black" />
+    </g>
+  </g>
+</svg>

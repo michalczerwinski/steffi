@@ -1,10 +1,15 @@
 <Solution>
   <Folder Name="/Miscellanous/">
+    <File Path="../gallery.md" />
     <File Path="../readme.md" />
     <File Path="../roadmap.md" />
   </Folder>
   <Folder Name="/Samples/">
     <File Path="../samples/simple.stf" />
+  </Folder>
+  <Folder Name="/Scripts/">
+    <File Path="../scripts/Regenerate-ExpectedOutputs.ps1" />
+    <File Path="../scripts/Regenerate-Gallery.ps1" />
   </Folder>
   <Project Path="Steffi.Cli/Steffi.Cli.csproj" />
   <Project Path="Steffi.Models.SourceGenerators/Steffi.Models.SourceGenerators.csproj" />

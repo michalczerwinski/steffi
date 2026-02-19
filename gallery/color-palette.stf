@@ -1,0 +1,36 @@
+VerticalStack {
+	spacing: 4;
+	Text { spans: "Color Palette"; fontSize: 18; fontColor: "dimgray"; }
+	HorizontalStack {
+		spacing: 4;
+		Rectangle { width: 50; height: 50; fill: "tomato"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "coral"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "gold"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "orange"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "salmon"; rx: 4; ry: 4; }
+	}
+	HorizontalStack {
+		spacing: 4;
+		Rectangle { width: 50; height: 50; fill: "mediumseagreen"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "limegreen"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "teal"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "olive"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "forestgreen"; rx: 4; ry: 4; }
+	}
+	HorizontalStack {
+		spacing: 4;
+		Rectangle { width: 50; height: 50; fill: "dodgerblue"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "royalblue"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "slateblue"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "navy"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "steelblue"; rx: 4; ry: 4; }
+	}
+	HorizontalStack {
+		spacing: 4;
+		Rectangle { width: 50; height: 50; fill: "orchid"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "mediumvioletred"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "hotpink"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "plum"; rx: 4; ry: 4; }
+		Rectangle { width: 50; height: 50; fill: "deeppink"; rx: 4; ry: 4; }
+	}
+}

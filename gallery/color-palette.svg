@@ -1,0 +1,41 @@
+<svg width="266" height="240" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(, )">
+    <rect x="0" y="0" width="266" height="240" fill="white" stroke="none" />
+    <g>
+      <rect x="0" y="0" width="103" height="24" fill="none" stroke="none" />
+      <text x="51" y="12" font-size="18" font-family="Arial, Helvetica, sans-serif" text-anchor="middle" dominant-baseline="central" fill="dimgray">Color Palette</text>
+    </g>
+    <g transform="translate(0, 28)">
+      <rect x="0" y="0" width="266" height="50" fill="white" stroke="none" />
+      <rect x="0" y="0" width="50" height="50" rx="4" ry="4" fill="tomato" stroke="black" />
+      <rect x="54" y="0" width="50" height="50" rx="4" ry="4" fill="coral" stroke="black" />
+      <rect x="108" y="0" width="50" height="50" rx="4" ry="4" fill="gold" stroke="black" />
+      <rect x="162" y="0" width="50" height="50" rx="4" ry="4" fill="orange" stroke="black" />
+      <rect x="216" y="0" width="50" height="50" rx="4" ry="4" fill="salmon" stroke="black" />
+    </g>
+    <g transform="translate(0, 82)">
+      <rect x="0" y="0" width="266" height="50" fill="white" stroke="none" />
+      <rect x="0" y="0" width="50" height="50" rx="4" ry="4" fill="mediumseagreen" stroke="black" />
+      <rect x="54" y="0" width="50" height="50" rx="4" ry="4" fill="limegreen" stroke="black" />
+      <rect x="108" y="0" width="50" height="50" rx="4" ry="4" fill="teal" stroke="black" />
+      <rect x="162" y="0" width="50" height="50" rx="4" ry="4" fill="olive" stroke="black" />
+      <rect x="216" y="0" width="50" height="50" rx="4" ry="4" fill="forestgreen" stroke="black" />
+    </g>
+    <g transform="translate(0, 136)">
+      <rect x="0" y="0" width="266" height="50" fill="white" stroke="none" />
+      <rect x="0" y="0" width="50" height="50" rx="4" ry="4" fill="dodgerblue" stroke="black" />
+      <rect x="54" y="0" width="50" height="50" rx="4" ry="4" fill="royalblue" stroke="black" />
+      <rect x="108" y="0" width="50" height="50" rx="4" ry="4" fill="slateblue" stroke="black" />
+      <rect x="162" y="0" width="50" height="50" rx="4" ry="4" fill="navy" stroke="black" />
+      <rect x="216" y="0" width="50" height="50" rx="4" ry="4" fill="steelblue" stroke="black" />
+    </g>
+    <g transform="translate(0, 190)">
+      <rect x="0" y="0" width="266" height="50" fill="white" stroke="none" />
+      <rect x="0" y="0" width="50" height="50" rx="4" ry="4" fill="orchid" stroke="black" />
+      <rect x="54" y="0" width="50" height="50" rx="4" ry="4" fill="mediumvioletred" stroke="black" />
+      <rect x="108" y="0" width="50" height="50" rx="4" ry="4" fill="hotpink" stroke="black" />
+      <rect x="162" y="0" width="50" height="50" rx="4" ry="4" fill="plum" stroke="black" />
+      <rect x="216" y="0" width="50" height="50" rx="4" ry="4" fill="deeppink" stroke="black" />
+    </g>
+  </g>
+</svg>

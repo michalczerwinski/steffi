@@ -1,11 +1,6 @@
 # To do list
-- clean up renderables
-- more SVG objects and properties
-	- defs
-	- ~~ellipse~~
-	- polygon
-	- polyline
-	- 
+- negative integers parsing
+- object sizing issue due to stroke width not being considered
 - heredoc like strings
 - syntax highlighting generator
 - better size calculation (taking stroke width into account)
