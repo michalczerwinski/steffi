@@ -1,13 +1,9 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Spectre.Console;
 using Steffi.Parsers;
 using Steffi.Renderers.Svg;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -18,7 +14,6 @@ internal class PreviewServer : IDisposable
 {
 	private readonly string _inputFilePath;
 	private readonly string _fileName;
-	private readonly string _interactivePath;
 	private readonly string _interactiveUrl;
 
 	private FileSystemWatcher? _fileWatcher;
@@ -26,10 +21,11 @@ internal class PreviewServer : IDisposable
 	private readonly string _tempSvgPath;
 	private readonly string _tempErrorPath;
 
-	private readonly int _port;
-	private ConcurrentBag<HttpResponse> _clients = new();
+	private readonly HttpListener _listener;
+	private readonly CancellationTokenSource _shutdownCts = new();
+	private ConcurrentBag<HttpListenerResponse> _clients = new();
 
-	private SteffiParser _parser = new();
+	private readonly SteffiParser _parser = new();
 	private byte[] _lastParsingHash = [];
 
 	private bool _disposed;
@@ -38,32 +34,18 @@ internal class PreviewServer : IDisposable
 	{
 		_inputFilePath = Path.GetFullPath(inputFilePath);
 		_fileName = Path.GetFileName(_inputFilePath);
-		_interactivePath = $"/interactive/{_fileName}";
-		_interactiveUrl = $"http://localhost:{port}{_interactivePath}";
+		_interactiveUrl = $"http://localhost:{port}/";
 		_tempSvgPath = Path.Combine(Path.GetTempPath(), $"steffi-preview-{Guid.NewGuid()}.svg");
 		_tempErrorPath = Path.ChangeExtension(_tempSvgPath, ".errors");
-		_port = port;
+		_listener = new HttpListener();
+		_listener.Prefixes.Add($"http://localhost:{port}/");
 	}
 
 	public async Task<int> StartAsync()
 	{
-		// Build web application
-		var builder = WebApplication.CreateSlimBuilder();
-		builder.Logging.SetMinimumLevel(LogLevel.Warning);
-		using var app = builder.Build();
-		app.Urls.Add($"http://localhost:{_port}");
+		_listener.Start();
 
-		app.MapGet(_interactivePath, ServeInteractivePreview);
-		app.MapGet("/svg", ServeGeneratedSvgFile);
-		app.MapGet("/events", ServeGenerationEvents);
-		// Redirect root to interactive path for convenience
-		app.MapGet("/", ctx =>
-		{
-			ctx.Response.Redirect(_interactivePath);
-			return Task.CompletedTask;
-		});
-		await app.StartAsync();
-
+		Console.CancelKeyPress += (_, e) => { e.Cancel = true; _shutdownCts.Cancel(); };
 
 		AnsiConsole.WriteLine();
 		AnsiConsole.MarkupLine("[cyan bold]═══════════════════════════════════════════════════════[/]");
@@ -83,14 +65,67 @@ internal class PreviewServer : IDisposable
 
 		try
 		{
-			await Task.Delay(Timeout.Infinite, app.Services.GetRequiredService<IHostApplicationLifetime>().ApplicationStopping);
+			await HandleRequestsAsync(_shutdownCts.Token);
 		}
-		catch (TaskCanceledException)
+		catch (OperationCanceledException) { }
+		finally
 		{
 			AnsiConsole.MarkupLine("[dim]Stopped[/]");
+			_listener.Stop();
 		}
 
 		return 0;
+	}
+
+	private async Task HandleRequestsAsync(CancellationToken token)
+	{
+		token.Register(() => _listener.Stop());
+
+		while (true)
+		{
+			HttpListenerContext context;
+			try
+			{
+				context = await _listener.GetContextAsync();
+			}
+			catch (HttpListenerException)
+			{
+				break;
+			}
+
+			_ = Task.Run(() => RouteRequest(context, token), token);
+		}
+	}
+
+	private async Task RouteRequest(HttpListenerContext context, CancellationToken token)
+	{
+		var path = context.Request.Url?.AbsolutePath ?? "/";
+
+		try
+		{
+			if (path == "/" || path.StartsWith("/interactive", StringComparison.Ordinal))
+			{
+				await ServeInteractivePreview(context.Response);
+			}
+			else if (path == "/svg")
+			{
+				await ServeGeneratedSvgFile(context.Response);
+			}
+			else if (path == "/events")
+			{
+				await ServeGenerationEvents(context.Response, token);
+			}
+			else
+			{
+				context.Response.StatusCode = 302;
+				context.Response.AddHeader("Location", _interactiveUrl);
+				context.Response.Close();
+			}
+		}
+		catch
+		{
+			try { context.Response.StatusCode = 500; context.Response.Close(); } catch { }
+		}
 	}
 
 	private async Task<string> TryToGetInputFileContent()
@@ -114,47 +149,49 @@ internal class PreviewServer : IDisposable
 		throw new InvalidOperationException();
 	}
 
-	private async Task ServeGeneratedSvgFile(HttpContext context)
+	private async Task ServeGeneratedSvgFile(HttpListenerResponse response)
 	{
 		if (File.Exists(_tempSvgPath))
 		{
-			context.Response.ContentType = "image/svg+xml";
-			await context.Response.SendFileAsync(_tempSvgPath);
+			response.ContentType = "image/svg+xml";
+			var bytes = await File.ReadAllBytesAsync(_tempSvgPath);
+			response.ContentLength64 = bytes.Length;
+			await response.OutputStream.WriteAsync(bytes);
 		}
 		else
 		{
-			context.Response.StatusCode = 404;
+			response.StatusCode = 404;
 		}
+		response.Close();
 	}
 
-	private async Task ServeGenerationEvents(HttpContext context)
+	private async Task ServeGenerationEvents(HttpListenerResponse response, CancellationToken token)
 	{
-		context.Response.Headers["Content-Type"] = "text/event-stream";
-		context.Response.Headers["Cache-Control"] = "no-cache";
-		context.Response.Headers["Connection"] = "keep-alive";
+		response.ContentType = "text/event-stream";
+		response.Headers["Cache-Control"] = "no-cache";
+		response.Headers["X-Accel-Buffering"] = "no";
+		response.SendChunked = true;
 
-		_clients.Add(context.Response);
+		_clients.Add(response);
 
 		if (File.Exists(_tempErrorPath))
 		{
 			var errorsJson = await File.ReadAllTextAsync(_tempErrorPath);
-			await context.Response.WriteAsync($"event: error\n");
-			await context.Response.WriteAsync($"data: {errorsJson}\n\n");
-			await context.Response.Body.FlushAsync();
+			await WriteEventAsync(response, "error", errorsJson);
 		}
 
 		try
 		{
-			// Keep connection alive
-			await Task.Delay(Timeout.Infinite, context.RequestAborted);
+			await Task.Delay(Timeout.Infinite, token);
 		}
-		catch (TaskCanceledException)
+		catch (OperationCanceledException) { }
+		finally
 		{
-			// Client disconnected
+			try { response.Close(); } catch { }
 		}
 	}
 
-	private static async Task ServeInteractivePreview(HttpContext context)
+	private static async Task ServeInteractivePreview(HttpListenerResponse response)
 	{
 		var html = """
 			<!DOCTYPE html>
@@ -328,8 +365,11 @@ internal class PreviewServer : IDisposable
 			</html>
 			""";
 
-		context.Response.ContentType = "text/html; charset=utf-8";
-		await context.Response.WriteAsync(html);
+		response.ContentType = "text/html; charset=utf-8";
+		var bytes = Encoding.UTF8.GetBytes(html);
+		response.ContentLength64 = bytes.Length;
+		await response.OutputStream.WriteAsync(bytes);
+		response.Close();
 	}
 
 	private async void OnInputFileChanged(object sender, FileSystemEventArgs e)
@@ -420,15 +460,13 @@ internal class PreviewServer : IDisposable
 
 	private async Task NotifyClientsAsync(string eventType, string data)
 	{
-		var disconnectedClients = new List<HttpResponse>();
+		var disconnectedClients = new List<HttpListenerResponse>();
 
 		foreach (var client in _clients)
 		{
 			try
 			{
-				await client.WriteAsync($"event: {eventType}\n");
-				await client.WriteAsync($"data: {data}\n\n");
-				await client.Body.FlushAsync();
+				await WriteEventAsync(client, eventType, data);
 			}
 			catch
 			{
@@ -440,6 +478,13 @@ internal class PreviewServer : IDisposable
 		{
 			Interlocked.Exchange(ref _clients, [.. _clients.Except(disconnectedClients)]);
 		}
+	}
+
+	private static async Task WriteEventAsync(HttpListenerResponse response, string eventType, string data)
+	{
+		var bytes = Encoding.UTF8.GetBytes($"event: {eventType}\ndata: {data}\n\n");
+		await response.OutputStream.WriteAsync(bytes);
+		await response.OutputStream.FlushAsync();
 	}
 
 	private void TryOpenLocalBrowser(string url)
@@ -465,11 +510,12 @@ internal class PreviewServer : IDisposable
 			return;
 		}
 
+		_disposed = true;
+		_shutdownCts.Cancel();
 		_fileWatcher?.Dispose();
+		_shutdownCts.Dispose();
 
 		FileHelper.TryDeleteFileIfExists(_tempErrorPath);
 		FileHelper.TryDeleteFileIfExists(_tempSvgPath);
-
-		_disposed = true;
 	}
 }

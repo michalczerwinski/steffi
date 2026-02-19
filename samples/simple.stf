@@ -72,25 +72,5 @@ HorizontalStack
 			}
 		}
 	}
-	Timeline 
-	{
-		Keyframe 
-		{
-			start: 2s;
-			Animation {
-				property: t1.Text.x;
-				to: t2.Text.x;
-				time: 2s;
-			}
-			Animation {
-				property: t2.Text.x;
-				to: t1.Text.x; 
-				time: 2s;
-			}
-		}
-		Keyframe 
-		{
-			start: 2s;
-		}
-	}
+
 }
