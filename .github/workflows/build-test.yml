@@ -1,0 +1,80 @@
+name: Build AOT (Test)
+
+# This workflow tests the AOT build process without publishing to WinGet
+# Use this to validate builds before creating a release
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-build-aot:
+    name: Test AOT Build
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        runtime: [win-x64, win-arm64]
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'preview'
+      
+      - name: Restore dependencies
+        run: dotnet restore src/Steffi.Cli/Steffi.Cli.csproj
+      
+      - name: Build (Debug)
+        run: dotnet build src/Steffi.Cli/Steffi.Cli.csproj -c Debug
+      
+      - name: Run tests
+        run: dotnet test src/Steffi.UnitTests/Steffi.UnitTests.csproj --verbosity normal
+      
+      - name: Publish AOT
+        run: |
+          dotnet publish src/Steffi.Cli/Steffi.Cli.csproj `
+            -c Release `
+            -r ${{ matrix.runtime }} `
+            --self-contained true `
+            -p:PublishAot=true `
+            -p:PublishSingleFile=false `
+            -o ./publish/${{ matrix.runtime }}
+      
+      - name: Verify executable exists
+        shell: pwsh
+        run: |
+          $exePath = "./publish/${{ matrix.runtime }}/steffi.exe"
+          if (Test-Path $exePath) {
+            Write-Host "✓ Executable built successfully: $exePath"
+            $size = (Get-Item $exePath).Length / 1MB
+            Write-Host "  Size: $([math]::Round($size, 2)) MB"
+          } else {
+            Write-Error "✗ Executable not found: $exePath"
+            exit 1
+          }
+      
+      - name: Create ZIP archive
+        shell: pwsh
+        run: |
+          $version = "test-$(git rev-parse --short HEAD)"
+          Compress-Archive -Path ./publish/${{ matrix.runtime }}/* `
+            -DestinationPath "./steffi-$version-${{ matrix.runtime }}.zip"
+          
+          Write-Host "✓ Created archive: steffi-$version-${{ matrix.runtime }}.zip"
+          $size = (Get-Item "./steffi-$version-${{ matrix.runtime }}.zip").Length / 1MB
+          Write-Host "  Size: $([math]::Round($size, 2)) MB"
+      
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-build-${{ matrix.runtime }}
+          path: steffi-*.zip
+          retention-days: 3
