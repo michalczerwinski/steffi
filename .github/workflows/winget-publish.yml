@@ -40,9 +40,7 @@ jobs:
           dotnet publish src/Steffi.Cli/Steffi.Cli.csproj `
             -c Release `
             -r ${{ matrix.runtime }} `
-            --self-contained true `
-            -p:PublishAot=true `
-            -p:PublishSingleFile=false `
+            -p:PublishSingleFile=true `
             -o ./publish/${{ matrix.runtime }}
       
       - name: Create ZIP archive
