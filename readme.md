@@ -2,11 +2,7 @@
 
 Steffi is a domain-specific language (DSL) for **vector graphics** and **animations** *(coming soon)*. Describe shapes, layouts, and styles in `.stf` files and render them to SVG.
 
-<table>
-<tr>
-<td>
-
-```scss
+```css
 Canvas {
   Circle { x: 80; y: 80; r: 70;
     fill: "dodgerblue"; fillOpacity: "0.4";
@@ -28,14 +24,7 @@ Canvas {
 }
 ```
 
-</td>
-<td>
-
 ![Abstract Shapes](gallery/abstract-shapes.svg)
-
-</td>
-</tr>
-</table>
 
 > 🎨 **See more examples in the [Gallery](gallery.md).**
 

@@ -13,11 +13,12 @@ A showcase of images created with the Steffi DSL. Each example demonstrates diff
 
 A classic snowman built with stacked ellipses and circles. Demonstrates `VerticalStack` with `spacing: 0` to snap body sections together, and absolute positioning inside `Canvas` for facial features.
 
-<table>
-<tr>
-<td>
+![Snowman](gallery/snowman.svg)
 
-```scss
+<details>
+<summary>Source — <code>gallery/snowman.stf</code></summary>
+
+```css
 VerticalStack {
   spacing: 0;
   Canvas {
@@ -44,16 +45,7 @@ VerticalStack {
 }
 ```
 
-</td>
-<td>
-
-![Snowman](gallery/snowman.svg)
-
-</td>
-</tr>
-</table>
-
-**Source:** [`gallery/snowman.stf`](gallery/snowman.stf)
+</details>
 
 ---
 
@@ -61,11 +53,12 @@ VerticalStack {
 
 A grid of named CSS colors arranged with horizontal and vertical stacks. Shows `spacing` for gaps and `rx`/`ry` for rounded corners.
 
-<table>
-<tr>
-<td>
+![Color Palette](gallery/color-palette.svg)
 
-```scss
+<details>
+<summary>Source — <code>gallery/color-palette.stf</code></summary>
+
+```css
 VerticalStack {
   spacing: 4;
   Text { spans: "Color Palette"; fontSize: 18;
@@ -83,20 +76,11 @@ VerticalStack {
     Rectangle { width: 50; height: 50;
       fill: "salmon"; rx: 4; ry: 4; }
   }
-  // … green, blue, and pink rows follow
+  /* … green, blue, and pink rows follow */
 }
 ```
 
-</td>
-<td>
-
-![Color Palette](gallery/color-palette.svg)
-
-</td>
-</tr>
-</table>
-
-**Source:** [`gallery/color-palette.stf`](gallery/color-palette.stf)
+</details>
 
 ---
 
@@ -104,11 +88,12 @@ VerticalStack {
 
 Overlapping circles, rectangles, and ellipses with semi-transparent fills. Demonstrates `fillOpacity` and layered `Canvas` composition.
 
-<table>
-<tr>
-<td>
+![Abstract Shapes](gallery/abstract-shapes.svg)
 
-```scss
+<details>
+<summary>Source — <code>gallery/abstract-shapes.stf</code></summary>
+
+```css
 Canvas {
   Circle { x: 80; y: 80; r: 70;
     fill: "dodgerblue"; fillOpacity: "0.4";
@@ -130,16 +115,7 @@ Canvas {
 }
 ```
 
-</td>
-<td>
-
-![Abstract Shapes](gallery/abstract-shapes.svg)
-
-</td>
-</tr>
-</table>
-
-**Source:** [`gallery/abstract-shapes.stf`](gallery/abstract-shapes.stf)
+</details>
 
 ---
 
@@ -147,11 +123,12 @@ Canvas {
 
 A mock dashboard with stat cards and a bar chart. Demonstrates nested `VerticalStack`/`HorizontalStack` layouts, `padding`, container `fill`/`stroke`, and `Text` styling.
 
-<table>
-<tr>
-<td>
+![Dashboard](gallery/dashboard.svg)
 
-```scss
+<details>
+<summary>Source — <code>gallery/dashboard.stf</code></summary>
+
+```css
 VerticalStack {
   spacing: 8; padding: 12;
   Text { spans: "Dashboard"; fontSize: 22;
@@ -167,7 +144,7 @@ VerticalStack {
       Rectangle { width: 100; height: 6;
         fill: "slateblue"; rx: 3; ry: 3; }
     }
-    // … Revenue and Errors cards follow
+    /* … Revenue and Errors cards follow */
   }
   HorizontalStack {
     spacing: 4;
@@ -175,21 +152,12 @@ VerticalStack {
       fill: "slateblue"; rx: 2; ry: 2; }
     Rectangle { width: 30; height: 120;
       fill: "slateblue"; rx: 2; ry: 2; }
-    // … more bars follow
+    /* … more bars follow */
   }
 }
 ```
 
-</td>
-<td>
-
-![Dashboard](gallery/dashboard.svg)
-
-</td>
-</tr>
-</table>
-
-**Source:** [`gallery/dashboard.stf`](gallery/dashboard.stf)
+</details>
 
 ---
 
@@ -197,11 +165,12 @@ VerticalStack {
 
 Concentric circles forming a classic target. Showcases layered `Canvas` elements where each circle's `x`/`y` is offset to keep all centers aligned.
 
-<table>
-<tr>
-<td>
+![Bullseye](gallery/bullseye.svg)
 
-```scss
+<details>
+<summary>Source — <code>gallery/bullseye.stf</code></summary>
+
+```css
 Canvas {
   Circle { x: 0; y: 0; r: 110;
     fill: "firebrick"; stroke: "darkred"; }
@@ -218,13 +187,4 @@ Canvas {
 }
 ```
 
-</td>
-<td>
-
-![Bullseye](gallery/bullseye.svg)
-
-</td>
-</tr>
-</table>
-
-**Source:** [`gallery/bullseye.stf`](gallery/bullseye.stf)
+</details>
