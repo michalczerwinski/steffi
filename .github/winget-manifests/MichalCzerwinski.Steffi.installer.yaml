@@ -1,0 +1,19 @@
+PackageIdentifier: MichalCzerwinski.Steffi
+PackageVersion: <VERSION>
+InstallerType: zip
+InstallerSwitches:
+  Silent: ""
+  SilentWithProgress: ""
+NestedInstallerType: portable
+NestedInstallerFiles:
+- RelativeFilePath: steffi.exe
+  PortableCommandAlias: steffi
+Installers:
+- Architecture: x64
+  InstallerUrl: https://github.com/michalczerwinski/steffi/releases/download/v<VERSION>/steffi-<VERSION>-win-x64.zip
+  InstallerSha256: <X64_HASH>
+- Architecture: arm64
+  InstallerUrl: https://github.com/michalczerwinski/steffi/releases/download/v<VERSION>/steffi-<VERSION>-win-arm64.zip
+  InstallerSha256: <ARM64_HASH>
+ManifestType: installer
+ManifestVersion: 1.6.0
