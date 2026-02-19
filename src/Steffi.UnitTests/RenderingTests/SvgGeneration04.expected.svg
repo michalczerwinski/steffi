@@ -2,7 +2,7 @@
   <g transform="translate(, )">
     <rect x="0" y="0" width="159" height="28" fill="white" stroke="none" />
     <g>
-      <rect x="0" y="0" width="159" height="28" fill="white" stroke="none" />
+      <rect x="0" y="0" width="159" height="28" fill="none" stroke="none" />
       <text x="79" y="14" font-size="24" font-family="Courier New" text-anchor="middle" dominant-baseline="central" fill="green">Hello World</text>
     </g>
   </g>

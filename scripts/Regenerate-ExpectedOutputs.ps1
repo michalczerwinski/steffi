@@ -20,18 +20,19 @@
 #>
 
 param(
-    [string]$SteffiBin = "..\..\Steffi.Cli\bin\Debug\net10.0\win-x64\steffi.exe"
+    [string]$SteffiBin = "..\src\Steffi.Cli\bin\Debug\net10.0\win-x64\steffi.exe"
 )
 
 $ErrorActionPreference = "Stop"
 
 # Resolve paths
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$testDir = $scriptDir
+$testDir = Join-Path $scriptDir "..\src\Steffi.UnitTests\RenderingTests" | Resolve-Path
 $steffiExe = Join-Path $scriptDir $SteffiBin | Resolve-Path
 
 Write-Host "Regenerating expected SVG outputs..." -ForegroundColor Cyan
 Write-Host "Using steffi.exe: $steffiExe" -ForegroundColor Gray
+Write-Host "Test directory: $testDir" -ForegroundColor Gray
 Write-Host ""
 
 # Find all input files
